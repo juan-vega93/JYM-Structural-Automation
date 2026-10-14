@@ -24,7 +24,7 @@ class Sap2000ModelReader(Protocol):
 
 
 class Sap2000AnalysisRunner(Protocol):
-    """Explicit analysis command capability."""
+    """B1.4 explicit analysis command, independent of queries and results."""
 
     def run_analysis(self) -> None: ...
 

@@ -5,6 +5,7 @@ import pytest
 
 from jym_structural.adapters.sap2000 import (
     ComSap2000Gateway,
+    Sap2000AnalysisRunner,
     Sap2000ConnectionGateway,
     Sap2000Error,
     Sap2000ModelReader,
@@ -49,9 +50,9 @@ def test_connection_normalizes_metadata_and_only_reads(application):
 def test_connection_does_not_expose_later_capabilities():
     assert Sap2000ConnectionGateway in ComSap2000Gateway.__bases__
     assert Sap2000ModelReader in ComSap2000Gateway.__bases__
+    assert Sap2000AnalysisRunner in ComSap2000Gateway.__bases__
     adapter = ComSap2000Gateway()
-    for method in ("run_analysis", "get_member_results"):
-        assert not hasattr(adapter, method)
+    assert not hasattr(adapter, "get_member_results")
 
 
 @pytest.mark.parametrize(

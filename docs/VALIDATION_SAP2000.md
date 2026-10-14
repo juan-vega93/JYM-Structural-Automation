@@ -1,4 +1,4 @@
-# SAP2000 B1.1–B1.3: validación de solo lectura
+# SAP2000: validación de queries B1.1–B1.3 y Command B1.4
 
 ## Preparación
 
@@ -48,7 +48,7 @@
 
 ## Decisiones del adaptador
 
-- Se crea únicamente el helper COM; `GetObject` adjunta una instancia existente.
+- En las queries B1.1–B1.3 se crea únicamente el helper COM; `GetObject` adjunta una instancia existente.
   No se llama a ApplicationStart, InitializeNewModel, Save, SetPresentUnits ni RunAnalysis.
 - Las únicas consultas de conexión B1.1 son `GetVersion`, `GetModelFilename(True)` y
   `GetPresentUnits`. `health_check()` repite estas lecturas sin efectos de escritura.
@@ -58,8 +58,8 @@
 - Los 16 valores de `eUnits` se traducen a nombres estables del adaptador; un
   valor desconocido produce error. Solo sale `ModelInfo` hacia el core.
 - `ComSap2000Gateway` implementa explícitamente `Sap2000ConnectionGateway` (B1.1)
-  y `Sap2000ModelReader` (B1.2). No implementa `Sap2000AnalysisRunner` ni
-  `Sap2000ResultsReader`; no se añaden implementaciones vacías.
+  y `Sap2000ModelReader` (B1.2/B1.3). B1.4 añade `Sap2000AnalysisRunner` como
+  Command explícito. No implementa `Sap2000ResultsReader`; no se añaden métodos vacíos.
 - Se mantiene la conexión en el hilo COM que la creó. Los errores se presentan
   como `Sap2000Error`, conservando su causa; la salud se informa como booleano.
 - Referencia primaria: `SAP2000v1.dll` y `CSI_OAPI_Documentation.chm` de la instalación
@@ -302,3 +302,143 @@ de B1.1 y B1.2.
 Resultado de cierre B1.3: `pytest -q`: **91 passed** (una advertencia de permisos
 al escribir la caché); `ruff check src tests`: **All checks passed**;
 `git diff --check`: sin errores.
+
+## B1.4: SAP2000 Analysis Command
+
+### Frontera de comando
+
+`ComSap2000Gateway.run_analysis() -> None` requiere conexión B1.1 ya establecida.
+Solo esa llamada explícita ejecuta análisis. Se mantiene `Sap2000AnalysisRunner`
+como protocolo independiente de conexión, lectura de modelo y lectura de resultados.
+El Structural Core y StructuralModel no cambian y no contienen estado ni resultados CSI.
+
+El comando llama **una sola vez** a `SapModel.Analyze.RunAnalysis()` con las opciones
+de casos que ya tenga el modelo. No reconecta ni reintenta, no cambia selección de
+casos/combinaciones, unidades, geometría, cargas ni propiedades, no llama a File.Save
+y no bloquea/desbloquea mediante SetModelIsLocked. La propia ejecución CSI puede
+cambiar estado de análisis, bloqueo y archivos: B1.4 no es read-only.
+
+### Firma exacta y documentación contrastada
+
+- DLL instalada SAP2000 26: `SAP2000v1.cAnalyze`: **`Int32 RunAnalysis()`**.
+- Typelib comtypes 1.4.17: `RunAnalysis`, `restype=HRESULT`, un único parámetro
+  `POINTER(c_long)` con `paramflags=((10, 'pRetVal'),)`: `[out, retval]`.
+  No hay parámetros de entrada. El HRESULT de transporte COM no es el código CSI.
+- Documentación instalada `CSI_OAPI_Documentation.chm`, tema
+  `SAP2000_API_Fuctions/Analyze/RunAnalysis.htm`: **`Function RunAnalysis() As Long`**,
+  sin parámetros. CSI crea el modelo de análisis como parte de la operación.
+  El modelo debe tener ruta definida; B1.1 ya exige un modelo existente guardado.
+  No se crea ni guarda uno nuevo para satisfacer la precondición.
+- comtypes devuelve un **entero escalar**, no una tupla/lista: `0` indica ejecución
+  satisfactoria de la operación según CSI; cualquier entero distinto de cero produce
+  Sap2000Error. No se inventan significados específicos para otros códigos.
+- Un fallo COM se envuelve en Sap2000Error con `raise ... from exc`; un retorno de
+  forma no verificada (None, lista, booleano, etc.) se rechaza. No se añade
+  compatibilidad especulativa con respuestas alternativas.
+
+### CLI e intención explícita
+
+```powershell
+python -m jym_structural.adapters.sap2000                # B1.1: solo lectura
+python -m jym_structural.adapters.sap2000 --inventory    # B1.2: solo lectura
+python -m jym_structural.adapters.sap2000 --run-analysis # B1.4: COMMAND
+```
+
+Las opciones `--inventory` y `--run-analysis` son mutuamente excluyentes: combinarlas
+produce salida 2 antes de conectar. No se añaden pipelines automáticos. Al completar
+la llamada CSI, el comando imprime `{"command": "run_analysis", "status": "completed"}`;
+esto no certifica la validez ingenieril del modelo ni interpreta resultados de casos.
+Un error produce salida 1, mensaje en stderr y ninguna salida de éxito en stdout.
+
+### Evidencia automatizada de separación Query / Command
+
+- Las pruebas de B1.4 comprueban conexión obligatoria, una sola llamada CSI sin
+  argumentos, éxito 0, error no cero, rechazo de respuestas no verificadas y
+  conservación de la causa COM sin reintento ni reconexión.
+- Un doble estricto del modelo exige que run_analysis solo llame a
+  `Analyze.RunAnalysis`: no puede guardar, modificar unidades ni leer resultados.
+- El doble de inventario dispone de un espía Analyze.RunAnalysis. La prueba ejecuta
+  conexión, health_check, list_sections, list_members, read_structural_model y los
+  CLI sin flag/con --inventory, y comprueba que el espía nunca se llamó.
+- Se comprueba por separado health_check, el CLI explícito y sus fallos. El CLI de
+  análisis no llama al inventario. Los tests anteriores de B1.1–B1.3 siguen activos.
+
+### Procedimiento de validación real
+
+1. Conservar el archivo y la instancia originales. Copiar el `.sdb` de B1.3 a una
+   carpeta desechable y abrir la copia en una instancia SAP2000 26.2.0 separada.
+   Esta preparación pertenece al ensayo, no al adapter productivo.
+2. Conectar B1.1 a esa instancia ya abierta y comprobar que la ruta es la de la copia.
+   Registrar hash, LastWriteTimeUtc, tamaño, metadatos, unidades y health_check.
+3. Para observar únicamente el estado, usar las consultas documentadas de diagnóstico
+   `GetModelIsLocked() -> bool` y
+   `Analyze.GetCaseStatus() -> (NumberItems, CaseName, Status, pRetVal)`.
+   Validar el código CSI de GetCaseStatus y correspondencia entre conteo y arrays.
+   Estados CSI: 1=no ejecutado, 2=no pudo iniciar, 3=no finalizado, 4=finalizado.
+   Estas consultas son solo instrumentación del ensayo, sin extender el gateway
+   con lectura de casos, fuerzas, desplazamientos ni reacciones.
+4. Invocar exactamente una vez `gateway.run_analysis()`. No reintentar, guardar,
+   ajustar casos ni desbloquear el modelo si falla.
+5. Repetir las lecturas de estado y archivo; verificar acceso, metadatos y unidades.
+   Investigar cambios del `.sdb`, sin imponer igualdad de hash a un Command.
+6. Cerrar solo la instancia desechable sin guardar explícitamente y preservar la
+   instancia original. Registrar los cambios en disco y memoria observables.
+
+### Registro real B1.4 — 13 de octubre de 2026 (America/Lima)
+
+- SAP2000 **26.2.0**, comtypes **1.4.17**. Se copió `pm_corregido.sdb` a
+  `.venv/b14-validation/pm_corregido_b14.sdb`, sin archivos previos de análisis.
+- Preparación aislada del ensayo: `cHelper.CreateObjectProgID` y
+  `ApplicationStart(Visible=False, FileName=copia)` abrieron una instancia nueva.
+  El gateway recibió una referencia a esa instancia ya abierta mediante su punto
+  de inyección de conexión B1.1. El adapter productivo sigue usando GetObject;
+  no crea instancias ni incluye lógica de preparación de pruebas.
+- Se invocó **una vez** `gateway.run_analysis()`. Una frontera instrumental registró
+  el retorno real **`0`** (int) y únicamente `Analyze.RunAnalysis` durante el comando.
+  Esa frontera solo expuso las tres consultas de metadatos y Analyze.RunAnalysis:
+  no ofreció acceso a File.Save, setters ni resultados.
+- Ruta/nombre de la copia y unidades **`kgf_m_C`** idénticos antes/después;
+  health_check **True → True**. No se seleccionaron casos ni se tocaron sus opciones.
+- Estado observado mediante las consultas read-only del ensayo:
+  **7 casos en estado 1 (no ejecutado) → 7 casos en estado 4 (finalizado)**;
+  `GetModelIsLocked`: **False → True**, cambio natural de SAP2000 al analizar.
+  El adapter no llamó SetModelIsLocked ni intentó revertir ese estado.
+- El log de SAP2000 registró una ejecución y su finalización satisfactoria. No se
+  consultaron fuerzas, desplazamientos, reacciones ni resultados de diseño.
+
+La copia **sí cambió en disco** durante RunAnalysis, antes de cerrar la instancia:
+
+| Dato de la copia | Antes | Después |
+| --- | --- | --- |
+| SHA256 | `42f0cc0ddc6d6d5156c42a7820668c5df21d7047879fa820d57483f354a3ed10` | `4a076e1f4c673e37575fe88be7f6ac43eb034b334e0b3e9f342d8508b944ace0` |
+| LastWriteTimeUtc | `2026-10-12T05:45:32.091158+00:00` | `2026-10-14T04:01:04.001472+00:00` |
+| mtime_ns | `1791783932091158100` | `1791950464001471500` |
+| Tamaño | 120555 bytes | 116679 bytes |
+
+Se investigó el cambio antes de dar por aprobada la validación:
+
+- La ayuda instalada `SAP2000.chm`, tema `Menus/File/Save_and_Save_As.htm`, indica
+  que SAP2000 guarda automáticamente el modelo cuando se ejecuta análisis.
+  La misma explicación está en la [documentación oficial CSI de Save/Save As](https://docs.csiamerica.com/help-files/sap/Menus/File/Save_and_Save_As.htm).
+- El `.sbk` automático tiene SHA256 idéntico al `.sdb` previo al Command; también
+  aparecieron `.$2k`, `.LOG`, `.OUT` y archivos de análisis de SAP2000.
+- La copia mantuvo su hash/fecha posteriores tras `ApplicationExit(False)`, usado
+  únicamente para cerrar la instancia desechable sin guardar desde nuestro código.
+  Por tanto, el cambio ocurrió durante RunAnalysis, no durante ese cierre.
+- La instancia original siguió abierta y sus metadatos se conservaron. El `.sdb`
+  original mantuvo exactamente su hash
+  `42f0cc0ddc6d6d5156c42a7820668c5df21d7047879fa820d57483f354a3ed10`
+  y su fecha `2026-10-12T05:45:32.091158+00:00`.
+
+Este es un guardado interno documentado de SAP2000 durante análisis, **no una llamada
+del adapter a File.Save**. No se exige igualdad de hash para B1.4 ni se intenta
+impedir/revertir el comportamiento natural del programa. La validación no certifica
+la corrección ingenieril de los casos; solo la frontera de ejecución y sus efectos
+observables. No se implementa B1.5.
+
+Evidencia compacta de antes/después y llamadas:
+[examples/sap2000_analysis_validation.json](examples/sap2000_analysis_validation.json).
+
+Resultado automático B1.4: **109 tests aprobados**, incluyendo 18 casos adicionales
+sobre la base B1.3; advertencia de permisos de caché de pytest. Ruff y
+`git diff --check` sin errores.

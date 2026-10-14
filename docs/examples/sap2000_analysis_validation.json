@@ -1,0 +1,92 @@
+{
+  "software": "SAP2000",
+  "version": "26.2.0",
+  "test_model": "pm_corregido_b14.sdb",
+  "setup": "Disposable SDB copy opened in a separate hidden instance; original kept open",
+  "api": "SapModel.Analyze.RunAnalysis()",
+  "raw_return_codes": [
+    0
+  ],
+  "before": {
+    "file": {
+      "sha256": "42f0cc0ddc6d6d5156c42a7820668c5df21d7047879fa820d57483f354a3ed10",
+      "last_write_time_utc": "2026-10-12T05:45:32.091158+00:00",
+      "mtime_ns": 1791783932091158100,
+      "size": 120555
+    },
+    "model": {
+      "software": "SAP2000",
+      "version": "26.2.0",
+      "model_name": "pm_corregido_b14.sdb",
+      "model_path": "C:\\Dev\\JYM-Structural-Automation\\.venv\\b14-validation\\pm_corregido_b14.sdb",
+      "units": "kgf_m_C"
+    },
+    "health": true,
+    "locked": false,
+    "analysis_status": {
+      "1": 7
+    }
+  },
+  "after": {
+    "file": {
+      "sha256": "4a076e1f4c673e37575fe88be7f6ac43eb034b334e0b3e9f342d8508b944ace0",
+      "last_write_time_utc": "2026-10-14T04:01:04.001472+00:00",
+      "mtime_ns": 1791950464001471500,
+      "size": 116679
+    },
+    "model": {
+      "software": "SAP2000",
+      "version": "26.2.0",
+      "model_name": "pm_corregido_b14.sdb",
+      "model_path": "C:\\Dev\\JYM-Structural-Automation\\.venv\\b14-validation\\pm_corregido_b14.sdb",
+      "units": "kgf_m_C"
+    },
+    "health": true,
+    "locked": true,
+    "analysis_status": {
+      "4": 7
+    }
+  },
+  "after_exit_file": {
+    "sha256": "4a076e1f4c673e37575fe88be7f6ac43eb034b334e0b3e9f342d8508b944ace0",
+    "last_write_time_utc": "2026-10-14T04:01:04.001472+00:00",
+    "mtime_ns": 1791950464001471500,
+    "size": 116679
+  },
+  "original_file_before": {
+    "sha256": "42f0cc0ddc6d6d5156c42a7820668c5df21d7047879fa820d57483f354a3ed10",
+    "last_write_time_utc": "2026-10-12T05:45:32.091158+00:00",
+    "mtime_ns": 1791783932091158100,
+    "size": 120555
+  },
+  "original_file_after": {
+    "sha256": "42f0cc0ddc6d6d5156c42a7820668c5df21d7047879fa820d57483f354a3ed10",
+    "last_write_time_utc": "2026-10-12T05:45:32.091158+00:00",
+    "mtime_ns": 1791783932091158100,
+    "size": 120555
+  },
+  "adapter_boundary_calls": [
+    "GetVersion",
+    "GetModelFilename",
+    "GetPresentUnits",
+    "GetVersion",
+    "GetModelFilename",
+    "GetPresentUnits",
+    "Analyze.RunAnalysis",
+    "GetVersion",
+    "GetModelFilename",
+    "GetPresentUnits",
+    "GetVersion",
+    "GetModelFilename",
+    "GetPresentUnits"
+  ],
+  "automatic_backup_sha256": "42f0cc0ddc6d6d5156c42a7820668c5df21d7047879fa820d57483f354a3ed10",
+  "file_change_explanation": "SAP2000 automatically saves the model when analysis runs; no adapter File.Save call",
+  "file_change_reference": "https://docs.csiamerica.com/help-files/sap/Menus/File/Save_and_Save_As.htm",
+  "observed_sidecar_examples": [
+    "pm_corregido_b14.sbk",
+    "pm_corregido_b14.$2k",
+    "pm_corregido_b14.LOG",
+    "pm_corregido_b14.OUT"
+  ]
+}

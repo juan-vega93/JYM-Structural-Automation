@@ -10,11 +10,11 @@ from pydantic import ValidationError
 
 from jym_structural.core.models import Member, ModelInfo, Node, Point3D, Section, StructuralModel
 
-from .contracts import Sap2000ConnectionGateway, Sap2000ModelReader
+from .contracts import Sap2000AnalysisRunner, Sap2000ConnectionGateway, Sap2000ModelReader
 
 
 class Sap2000Error(RuntimeError):
-    """An attachment or read-only OAPI operation failed."""
+    """An attachment or OAPI operation failed."""
 
 
 _UNITS = dict(
@@ -58,8 +58,8 @@ def _attach_running_instance() -> Any:
     return helper.GetObject("CSI.SAP2000.API.SapObject")
 
 
-class ComSap2000Gateway(Sap2000ConnectionGateway, Sap2000ModelReader):
-    """Read-only connection, inventory and neutral geometry queries.
+class ComSap2000Gateway(Sap2000ConnectionGateway, Sap2000ModelReader, Sap2000AnalysisRunner):
+    """Read-only queries and an explicit analysis command boundary.
 
     Keep the gateway on the COM-initialized thread that created it. Attachment
     is explicit; health checks never start SAP2000 or silently reconnect.
@@ -91,6 +91,24 @@ class ComSap2000Gateway(Sap2000ConnectionGateway, Sap2000ModelReader):
         except Exception:  # noqa: BLE001 - health probes report COM/transport failures as False
             return False
         return True
+
+    def run_analysis(self) -> None:
+        """Explicit command; CSI may change analysis state and files on disk.
+
+        Run once with the model's existing case settings. Never retry, reconnect,
+        save, change units or lock/unlock the model on the caller's behalf.
+        """
+        if self._application is None:
+            raise Sap2000Error("Connect to a running SAP2000 instance before running analysis.")
+        try:
+            return_code = self._application.SapModel.Analyze.RunAnalysis()
+        except Exception as exc:
+            raise Sap2000Error("Analyze.RunAnalysis COM command failed.") from exc
+        # Verified SAP2000v1 signature: no inputs, scalar Int32 pRetVal.
+        if type(return_code) is not int:
+            raise Sap2000Error("Analyze.RunAnalysis returned an unexpected CSI response.")
+        if return_code != 0:
+            raise Sap2000Error(f"Analyze.RunAnalysis failed with CSI return code {return_code}.")
 
     def _model(self) -> Any:
         if self._application is None:

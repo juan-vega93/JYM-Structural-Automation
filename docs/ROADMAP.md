@@ -36,12 +36,13 @@
 - unique identifiers and validated node/section references
 - read-only geometry from frame endpoints, in explicit present length units
 
-### Analysis boundary (future, after geometry)
+### B1.4 — SAP2000 Analysis Command
 - run analysis as an explicit Command
 - validate CSI return codes
-- reconnect/health-check policy
+- require an established connection; no retries or silent reconnection
+- queries never trigger analysis; no results reading
 
-### B1.4 — Results
+### B1.5 — Results (future)
 - frame forces P/V2/V3/T/M2/M3
 - displacements
 - load case/combo + station

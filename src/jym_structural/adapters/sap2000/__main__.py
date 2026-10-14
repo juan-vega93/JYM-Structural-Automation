@@ -1,4 +1,4 @@
-"""Run with python -m jym_structural.adapters.sap2000."""
+"""Read-only by default; --run-analysis explicitly executes a CSI command."""
 
 import argparse
 import json
@@ -8,14 +8,23 @@ from .gateway import ComSap2000Gateway, Sap2000Error
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description="Read-only SAP2000 diagnostic")
-    parser.add_argument("--inventory", action="store_true", help="Read B1.2 frames and sections")
+    parser = argparse.ArgumentParser(description="SAP2000 diagnostic and explicit analysis command")
+    operation = parser.add_mutually_exclusive_group()
+    operation.add_argument("--inventory", action="store_true", help="Read B1.2 frames and sections")
+    operation.add_argument(
+        "--run-analysis",
+        action="store_true",
+        help="COMMAND: run analysis once; SAP2000 may change analysis state and files",
+    )
     args = parser.parse_args(argv)
     try:
         gateway = ComSap2000Gateway()
         info = gateway.connect_to_running_instance()
         data = info.model_dump()
-        if args.inventory:
+        if args.run_analysis:
+            gateway.run_analysis()
+            data = {"command": "run_analysis", "status": "completed"}
+        elif args.inventory:
             sections = gateway.list_sections()
             members = gateway.list_members()
             data = {

@@ -4,7 +4,8 @@ Platform for structural-engineering automation across analysis, connection desig
 
 ## Initial scope
 
-Phase 0-1 focuses on a neutral Structural Core and a read-only SAP2000 adapter:
+Phase 0-1 focuses on a neutral Structural Core and a SAP2000 adapter with read-only
+queries and an explicit analysis command:
 
 1. Connect to an open SAP2000 model.
 2. Read model metadata, frame objects and sections.

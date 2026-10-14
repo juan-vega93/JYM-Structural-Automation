@@ -43,12 +43,14 @@ def inventory():
             "FrameObj",
             "PropFrame",
             "PointObj",
+            "Analyze",
         ]
     )
     model.GetVersion.return_value = ["26.2.0", 26.2, 0]
     model.GetModelFilename.return_value = r"C:\Models\frame.sdb"
     model.GetPresentUnits.return_value = 6
     model.FrameObj, model.PropFrame, model.PointObj = frame, prop, point
+    model.Analyze = Mock(spec=["RunAnalysis"])
     adapter = ComSap2000Gateway(attach=lambda: Mock(SapModel=model))
     adapter.connect_to_running_instance()
     model.reset_mock()
@@ -289,3 +291,17 @@ def test_structural_model_preserves_source_identifiers_exactly(inventory):
     assert geometry.members[0].start_node == "01"
     assert geometry.members[0].end_node == "1"
     assert geometry.members[0].section == geometry.sections[0].name == " W12 "
+
+
+def test_all_queries_and_read_only_cli_never_run_analysis(inventory, monkeypatch, capsys):
+    adapter, model = inventory
+    monkeypatch.setattr(diagnostic, "ComSap2000Gateway", lambda: adapter)
+    adapter.connect_to_running_instance()
+    assert adapter.health_check()
+    adapter.list_sections()
+    adapter.list_members()
+    adapter.read_structural_model()
+    assert diagnostic.main([]) == 0
+    assert diagnostic.main(["--inventory"]) == 0
+    assert capsys.readouterr().err == ""
+    model.Analyze.RunAnalysis.assert_not_called()

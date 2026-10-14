@@ -1,13 +1,14 @@
 from __future__ import annotations
 
+import math
 import sys
 from collections.abc import Callable
 from pathlib import PureWindowsPath
 from typing import Any
 
-from jym_structural.core.models import ModelInfo
+from jym_structural.core.models import Member, ModelInfo, Section
 
-from .contracts import Sap2000ConnectionGateway
+from .contracts import Sap2000ConnectionGateway, Sap2000ModelReader
 
 
 class Sap2000Error(RuntimeError):
@@ -55,8 +56,8 @@ def _attach_running_instance() -> Any:
     return helper.GetObject("CSI.SAP2000.API.SapObject")
 
 
-class ComSap2000Gateway(Sap2000ConnectionGateway):
-    """B1.1 connection capability; no model or analysis commands.
+class ComSap2000Gateway(Sap2000ConnectionGateway, Sap2000ModelReader):
+    """B1.1 connection and B1.2 model queries; no model or analysis commands.
 
     Keep the gateway on the COM-initialized thread that created it. Attachment
     is explicit; health checks never start SAP2000 or silently reconnect.
@@ -88,6 +89,129 @@ class ComSap2000Gateway(Sap2000ConnectionGateway):
         except Exception:  # noqa: BLE001 - health probes report COM/transport failures as False
             return False
         return True
+
+    def _model(self) -> Any:
+        if self._application is None:
+            raise Sap2000Error("Connect to a running SAP2000 instance before reading inventory.")
+        try:
+            return self._application.SapModel
+        except Exception as exc:
+            raise Sap2000Error("Could not access the connected SAP2000 model.") from exc
+
+    @staticmethod
+    def _query(
+        operation: str, method: Callable[..., Any], outputs: tuple[str, ...], **inputs: Any
+    ) -> dict[str, Any]:
+        """Decode typed SAP2000v1 output order verified against the installed typelib.
+
+        COM [in,out] parameters precede pRetVal. Do not infer positions from
+        value types (counts, coordinates and CSI status can all be numeric).
+        """
+        try:
+            response = method(**inputs)
+        except Exception as exc:
+            raise Sap2000Error(f"{operation} COM query failed.") from exc
+        if not isinstance(response, (list, tuple)) or len(response) != len(outputs) + 1:
+            raise Sap2000Error(f"{operation} returned an unexpected COM response shape.")
+        *values, return_code = response
+        if type(return_code) is not int or return_code != 0:
+            raise Sap2000Error(f"{operation} failed with CSI return code {return_code!r}.")
+        return dict(zip(outputs, values, strict=True))
+
+    @classmethod
+    def _names(cls, operation: str, method: Callable[..., Any]) -> list[str]:
+        result = cls._query(operation, method, ("NumberNames", "MyName"))
+        count, names = result["NumberNames"], result["MyName"]
+        # An empty SAFEARRAY may be marshalled as None, () or [].
+        if count == 0 and names is None:
+            names = ()
+        if (
+            type(count) is not int
+            or count < 0
+            or not isinstance(names, (list, tuple))
+            or len(names) != count
+            or any(not isinstance(name, str) or not name.strip() for name in names)
+            or len(set(names)) != count
+        ):
+            raise Sap2000Error(f"{operation} returned invalid names/count.")
+        return sorted(names)
+
+    def list_sections(self) -> list[Section]:
+        model = self._model()
+        sections = []
+        for name in self._names("PropFrame.GetNameList", model.PropFrame.GetNameList):
+            result = self._query(
+                f"PropFrame.GetMaterial({name})",
+                model.PropFrame.GetMaterial,
+                ("MatProp",),
+                Name=name,
+            )
+            material = result["MatProp"]
+            if not isinstance(material, str):
+                raise Sap2000Error(f"PropFrame.GetMaterial({name}) returned an invalid material.")
+            sections.append(Section(name=name, material=material or None))
+        return sections
+
+    def list_members(self) -> list[Member]:
+        """Length is the Global I-J chord in present length units, not analysis length.
+
+        Section is CSI PropName (current concrete property), not SAuto (the
+        auto-select list). Material is available by joining Section.name.
+        """
+        model = self._model()
+        coordinates: dict[str, tuple[float, ...]] = {}
+
+        def point_coordinates(name: str) -> tuple[float, ...]:
+            if name not in coordinates:
+                result = self._query(
+                    f"PointObj.GetCoordCartesian({name})",
+                    model.PointObj.GetCoordCartesian,
+                    ("X", "Y", "Z"),
+                    Name=name,
+                    CSys="Global",
+                )
+                xyz = tuple(result[axis] for axis in ("X", "Y", "Z"))
+                if any(
+                    type(value) not in (int, float) or not math.isfinite(value) for value in xyz
+                ):
+                    raise Sap2000Error(f"PointObj.GetCoordCartesian({name}) returned invalid XYZ.")
+                coordinates[name] = xyz
+            return coordinates[name]
+
+        members = []
+        for name in self._names("FrameObj.GetNameList", model.FrameObj.GetNameList):
+            points = self._query(
+                f"FrameObj.GetPoints({name})",
+                model.FrameObj.GetPoints,
+                ("Point1", "Point2"),
+                Name=name,
+            )
+            start, end = points["Point1"], points["Point2"]
+            if any(not isinstance(point, str) or not point.strip() for point in (start, end)):
+                raise Sap2000Error(f"FrameObj.GetPoints({name}) returned invalid endpoints.")
+            assignment = self._query(
+                f"FrameObj.GetSection({name})",
+                model.FrameObj.GetSection,
+                ("PropName", "SAuto"),
+                Name=name,
+            )
+            section = assignment["PropName"]
+            if not isinstance(section, str) or not isinstance(assignment["SAuto"], str):
+                raise Sap2000Error(f"FrameObj.GetSection({name}) returned an invalid assignment.")
+            length = math.dist(point_coordinates(start), point_coordinates(end))
+            if not math.isfinite(length):
+                raise Sap2000Error(f"Frame {name} has a non-finite derived length.")
+            members.append(
+                Member(
+                    id=name,
+                    name=name,
+                    section=None if section in ("", "None") else section,
+                    start_node=start,
+                    end_node=end,
+                    length=length,
+                )
+            )
+        return members
 
     @staticmethod
     def _read_model_info(application: Any) -> ModelInfo:

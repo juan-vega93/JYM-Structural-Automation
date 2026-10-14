@@ -7,6 +7,7 @@ from jym_structural.adapters.sap2000 import (
     ComSap2000Gateway,
     Sap2000ConnectionGateway,
     Sap2000Error,
+    Sap2000ModelReader,
     gateway,
 )
 from jym_structural.adapters.sap2000 import __main__ as diagnostic
@@ -47,8 +48,9 @@ def test_connection_normalizes_metadata_and_only_reads(application):
 
 def test_connection_does_not_expose_later_capabilities():
     assert Sap2000ConnectionGateway in ComSap2000Gateway.__bases__
+    assert Sap2000ModelReader in ComSap2000Gateway.__bases__
     adapter = ComSap2000Gateway()
-    for method in ("list_sections", "list_members", "run_analysis", "get_member_results"):
+    for method in ("run_analysis", "get_member_results"):
         assert not hasattr(adapter, method)
 
 
@@ -145,7 +147,7 @@ def test_diagnostic_json(application, monkeypatch, capsys):
             attach=lambda: application,
         ),
     )
-    assert diagnostic.main() == 0
+    assert diagnostic.main([]) == 0
     output = capsys.readouterr()
     assert json.loads(output.out)["model_name"] == "pórtico.sdb"
     assert output.err == ""
@@ -155,7 +157,7 @@ def test_diagnostic_failure(monkeypatch, capsys):
     adapter = Mock()
     adapter.connect_to_running_instance.side_effect = Sap2000Error("no instance")
     monkeypatch.setattr(diagnostic, "ComSap2000Gateway", lambda: adapter)
-    assert diagnostic.main() == 1
+    assert diagnostic.main([]) == 1
     output = capsys.readouterr()
     assert output.out == ""
     assert "no instance" in output.err

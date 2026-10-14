@@ -1,0 +1,3710 @@
+{
+  "model": {
+    "software": "SAP2000",
+    "version": "26.2.0",
+    "model_name": "pm_corregido.sdb",
+    "model_path": "C:\\Users\\Usuario\\Downloads\\pm_corregido.sdb",
+    "units": "kgf_m_C"
+  },
+  "counts": {
+    "sections": 19,
+    "members": 449
+  },
+  "sources": {
+    "section": "FrameObj.GetSection.PropName (current property; not SAuto)",
+    "material": "PropFrame.GetMaterial; join member.section to section.name",
+    "length": "derived Global I-J chord from PointObj.GetCoordCartesian",
+    "length_unit": "m"
+  },
+  "sections": [
+    {
+      "name": "HSS2.500X0.125",
+      "material": "A36",
+      "family": null
+    },
+    {
+      "name": "HSS3X2X1/8",
+      "material": "A36",
+      "family": null
+    },
+    {
+      "name": "HSS4X2X1/8",
+      "material": "A36",
+      "family": null
+    },
+    {
+      "name": "HSS5X2X1/4",
+      "material": "A36",
+      "family": null
+    },
+    {
+      "name": "L4X4X1/4",
+      "material": "A36",
+      "family": null
+    },
+    {
+      "name": "L4X4X3/8",
+      "material": "A36",
+      "family": null
+    },
+    {
+      "name": "W10X33",
+      "material": "A36",
+      "family": null
+    },
+    {
+      "name": "W10X39",
+      "material": "A36",
+      "family": null
+    },
+    {
+      "name": "W10X45",
+      "material": "A36",
+      "family": null
+    },
+    {
+      "name": "W10X68",
+      "material": "A36",
+      "family": null
+    },
+    {
+      "name": "W12X106",
+      "material": "A36",
+      "family": null
+    },
+    {
+      "name": "W12X65",
+      "material": "A36",
+      "family": null
+    },
+    {
+      "name": "W6X15",
+      "material": "A36",
+      "family": null
+    },
+    {
+      "name": "W6X20",
+      "material": "A36",
+      "family": null
+    },
+    {
+      "name": "W8X10",
+      "material": "A36",
+      "family": null
+    },
+    {
+      "name": "W8X15",
+      "material": "A36",
+      "family": null
+    },
+    {
+      "name": "W8X18",
+      "material": "A36",
+      "family": null
+    },
+    {
+      "name": "W8X28",
+      "material": "A36",
+      "family": null
+    },
+    {
+      "name": "W8X31",
+      "material": "A36",
+      "family": null
+    }
+  ],
+  "members": [
+    {
+      "id": "1",
+      "name": "1",
+      "section": "W10X39",
+      "start_node": "1",
+      "end_node": "2",
+      "length": 5.86
+    },
+    {
+      "id": "100",
+      "name": "100",
+      "section": "W8X15",
+      "start_node": "105",
+      "end_node": "106",
+      "length": 1.1001578169618307
+    },
+    {
+      "id": "101",
+      "name": "101",
+      "section": "W8X15",
+      "start_node": "106",
+      "end_node": "98",
+      "length": 1.100157816961832
+    },
+    {
+      "id": "102",
+      "name": "102",
+      "section": "W8X15",
+      "start_node": "98",
+      "end_node": "107",
+      "length": 1.1001578169618318
+    },
+    {
+      "id": "103",
+      "name": "103",
+      "section": "W8X15",
+      "start_node": "107",
+      "end_node": "108",
+      "length": 1.1001578169618318
+    },
+    {
+      "id": "104",
+      "name": "104",
+      "section": "W8X15",
+      "start_node": "108",
+      "end_node": "109",
+      "length": 1.1001578169618302
+    },
+    {
+      "id": "105",
+      "name": "105",
+      "section": "W8X15",
+      "start_node": "109",
+      "end_node": "110",
+      "length": 1.1001578169618302
+    },
+    {
+      "id": "106",
+      "name": "106",
+      "section": "W8X15",
+      "start_node": "110",
+      "end_node": "111",
+      "length": 1.1001578169618316
+    },
+    {
+      "id": "107",
+      "name": "107",
+      "section": "W8X15",
+      "start_node": "111",
+      "end_node": "101",
+      "length": 1.100157816961832
+    },
+    {
+      "id": "108",
+      "name": "108",
+      "section": "W10X39",
+      "start_node": "93",
+      "end_node": "112",
+      "length": 0.6
+    },
+    {
+      "id": "109",
+      "name": "109",
+      "section": "W10X39",
+      "start_node": "113",
+      "end_node": "97",
+      "length": 0.5999999999999996
+    },
+    {
+      "id": "110",
+      "name": "110",
+      "section": "W10X39",
+      "start_node": "114",
+      "end_node": "115",
+      "length": 5.86
+    },
+    {
+      "id": "111",
+      "name": "111",
+      "section": "W10X39",
+      "start_node": "115",
+      "end_node": "116",
+      "length": 0.6399999999999997
+    },
+    {
+      "id": "112",
+      "name": "112",
+      "section": "W10X39",
+      "start_node": "116",
+      "end_node": "117",
+      "length": 0.5
+    },
+    {
+      "id": "113",
+      "name": "113",
+      "section": "W10X39",
+      "start_node": "118",
+      "end_node": "119",
+      "length": 5.86
+    },
+    {
+      "id": "114",
+      "name": "114",
+      "section": "W10X39",
+      "start_node": "119",
+      "end_node": "120",
+      "length": 2.29
+    },
+    {
+      "id": "115",
+      "name": "115",
+      "section": "W10X39",
+      "start_node": "121",
+      "end_node": "122",
+      "length": 6.5
+    },
+    {
+      "id": "116",
+      "name": "116",
+      "section": "W10X39",
+      "start_node": "122",
+      "end_node": "123",
+      "length": 0.5
+    },
+    {
+      "id": "117",
+      "name": "117",
+      "section": "W8X15",
+      "start_node": "117",
+      "end_node": "124",
+      "length": 1.1001578169618313
+    },
+    {
+      "id": "118",
+      "name": "118",
+      "section": "W8X15",
+      "start_node": "124",
+      "end_node": "125",
+      "length": 1.1001578169618311
+    },
+    {
+      "id": "119",
+      "name": "119",
+      "section": "W8X15",
+      "start_node": "125",
+      "end_node": "126",
+      "length": 1.1001578169618313
+    },
+    {
+      "id": "12",
+      "name": "12",
+      "section": "W8X15",
+      "start_node": "4",
+      "end_node": "14",
+      "length": 1.1001578169618313
+    },
+    {
+      "id": "120",
+      "name": "120",
+      "section": "W8X15",
+      "start_node": "126",
+      "end_node": "127",
+      "length": 1.1001578169618311
+    },
+    {
+      "id": "121",
+      "name": "121",
+      "section": "W8X15",
+      "start_node": "127",
+      "end_node": "128",
+      "length": 1.1001578169618307
+    },
+    {
+      "id": "122",
+      "name": "122",
+      "section": "W8X15",
+      "start_node": "128",
+      "end_node": "120",
+      "length": 1.100157816961832
+    },
+    {
+      "id": "123",
+      "name": "123",
+      "section": "W8X15",
+      "start_node": "120",
+      "end_node": "129",
+      "length": 1.1001578169618318
+    },
+    {
+      "id": "124",
+      "name": "124",
+      "section": "W8X15",
+      "start_node": "129",
+      "end_node": "130",
+      "length": 1.1001578169618318
+    },
+    {
+      "id": "125",
+      "name": "125",
+      "section": "W8X15",
+      "start_node": "130",
+      "end_node": "131",
+      "length": 1.1001578169618302
+    },
+    {
+      "id": "126",
+      "name": "126",
+      "section": "W8X15",
+      "start_node": "131",
+      "end_node": "132",
+      "length": 1.1001578169618302
+    },
+    {
+      "id": "127",
+      "name": "127",
+      "section": "W8X15",
+      "start_node": "132",
+      "end_node": "133",
+      "length": 1.1001578169618316
+    },
+    {
+      "id": "128",
+      "name": "128",
+      "section": "W8X15",
+      "start_node": "133",
+      "end_node": "123",
+      "length": 1.100157816961832
+    },
+    {
+      "id": "129",
+      "name": "129",
+      "section": "W10X39",
+      "start_node": "115",
+      "end_node": "134",
+      "length": 0.6
+    },
+    {
+      "id": "13",
+      "name": "13",
+      "section": "W8X15",
+      "start_node": "14",
+      "end_node": "15",
+      "length": 1.1001578169618311
+    },
+    {
+      "id": "130",
+      "name": "130",
+      "section": "W10X39",
+      "start_node": "135",
+      "end_node": "119",
+      "length": 0.5999999999999996
+    },
+    {
+      "id": "131",
+      "name": "131",
+      "section": "W10X39",
+      "start_node": "136",
+      "end_node": "137",
+      "length": 5.86
+    },
+    {
+      "id": "132",
+      "name": "132",
+      "section": "W10X39",
+      "start_node": "137",
+      "end_node": "138",
+      "length": 0.6399999999999997
+    },
+    {
+      "id": "133",
+      "name": "133",
+      "section": "W10X39",
+      "start_node": "138",
+      "end_node": "139",
+      "length": 0.5
+    },
+    {
+      "id": "134",
+      "name": "134",
+      "section": "W10X39",
+      "start_node": "140",
+      "end_node": "141",
+      "length": 5.86
+    },
+    {
+      "id": "135",
+      "name": "135",
+      "section": "W10X39",
+      "start_node": "141",
+      "end_node": "142",
+      "length": 2.29
+    },
+    {
+      "id": "136",
+      "name": "136",
+      "section": "W10X39",
+      "start_node": "143",
+      "end_node": "144",
+      "length": 6.5
+    },
+    {
+      "id": "137",
+      "name": "137",
+      "section": "W10X39",
+      "start_node": "144",
+      "end_node": "145",
+      "length": 0.5
+    },
+    {
+      "id": "138",
+      "name": "138",
+      "section": "W8X15",
+      "start_node": "139",
+      "end_node": "146",
+      "length": 1.1001578169618313
+    },
+    {
+      "id": "139",
+      "name": "139",
+      "section": "W8X15",
+      "start_node": "146",
+      "end_node": "147",
+      "length": 1.1001578169618311
+    },
+    {
+      "id": "14",
+      "name": "14",
+      "section": "W8X15",
+      "start_node": "15",
+      "end_node": "16",
+      "length": 1.1001578169618313
+    },
+    {
+      "id": "140",
+      "name": "140",
+      "section": "W8X15",
+      "start_node": "147",
+      "end_node": "148",
+      "length": 1.1001578169618313
+    },
+    {
+      "id": "141",
+      "name": "141",
+      "section": "W8X15",
+      "start_node": "148",
+      "end_node": "149",
+      "length": 1.1001578169618311
+    },
+    {
+      "id": "142",
+      "name": "142",
+      "section": "W8X15",
+      "start_node": "149",
+      "end_node": "150",
+      "length": 1.1001578169618307
+    },
+    {
+      "id": "143",
+      "name": "143",
+      "section": "W8X15",
+      "start_node": "150",
+      "end_node": "142",
+      "length": 1.100157816961832
+    },
+    {
+      "id": "144",
+      "name": "144",
+      "section": "W8X15",
+      "start_node": "142",
+      "end_node": "151",
+      "length": 1.1001578169618318
+    },
+    {
+      "id": "145",
+      "name": "145",
+      "section": "W8X15",
+      "start_node": "151",
+      "end_node": "152",
+      "length": 1.1001578169618318
+    },
+    {
+      "id": "146",
+      "name": "146",
+      "section": "W8X15",
+      "start_node": "152",
+      "end_node": "153",
+      "length": 1.1001578169618302
+    },
+    {
+      "id": "147",
+      "name": "147",
+      "section": "W8X15",
+      "start_node": "153",
+      "end_node": "154",
+      "length": 1.1001578169618302
+    },
+    {
+      "id": "148",
+      "name": "148",
+      "section": "W8X15",
+      "start_node": "154",
+      "end_node": "155",
+      "length": 1.1001578169618316
+    },
+    {
+      "id": "149",
+      "name": "149",
+      "section": "W8X15",
+      "start_node": "155",
+      "end_node": "145",
+      "length": 1.100157816961832
+    },
+    {
+      "id": "15",
+      "name": "15",
+      "section": "W8X15",
+      "start_node": "16",
+      "end_node": "17",
+      "length": 1.1001578169618311
+    },
+    {
+      "id": "150",
+      "name": "150",
+      "section": "W10X39",
+      "start_node": "137",
+      "end_node": "156",
+      "length": 0.6
+    },
+    {
+      "id": "151",
+      "name": "151",
+      "section": "W10X39",
+      "start_node": "157",
+      "end_node": "141",
+      "length": 0.5999999999999996
+    },
+    {
+      "id": "152",
+      "name": "152",
+      "section": "W10X39",
+      "start_node": "158",
+      "end_node": "159",
+      "length": 5.86
+    },
+    {
+      "id": "153",
+      "name": "153",
+      "section": "W10X39",
+      "start_node": "159",
+      "end_node": "160",
+      "length": 0.6399999999999997
+    },
+    {
+      "id": "154",
+      "name": "154",
+      "section": "W10X39",
+      "start_node": "160",
+      "end_node": "161",
+      "length": 0.5
+    },
+    {
+      "id": "155",
+      "name": "155",
+      "section": "W10X39",
+      "start_node": "162",
+      "end_node": "163",
+      "length": 5.86
+    },
+    {
+      "id": "156",
+      "name": "156",
+      "section": "W10X39",
+      "start_node": "163",
+      "end_node": "164",
+      "length": 2.29
+    },
+    {
+      "id": "157",
+      "name": "157",
+      "section": "W10X39",
+      "start_node": "165",
+      "end_node": "166",
+      "length": 6.5
+    },
+    {
+      "id": "158",
+      "name": "158",
+      "section": "W10X39",
+      "start_node": "166",
+      "end_node": "167",
+      "length": 0.5
+    },
+    {
+      "id": "159",
+      "name": "159",
+      "section": "W8X15",
+      "start_node": "161",
+      "end_node": "168",
+      "length": 1.1001578169618313
+    },
+    {
+      "id": "16",
+      "name": "16",
+      "section": "W8X15",
+      "start_node": "17",
+      "end_node": "18",
+      "length": 1.1001578169618307
+    },
+    {
+      "id": "160",
+      "name": "160",
+      "section": "W8X15",
+      "start_node": "168",
+      "end_node": "169",
+      "length": 1.1001578169618311
+    },
+    {
+      "id": "161",
+      "name": "161",
+      "section": "W8X15",
+      "start_node": "169",
+      "end_node": "170",
+      "length": 1.1001578169618313
+    },
+    {
+      "id": "162",
+      "name": "162",
+      "section": "W8X15",
+      "start_node": "170",
+      "end_node": "171",
+      "length": 1.1001578169618311
+    },
+    {
+      "id": "163",
+      "name": "163",
+      "section": "W8X15",
+      "start_node": "171",
+      "end_node": "172",
+      "length": 1.1001578169618307
+    },
+    {
+      "id": "164",
+      "name": "164",
+      "section": "W8X15",
+      "start_node": "172",
+      "end_node": "164",
+      "length": 1.100157816961832
+    },
+    {
+      "id": "165",
+      "name": "165",
+      "section": "W8X15",
+      "start_node": "164",
+      "end_node": "173",
+      "length": 1.1001578169618318
+    },
+    {
+      "id": "166",
+      "name": "166",
+      "section": "W8X15",
+      "start_node": "173",
+      "end_node": "174",
+      "length": 1.1001578169618318
+    },
+    {
+      "id": "167",
+      "name": "167",
+      "section": "W8X15",
+      "start_node": "174",
+      "end_node": "175",
+      "length": 1.1001578169618302
+    },
+    {
+      "id": "168",
+      "name": "168",
+      "section": "W8X15",
+      "start_node": "175",
+      "end_node": "176",
+      "length": 1.1001578169618302
+    },
+    {
+      "id": "169",
+      "name": "169",
+      "section": "W8X15",
+      "start_node": "176",
+      "end_node": "177",
+      "length": 1.1001578169618316
+    },
+    {
+      "id": "17",
+      "name": "17",
+      "section": "W8X15",
+      "start_node": "18",
+      "end_node": "7",
+      "length": 1.100157816961832
+    },
+    {
+      "id": "170",
+      "name": "170",
+      "section": "W8X15",
+      "start_node": "177",
+      "end_node": "167",
+      "length": 1.100157816961832
+    },
+    {
+      "id": "171",
+      "name": "171",
+      "section": "W10X39",
+      "start_node": "159",
+      "end_node": "178",
+      "length": 0.6
+    },
+    {
+      "id": "172",
+      "name": "172",
+      "section": "W10X39",
+      "start_node": "179",
+      "end_node": "163",
+      "length": 0.5999999999999996
+    },
+    {
+      "id": "173",
+      "name": "173",
+      "section": "W10X39",
+      "start_node": "180",
+      "end_node": "181",
+      "length": 5.86
+    },
+    {
+      "id": "174",
+      "name": "174",
+      "section": "W10X39",
+      "start_node": "181",
+      "end_node": "182",
+      "length": 0.6399999999999997
+    },
+    {
+      "id": "175",
+      "name": "175",
+      "section": "W10X39",
+      "start_node": "182",
+      "end_node": "183",
+      "length": 0.5
+    },
+    {
+      "id": "176",
+      "name": "176",
+      "section": "W10X39",
+      "start_node": "184",
+      "end_node": "185",
+      "length": 5.86
+    },
+    {
+      "id": "177",
+      "name": "177",
+      "section": "W10X39",
+      "start_node": "185",
+      "end_node": "186",
+      "length": 2.29
+    },
+    {
+      "id": "178",
+      "name": "178",
+      "section": "W10X39",
+      "start_node": "187",
+      "end_node": "188",
+      "length": 6.5
+    },
+    {
+      "id": "179",
+      "name": "179",
+      "section": "W10X39",
+      "start_node": "188",
+      "end_node": "189",
+      "length": 0.5
+    },
+    {
+      "id": "18",
+      "name": "18",
+      "section": "W8X15",
+      "start_node": "7",
+      "end_node": "19",
+      "length": 1.1001578169618318
+    },
+    {
+      "id": "180",
+      "name": "180",
+      "section": "W8X15",
+      "start_node": "183",
+      "end_node": "190",
+      "length": 1.1001578169618313
+    },
+    {
+      "id": "181",
+      "name": "181",
+      "section": "W8X15",
+      "start_node": "190",
+      "end_node": "191",
+      "length": 1.1001578169618311
+    },
+    {
+      "id": "182",
+      "name": "182",
+      "section": "W8X15",
+      "start_node": "191",
+      "end_node": "192",
+      "length": 1.1001578169618313
+    },
+    {
+      "id": "183",
+      "name": "183",
+      "section": "W8X15",
+      "start_node": "192",
+      "end_node": "193",
+      "length": 1.1001578169618311
+    },
+    {
+      "id": "184",
+      "name": "184",
+      "section": "W8X15",
+      "start_node": "193",
+      "end_node": "194",
+      "length": 1.1001578169618307
+    },
+    {
+      "id": "185",
+      "name": "185",
+      "section": "W8X15",
+      "start_node": "194",
+      "end_node": "186",
+      "length": 1.100157816961832
+    },
+    {
+      "id": "186",
+      "name": "186",
+      "section": "W8X15",
+      "start_node": "186",
+      "end_node": "195",
+      "length": 1.1001578169618318
+    },
+    {
+      "id": "187",
+      "name": "187",
+      "section": "W8X15",
+      "start_node": "195",
+      "end_node": "196",
+      "length": 1.1001578169618318
+    },
+    {
+      "id": "188",
+      "name": "188",
+      "section": "W8X15",
+      "start_node": "196",
+      "end_node": "197",
+      "length": 1.1001578169618302
+    },
+    {
+      "id": "189",
+      "name": "189",
+      "section": "W8X15",
+      "start_node": "197",
+      "end_node": "198",
+      "length": 1.1001578169618302
+    },
+    {
+      "id": "19",
+      "name": "19",
+      "section": "W8X15",
+      "start_node": "19",
+      "end_node": "20",
+      "length": 1.1001578169618318
+    },
+    {
+      "id": "190",
+      "name": "190",
+      "section": "W8X15",
+      "start_node": "198",
+      "end_node": "199",
+      "length": 1.1001578169618316
+    },
+    {
+      "id": "191",
+      "name": "191",
+      "section": "W8X15",
+      "start_node": "199",
+      "end_node": "189",
+      "length": 1.100157816961832
+    },
+    {
+      "id": "192",
+      "name": "192",
+      "section": "W10X39",
+      "start_node": "181",
+      "end_node": "200",
+      "length": 0.6
+    },
+    {
+      "id": "193",
+      "name": "193",
+      "section": "W10X39",
+      "start_node": "201",
+      "end_node": "185",
+      "length": 0.5999999999999996
+    },
+    {
+      "id": "194",
+      "name": "194",
+      "section": "W10X39",
+      "start_node": "202",
+      "end_node": "203",
+      "length": 5.86
+    },
+    {
+      "id": "195",
+      "name": "195",
+      "section": "W10X39",
+      "start_node": "203",
+      "end_node": "204",
+      "length": 0.6399999999999997
+    },
+    {
+      "id": "196",
+      "name": "196",
+      "section": "W10X39",
+      "start_node": "204",
+      "end_node": "205",
+      "length": 0.5
+    },
+    {
+      "id": "197",
+      "name": "197",
+      "section": "W10X39",
+      "start_node": "206",
+      "end_node": "207",
+      "length": 5.86
+    },
+    {
+      "id": "198",
+      "name": "198",
+      "section": "W10X39",
+      "start_node": "207",
+      "end_node": "208",
+      "length": 2.29
+    },
+    {
+      "id": "199",
+      "name": "199",
+      "section": "W10X39",
+      "start_node": "209",
+      "end_node": "210",
+      "length": 6.5
+    },
+    {
+      "id": "2",
+      "name": "2",
+      "section": "W10X39",
+      "start_node": "3",
+      "end_node": "2",
+      "length": 0.6399999999999997
+    },
+    {
+      "id": "20",
+      "name": "20",
+      "section": "W8X15",
+      "start_node": "20",
+      "end_node": "21",
+      "length": 1.1001578169618302
+    },
+    {
+      "id": "200",
+      "name": "200",
+      "section": "W10X39",
+      "start_node": "210",
+      "end_node": "211",
+      "length": 0.5
+    },
+    {
+      "id": "201",
+      "name": "201",
+      "section": "W8X15",
+      "start_node": "205",
+      "end_node": "212",
+      "length": 1.1001578169618313
+    },
+    {
+      "id": "202",
+      "name": "202",
+      "section": "W8X15",
+      "start_node": "212",
+      "end_node": "213",
+      "length": 1.1001578169618311
+    },
+    {
+      "id": "203",
+      "name": "203",
+      "section": "W8X15",
+      "start_node": "213",
+      "end_node": "214",
+      "length": 1.1001578169618313
+    },
+    {
+      "id": "204",
+      "name": "204",
+      "section": "W8X15",
+      "start_node": "214",
+      "end_node": "215",
+      "length": 1.1001578169618311
+    },
+    {
+      "id": "205",
+      "name": "205",
+      "section": "W8X15",
+      "start_node": "215",
+      "end_node": "216",
+      "length": 1.1001578169618307
+    },
+    {
+      "id": "206",
+      "name": "206",
+      "section": "W8X15",
+      "start_node": "216",
+      "end_node": "208",
+      "length": 1.100157816961832
+    },
+    {
+      "id": "207",
+      "name": "207",
+      "section": "W8X15",
+      "start_node": "208",
+      "end_node": "217",
+      "length": 1.1001578169618318
+    },
+    {
+      "id": "208",
+      "name": "208",
+      "section": "W8X15",
+      "start_node": "217",
+      "end_node": "218",
+      "length": 1.1001578169618318
+    },
+    {
+      "id": "209",
+      "name": "209",
+      "section": "W8X15",
+      "start_node": "218",
+      "end_node": "219",
+      "length": 1.1001578169618302
+    },
+    {
+      "id": "21",
+      "name": "21",
+      "section": "W8X15",
+      "start_node": "21",
+      "end_node": "22",
+      "length": 1.1001578169618302
+    },
+    {
+      "id": "210",
+      "name": "210",
+      "section": "W8X15",
+      "start_node": "219",
+      "end_node": "220",
+      "length": 1.1001578169618302
+    },
+    {
+      "id": "211",
+      "name": "211",
+      "section": "W8X15",
+      "start_node": "220",
+      "end_node": "221",
+      "length": 1.1001578169618316
+    },
+    {
+      "id": "212",
+      "name": "212",
+      "section": "W8X15",
+      "start_node": "221",
+      "end_node": "211",
+      "length": 1.100157816961832
+    },
+    {
+      "id": "213",
+      "name": "213",
+      "section": "W10X39",
+      "start_node": "203",
+      "end_node": "222",
+      "length": 0.6
+    },
+    {
+      "id": "214",
+      "name": "214",
+      "section": "W10X39",
+      "start_node": "223",
+      "end_node": "207",
+      "length": 0.5999999999999996
+    },
+    {
+      "id": "215",
+      "name": "215",
+      "section": "W10X39",
+      "start_node": "224",
+      "end_node": "225",
+      "length": 5.86
+    },
+    {
+      "id": "216",
+      "name": "216",
+      "section": "W10X39",
+      "start_node": "225",
+      "end_node": "226",
+      "length": 0.6399999999999997
+    },
+    {
+      "id": "217",
+      "name": "217",
+      "section": "W10X39",
+      "start_node": "226",
+      "end_node": "227",
+      "length": 0.5
+    },
+    {
+      "id": "218",
+      "name": "218",
+      "section": "W10X39",
+      "start_node": "228",
+      "end_node": "229",
+      "length": 5.86
+    },
+    {
+      "id": "219",
+      "name": "219",
+      "section": "W10X39",
+      "start_node": "229",
+      "end_node": "230",
+      "length": 2.29
+    },
+    {
+      "id": "22",
+      "name": "22",
+      "section": "W8X15",
+      "start_node": "22",
+      "end_node": "23",
+      "length": 1.1001578169618316
+    },
+    {
+      "id": "220",
+      "name": "220",
+      "section": "W10X39",
+      "start_node": "231",
+      "end_node": "232",
+      "length": 6.5
+    },
+    {
+      "id": "221",
+      "name": "221",
+      "section": "W10X39",
+      "start_node": "232",
+      "end_node": "233",
+      "length": 0.5
+    },
+    {
+      "id": "222",
+      "name": "222",
+      "section": "W8X15",
+      "start_node": "227",
+      "end_node": "234",
+      "length": 1.1001578169618313
+    },
+    {
+      "id": "223",
+      "name": "223",
+      "section": "W8X15",
+      "start_node": "234",
+      "end_node": "235",
+      "length": 1.1001578169618311
+    },
+    {
+      "id": "224",
+      "name": "224",
+      "section": "W8X15",
+      "start_node": "235",
+      "end_node": "236",
+      "length": 1.1001578169618313
+    },
+    {
+      "id": "225",
+      "name": "225",
+      "section": "W8X15",
+      "start_node": "236",
+      "end_node": "237",
+      "length": 1.1001578169618311
+    },
+    {
+      "id": "226",
+      "name": "226",
+      "section": "W8X15",
+      "start_node": "237",
+      "end_node": "238",
+      "length": 1.1001578169618307
+    },
+    {
+      "id": "227",
+      "name": "227",
+      "section": "W8X15",
+      "start_node": "238",
+      "end_node": "230",
+      "length": 1.100157816961832
+    },
+    {
+      "id": "228",
+      "name": "228",
+      "section": "W8X15",
+      "start_node": "230",
+      "end_node": "239",
+      "length": 1.1001578169618318
+    },
+    {
+      "id": "229",
+      "name": "229",
+      "section": "W8X15",
+      "start_node": "239",
+      "end_node": "240",
+      "length": 1.1001578169618318
+    },
+    {
+      "id": "23",
+      "name": "23",
+      "section": "W8X15",
+      "start_node": "23",
+      "end_node": "13",
+      "length": 1.100157816961832
+    },
+    {
+      "id": "230",
+      "name": "230",
+      "section": "W8X15",
+      "start_node": "240",
+      "end_node": "241",
+      "length": 1.1001578169618302
+    },
+    {
+      "id": "231",
+      "name": "231",
+      "section": "W8X15",
+      "start_node": "241",
+      "end_node": "242",
+      "length": 1.1001578169618302
+    },
+    {
+      "id": "232",
+      "name": "232",
+      "section": "W8X15",
+      "start_node": "242",
+      "end_node": "243",
+      "length": 1.1001578169618316
+    },
+    {
+      "id": "233",
+      "name": "233",
+      "section": "W8X15",
+      "start_node": "243",
+      "end_node": "233",
+      "length": 1.100157816961832
+    },
+    {
+      "id": "234",
+      "name": "234",
+      "section": "W10X39",
+      "start_node": "225",
+      "end_node": "244",
+      "length": 0.6
+    },
+    {
+      "id": "235",
+      "name": "235",
+      "section": "W10X39",
+      "start_node": "245",
+      "end_node": "229",
+      "length": 0.5999999999999996
+    },
+    {
+      "id": "236",
+      "name": "236",
+      "section": "W10X39",
+      "start_node": "246",
+      "end_node": "247",
+      "length": 5.86
+    },
+    {
+      "id": "237",
+      "name": "237",
+      "section": "W10X39",
+      "start_node": "247",
+      "end_node": "248",
+      "length": 0.6399999999999997
+    },
+    {
+      "id": "238",
+      "name": "238",
+      "section": "W10X39",
+      "start_node": "248",
+      "end_node": "249",
+      "length": 0.5
+    },
+    {
+      "id": "239",
+      "name": "239",
+      "section": "W10X39",
+      "start_node": "250",
+      "end_node": "251",
+      "length": 5.86
+    },
+    {
+      "id": "24",
+      "name": "24",
+      "section": "W10X39",
+      "start_node": "2",
+      "end_node": "24",
+      "length": 0.6
+    },
+    {
+      "id": "240",
+      "name": "240",
+      "section": "W10X39",
+      "start_node": "251",
+      "end_node": "252",
+      "length": 2.29
+    },
+    {
+      "id": "241",
+      "name": "241",
+      "section": "W10X39",
+      "start_node": "253",
+      "end_node": "254",
+      "length": 6.5
+    },
+    {
+      "id": "242",
+      "name": "242",
+      "section": "W10X39",
+      "start_node": "254",
+      "end_node": "255",
+      "length": 0.5
+    },
+    {
+      "id": "243",
+      "name": "243",
+      "section": "W8X15",
+      "start_node": "249",
+      "end_node": "256",
+      "length": 1.1001578169618313
+    },
+    {
+      "id": "244",
+      "name": "244",
+      "section": "W8X15",
+      "start_node": "256",
+      "end_node": "257",
+      "length": 1.1001578169618311
+    },
+    {
+      "id": "245",
+      "name": "245",
+      "section": "W8X15",
+      "start_node": "257",
+      "end_node": "258",
+      "length": 1.1001578169618313
+    },
+    {
+      "id": "246",
+      "name": "246",
+      "section": "W8X15",
+      "start_node": "258",
+      "end_node": "259",
+      "length": 1.1001578169618311
+    },
+    {
+      "id": "247",
+      "name": "247",
+      "section": "W8X15",
+      "start_node": "259",
+      "end_node": "260",
+      "length": 1.1001578169618307
+    },
+    {
+      "id": "248",
+      "name": "248",
+      "section": "W8X15",
+      "start_node": "260",
+      "end_node": "252",
+      "length": 1.100157816961832
+    },
+    {
+      "id": "249",
+      "name": "249",
+      "section": "W8X15",
+      "start_node": "252",
+      "end_node": "261",
+      "length": 1.1001578169618318
+    },
+    {
+      "id": "25",
+      "name": "25",
+      "section": "W10X39",
+      "start_node": "25",
+      "end_node": "6",
+      "length": 0.5999999999999996
+    },
+    {
+      "id": "250",
+      "name": "250",
+      "section": "W8X15",
+      "start_node": "261",
+      "end_node": "262",
+      "length": 1.1001578169618318
+    },
+    {
+      "id": "251",
+      "name": "251",
+      "section": "W8X15",
+      "start_node": "262",
+      "end_node": "263",
+      "length": 1.1001578169618302
+    },
+    {
+      "id": "252",
+      "name": "252",
+      "section": "W8X15",
+      "start_node": "263",
+      "end_node": "264",
+      "length": 1.1001578169618302
+    },
+    {
+      "id": "253",
+      "name": "253",
+      "section": "W8X15",
+      "start_node": "264",
+      "end_node": "265",
+      "length": 1.1001578169618316
+    },
+    {
+      "id": "254",
+      "name": "254",
+      "section": "W8X15",
+      "start_node": "265",
+      "end_node": "255",
+      "length": 1.100157816961832
+    },
+    {
+      "id": "255",
+      "name": "255",
+      "section": "W10X39",
+      "start_node": "247",
+      "end_node": "266",
+      "length": 0.6
+    },
+    {
+      "id": "256",
+      "name": "256",
+      "section": "W10X39",
+      "start_node": "267",
+      "end_node": "251",
+      "length": 0.5999999999999996
+    },
+    {
+      "id": "259",
+      "name": "259",
+      "section": "W8X15",
+      "start_node": "3",
+      "end_node": "50",
+      "length": 6.0
+    },
+    {
+      "id": "260",
+      "name": "260",
+      "section": "W8X15",
+      "start_node": "12",
+      "end_node": "56",
+      "length": 6.0
+    },
+    {
+      "id": "261",
+      "name": "261",
+      "section": "HSS3X2X1/8",
+      "start_node": "4",
+      "end_node": "51",
+      "length": 6.0
+    },
+    {
+      "id": "262",
+      "name": "262",
+      "section": "HSS3X2X1/8",
+      "start_node": "14",
+      "end_node": "58",
+      "length": 6.0
+    },
+    {
+      "id": "263",
+      "name": "263",
+      "section": "HSS3X2X1/8",
+      "start_node": "15",
+      "end_node": "59",
+      "length": 6.0
+    },
+    {
+      "id": "264",
+      "name": "264",
+      "section": "HSS3X2X1/8",
+      "start_node": "16",
+      "end_node": "60",
+      "length": 6.0
+    },
+    {
+      "id": "265",
+      "name": "265",
+      "section": "HSS3X2X1/8",
+      "start_node": "17",
+      "end_node": "61",
+      "length": 6.0
+    },
+    {
+      "id": "266",
+      "name": "266",
+      "section": "HSS3X2X1/8",
+      "start_node": "18",
+      "end_node": "62",
+      "length": 6.0
+    },
+    {
+      "id": "267",
+      "name": "267",
+      "section": "HSS3X2X1/8",
+      "start_node": "19",
+      "end_node": "63",
+      "length": 6.0
+    },
+    {
+      "id": "268",
+      "name": "268",
+      "section": "HSS3X2X1/8",
+      "start_node": "20",
+      "end_node": "64",
+      "length": 6.0
+    },
+    {
+      "id": "269",
+      "name": "269",
+      "section": "HSS3X2X1/8",
+      "start_node": "21",
+      "end_node": "65",
+      "length": 6.0
+    },
+    {
+      "id": "270",
+      "name": "270",
+      "section": "HSS3X2X1/8",
+      "start_node": "66",
+      "end_node": "22",
+      "length": 6.0
+    },
+    {
+      "id": "271",
+      "name": "271",
+      "section": "HSS3X2X1/8",
+      "start_node": "67",
+      "end_node": "23",
+      "length": 6.0
+    },
+    {
+      "id": "272",
+      "name": "272",
+      "section": "HSS3X2X1/8",
+      "start_node": "57",
+      "end_node": "13",
+      "length": 6.0
+    },
+    {
+      "id": "273",
+      "name": "273",
+      "section": "W8X15",
+      "start_node": "54",
+      "end_node": "7",
+      "length": 6.0
+    },
+    {
+      "id": "274",
+      "name": "274",
+      "section": "W12X65",
+      "start_node": "68",
+      "end_node": "90",
+      "length": 6.0
+    },
+    {
+      "id": "275",
+      "name": "275",
+      "section": "W12X65",
+      "start_node": "69",
+      "end_node": "91",
+      "length": 6.0
+    },
+    {
+      "id": "276",
+      "name": "276",
+      "section": "W8X15",
+      "start_node": "50",
+      "end_node": "72",
+      "length": 6.0
+    },
+    {
+      "id": "277",
+      "name": "277",
+      "section": "W8X15",
+      "start_node": "56",
+      "end_node": "78",
+      "length": 6.0
+    },
+    {
+      "id": "278",
+      "name": "278",
+      "section": "HSS3X2X1/8",
+      "start_node": "51",
+      "end_node": "73",
+      "length": 6.0
+    },
+    {
+      "id": "279",
+      "name": "279",
+      "section": "HSS3X2X1/8",
+      "start_node": "58",
+      "end_node": "80",
+      "length": 6.0
+    },
+    {
+      "id": "280",
+      "name": "280",
+      "section": "HSS3X2X1/8",
+      "start_node": "59",
+      "end_node": "81",
+      "length": 6.0
+    },
+    {
+      "id": "281",
+      "name": "281",
+      "section": "HSS3X2X1/8",
+      "start_node": "60",
+      "end_node": "82",
+      "length": 6.0
+    },
+    {
+      "id": "282",
+      "name": "282",
+      "section": "HSS3X2X1/8",
+      "start_node": "61",
+      "end_node": "83",
+      "length": 6.0
+    },
+    {
+      "id": "283",
+      "name": "283",
+      "section": "HSS3X2X1/8",
+      "start_node": "62",
+      "end_node": "84",
+      "length": 6.0
+    },
+    {
+      "id": "284",
+      "name": "284",
+      "section": "HSS3X2X1/8",
+      "start_node": "63",
+      "end_node": "85",
+      "length": 6.0
+    },
+    {
+      "id": "285",
+      "name": "285",
+      "section": "HSS3X2X1/8",
+      "start_node": "64",
+      "end_node": "86",
+      "length": 6.0
+    },
+    {
+      "id": "286",
+      "name": "286",
+      "section": "HSS3X2X1/8",
+      "start_node": "65",
+      "end_node": "87",
+      "length": 6.0
+    },
+    {
+      "id": "287",
+      "name": "287",
+      "section": "HSS3X2X1/8",
+      "start_node": "88",
+      "end_node": "66",
+      "length": 6.0
+    },
+    {
+      "id": "288",
+      "name": "288",
+      "section": "HSS3X2X1/8",
+      "start_node": "89",
+      "end_node": "67",
+      "length": 6.0
+    },
+    {
+      "id": "289",
+      "name": "289",
+      "section": "HSS3X2X1/8",
+      "start_node": "79",
+      "end_node": "57",
+      "length": 6.0
+    },
+    {
+      "id": "290",
+      "name": "290",
+      "section": "W8X15",
+      "start_node": "76",
+      "end_node": "54",
+      "length": 6.0
+    },
+    {
+      "id": "291",
+      "name": "291",
+      "section": "W12X65",
+      "start_node": "90",
+      "end_node": "112",
+      "length": 6.0
+    },
+    {
+      "id": "292",
+      "name": "292",
+      "section": "W12X65",
+      "start_node": "91",
+      "end_node": "113",
+      "length": 6.0
+    },
+    {
+      "id": "293",
+      "name": "293",
+      "section": "W8X15",
+      "start_node": "72",
+      "end_node": "94",
+      "length": 6.0
+    },
+    {
+      "id": "294",
+      "name": "294",
+      "section": "W8X15",
+      "start_node": "78",
+      "end_node": "100",
+      "length": 6.0
+    },
+    {
+      "id": "295",
+      "name": "295",
+      "section": "HSS3X2X1/8",
+      "start_node": "73",
+      "end_node": "95",
+      "length": 6.0
+    },
+    {
+      "id": "296",
+      "name": "296",
+      "section": "HSS3X2X1/8",
+      "start_node": "80",
+      "end_node": "102",
+      "length": 6.0
+    },
+    {
+      "id": "297",
+      "name": "297",
+      "section": "HSS3X2X1/8",
+      "start_node": "81",
+      "end_node": "103",
+      "length": 6.0
+    },
+    {
+      "id": "298",
+      "name": "298",
+      "section": "HSS3X2X1/8",
+      "start_node": "82",
+      "end_node": "104",
+      "length": 6.0
+    },
+    {
+      "id": "299",
+      "name": "299",
+      "section": "HSS3X2X1/8",
+      "start_node": "83",
+      "end_node": "105",
+      "length": 6.0
+    },
+    {
+      "id": "3",
+      "name": "3",
+      "section": "W10X39",
+      "start_node": "3",
+      "end_node": "4",
+      "length": 0.5
+    },
+    {
+      "id": "300",
+      "name": "300",
+      "section": "HSS3X2X1/8",
+      "start_node": "84",
+      "end_node": "106",
+      "length": 6.0
+    },
+    {
+      "id": "301",
+      "name": "301",
+      "section": "HSS3X2X1/8",
+      "start_node": "85",
+      "end_node": "107",
+      "length": 6.0
+    },
+    {
+      "id": "302",
+      "name": "302",
+      "section": "HSS3X2X1/8",
+      "start_node": "86",
+      "end_node": "108",
+      "length": 6.0
+    },
+    {
+      "id": "303",
+      "name": "303",
+      "section": "HSS3X2X1/8",
+      "start_node": "87",
+      "end_node": "109",
+      "length": 6.0
+    },
+    {
+      "id": "304",
+      "name": "304",
+      "section": "HSS3X2X1/8",
+      "start_node": "110",
+      "end_node": "88",
+      "length": 6.0
+    },
+    {
+      "id": "305",
+      "name": "305",
+      "section": "HSS3X2X1/8",
+      "start_node": "111",
+      "end_node": "89",
+      "length": 6.0
+    },
+    {
+      "id": "306",
+      "name": "306",
+      "section": "HSS3X2X1/8",
+      "start_node": "101",
+      "end_node": "79",
+      "length": 6.0
+    },
+    {
+      "id": "307",
+      "name": "307",
+      "section": "W8X15",
+      "start_node": "98",
+      "end_node": "76",
+      "length": 6.0
+    },
+    {
+      "id": "308",
+      "name": "308",
+      "section": "W12X65",
+      "start_node": "112",
+      "end_node": "134",
+      "length": 6.0
+    },
+    {
+      "id": "309",
+      "name": "309",
+      "section": "W12X65",
+      "start_node": "113",
+      "end_node": "135",
+      "length": 6.0
+    },
+    {
+      "id": "310",
+      "name": "310",
+      "section": "W8X15",
+      "start_node": "94",
+      "end_node": "116",
+      "length": 6.0
+    },
+    {
+      "id": "311",
+      "name": "311",
+      "section": "W8X15",
+      "start_node": "100",
+      "end_node": "122",
+      "length": 6.0
+    },
+    {
+      "id": "312",
+      "name": "312",
+      "section": "HSS3X2X1/8",
+      "start_node": "95",
+      "end_node": "117",
+      "length": 6.0
+    },
+    {
+      "id": "313",
+      "name": "313",
+      "section": "HSS3X2X1/8",
+      "start_node": "102",
+      "end_node": "124",
+      "length": 6.0
+    },
+    {
+      "id": "314",
+      "name": "314",
+      "section": "HSS3X2X1/8",
+      "start_node": "103",
+      "end_node": "125",
+      "length": 6.0
+    },
+    {
+      "id": "315",
+      "name": "315",
+      "section": "HSS3X2X1/8",
+      "start_node": "104",
+      "end_node": "126",
+      "length": 6.0
+    },
+    {
+      "id": "316",
+      "name": "316",
+      "section": "HSS3X2X1/8",
+      "start_node": "105",
+      "end_node": "127",
+      "length": 6.0
+    },
+    {
+      "id": "317",
+      "name": "317",
+      "section": "HSS3X2X1/8",
+      "start_node": "106",
+      "end_node": "128",
+      "length": 6.0
+    },
+    {
+      "id": "318",
+      "name": "318",
+      "section": "HSS3X2X1/8",
+      "start_node": "107",
+      "end_node": "129",
+      "length": 6.0
+    },
+    {
+      "id": "319",
+      "name": "319",
+      "section": "HSS3X2X1/8",
+      "start_node": "108",
+      "end_node": "130",
+      "length": 6.0
+    },
+    {
+      "id": "320",
+      "name": "320",
+      "section": "HSS3X2X1/8",
+      "start_node": "109",
+      "end_node": "131",
+      "length": 6.0
+    },
+    {
+      "id": "321",
+      "name": "321",
+      "section": "HSS3X2X1/8",
+      "start_node": "132",
+      "end_node": "110",
+      "length": 6.0
+    },
+    {
+      "id": "322",
+      "name": "322",
+      "section": "HSS3X2X1/8",
+      "start_node": "133",
+      "end_node": "111",
+      "length": 6.0
+    },
+    {
+      "id": "323",
+      "name": "323",
+      "section": "HSS3X2X1/8",
+      "start_node": "123",
+      "end_node": "101",
+      "length": 6.0
+    },
+    {
+      "id": "324",
+      "name": "324",
+      "section": "W8X15",
+      "start_node": "120",
+      "end_node": "98",
+      "length": 6.0
+    },
+    {
+      "id": "325",
+      "name": "325",
+      "section": "W12X65",
+      "start_node": "134",
+      "end_node": "156",
+      "length": 6.0
+    },
+    {
+      "id": "326",
+      "name": "326",
+      "section": "W12X65",
+      "start_node": "135",
+      "end_node": "157",
+      "length": 6.0
+    },
+    {
+      "id": "327",
+      "name": "327",
+      "section": "W8X15",
+      "start_node": "116",
+      "end_node": "138",
+      "length": 6.0
+    },
+    {
+      "id": "328",
+      "name": "328",
+      "section": "W8X15",
+      "start_node": "122",
+      "end_node": "144",
+      "length": 6.0
+    },
+    {
+      "id": "329",
+      "name": "329",
+      "section": "HSS3X2X1/8",
+      "start_node": "117",
+      "end_node": "139",
+      "length": 6.0
+    },
+    {
+      "id": "330",
+      "name": "330",
+      "section": "HSS3X2X1/8",
+      "start_node": "124",
+      "end_node": "146",
+      "length": 6.0
+    },
+    {
+      "id": "331",
+      "name": "331",
+      "section": "HSS3X2X1/8",
+      "start_node": "125",
+      "end_node": "147",
+      "length": 6.0
+    },
+    {
+      "id": "332",
+      "name": "332",
+      "section": "HSS3X2X1/8",
+      "start_node": "126",
+      "end_node": "148",
+      "length": 6.0
+    },
+    {
+      "id": "333",
+      "name": "333",
+      "section": "HSS3X2X1/8",
+      "start_node": "127",
+      "end_node": "149",
+      "length": 6.0
+    },
+    {
+      "id": "334",
+      "name": "334",
+      "section": "HSS3X2X1/8",
+      "start_node": "128",
+      "end_node": "150",
+      "length": 6.0
+    },
+    {
+      "id": "335",
+      "name": "335",
+      "section": "HSS3X2X1/8",
+      "start_node": "129",
+      "end_node": "151",
+      "length": 6.0
+    },
+    {
+      "id": "336",
+      "name": "336",
+      "section": "HSS3X2X1/8",
+      "start_node": "130",
+      "end_node": "152",
+      "length": 6.0
+    },
+    {
+      "id": "337",
+      "name": "337",
+      "section": "HSS3X2X1/8",
+      "start_node": "131",
+      "end_node": "153",
+      "length": 6.0
+    },
+    {
+      "id": "338",
+      "name": "338",
+      "section": "HSS3X2X1/8",
+      "start_node": "154",
+      "end_node": "132",
+      "length": 6.0
+    },
+    {
+      "id": "339",
+      "name": "339",
+      "section": "HSS3X2X1/8",
+      "start_node": "155",
+      "end_node": "133",
+      "length": 6.0
+    },
+    {
+      "id": "34",
+      "name": "34",
+      "section": "L4X4X3/8",
+      "start_node": "246",
+      "end_node": "8",
+      "length": 4.422951503238533
+    },
+    {
+      "id": "340",
+      "name": "340",
+      "section": "HSS3X2X1/8",
+      "start_node": "145",
+      "end_node": "123",
+      "length": 6.0
+    },
+    {
+      "id": "341",
+      "name": "341",
+      "section": "W8X15",
+      "start_node": "142",
+      "end_node": "120",
+      "length": 6.0
+    },
+    {
+      "id": "342",
+      "name": "342",
+      "section": "W12X65",
+      "start_node": "156",
+      "end_node": "178",
+      "length": 6.0
+    },
+    {
+      "id": "343",
+      "name": "343",
+      "section": "W12X65",
+      "start_node": "157",
+      "end_node": "179",
+      "length": 6.0
+    },
+    {
+      "id": "344",
+      "name": "344",
+      "section": "W8X15",
+      "start_node": "138",
+      "end_node": "160",
+      "length": 6.0
+    },
+    {
+      "id": "345",
+      "name": "345",
+      "section": "W8X15",
+      "start_node": "144",
+      "end_node": "166",
+      "length": 6.0
+    },
+    {
+      "id": "346",
+      "name": "346",
+      "section": "HSS3X2X1/8",
+      "start_node": "139",
+      "end_node": "161",
+      "length": 6.0
+    },
+    {
+      "id": "347",
+      "name": "347",
+      "section": "HSS3X2X1/8",
+      "start_node": "146",
+      "end_node": "168",
+      "length": 6.0
+    },
+    {
+      "id": "348",
+      "name": "348",
+      "section": "HSS3X2X1/8",
+      "start_node": "147",
+      "end_node": "169",
+      "length": 6.0
+    },
+    {
+      "id": "349",
+      "name": "349",
+      "section": "HSS3X2X1/8",
+      "start_node": "148",
+      "end_node": "170",
+      "length": 6.0
+    },
+    {
+      "id": "35",
+      "name": "35",
+      "section": "L4X4X3/8",
+      "start_node": "8",
+      "end_node": "226",
+      "length": 4.422951503238533
+    },
+    {
+      "id": "350",
+      "name": "350",
+      "section": "HSS3X2X1/8",
+      "start_node": "149",
+      "end_node": "171",
+      "length": 6.0
+    },
+    {
+      "id": "351",
+      "name": "351",
+      "section": "HSS3X2X1/8",
+      "start_node": "150",
+      "end_node": "172",
+      "length": 6.0
+    },
+    {
+      "id": "352",
+      "name": "352",
+      "section": "HSS3X2X1/8",
+      "start_node": "151",
+      "end_node": "173",
+      "length": 6.0
+    },
+    {
+      "id": "353",
+      "name": "353",
+      "section": "HSS3X2X1/8",
+      "start_node": "152",
+      "end_node": "174",
+      "length": 6.0
+    },
+    {
+      "id": "354",
+      "name": "354",
+      "section": "HSS3X2X1/8",
+      "start_node": "153",
+      "end_node": "175",
+      "length": 6.0
+    },
+    {
+      "id": "355",
+      "name": "355",
+      "section": "HSS3X2X1/8",
+      "start_node": "176",
+      "end_node": "154",
+      "length": 6.0
+    },
+    {
+      "id": "356",
+      "name": "356",
+      "section": "HSS3X2X1/8",
+      "start_node": "177",
+      "end_node": "155",
+      "length": 6.0
+    },
+    {
+      "id": "357",
+      "name": "357",
+      "section": "HSS3X2X1/8",
+      "start_node": "167",
+      "end_node": "145",
+      "length": 6.0
+    },
+    {
+      "id": "358",
+      "name": "358",
+      "section": "W8X15",
+      "start_node": "164",
+      "end_node": "142",
+      "length": 6.0
+    },
+    {
+      "id": "359",
+      "name": "359",
+      "section": "W12X65",
+      "start_node": "178",
+      "end_node": "200",
+      "length": 6.0
+    },
+    {
+      "id": "36",
+      "name": "36",
+      "section": "L4X4X3/8",
+      "start_node": "224",
+      "end_node": "8",
+      "length": 4.422951503238533
+    },
+    {
+      "id": "360",
+      "name": "360",
+      "section": "W12X65",
+      "start_node": "179",
+      "end_node": "201",
+      "length": 6.0
+    },
+    {
+      "id": "361",
+      "name": "361",
+      "section": "W8X15",
+      "start_node": "160",
+      "end_node": "182",
+      "length": 6.0
+    },
+    {
+      "id": "362",
+      "name": "362",
+      "section": "W8X15",
+      "start_node": "166",
+      "end_node": "188",
+      "length": 6.0
+    },
+    {
+      "id": "363",
+      "name": "363",
+      "section": "HSS3X2X1/8",
+      "start_node": "161",
+      "end_node": "183",
+      "length": 6.0
+    },
+    {
+      "id": "364",
+      "name": "364",
+      "section": "HSS3X2X1/8",
+      "start_node": "168",
+      "end_node": "190",
+      "length": 6.0
+    },
+    {
+      "id": "365",
+      "name": "365",
+      "section": "HSS3X2X1/8",
+      "start_node": "169",
+      "end_node": "191",
+      "length": 6.0
+    },
+    {
+      "id": "366",
+      "name": "366",
+      "section": "HSS3X2X1/8",
+      "start_node": "170",
+      "end_node": "192",
+      "length": 6.0
+    },
+    {
+      "id": "367",
+      "name": "367",
+      "section": "HSS3X2X1/8",
+      "start_node": "171",
+      "end_node": "193",
+      "length": 6.0
+    },
+    {
+      "id": "368",
+      "name": "368",
+      "section": "HSS3X2X1/8",
+      "start_node": "172",
+      "end_node": "194",
+      "length": 6.0
+    },
+    {
+      "id": "369",
+      "name": "369",
+      "section": "HSS3X2X1/8",
+      "start_node": "173",
+      "end_node": "195",
+      "length": 6.0
+    },
+    {
+      "id": "37",
+      "name": "37",
+      "section": "L4X4X3/8",
+      "start_node": "8",
+      "end_node": "248",
+      "length": 4.422951503238533
+    },
+    {
+      "id": "370",
+      "name": "370",
+      "section": "HSS3X2X1/8",
+      "start_node": "174",
+      "end_node": "196",
+      "length": 6.0
+    },
+    {
+      "id": "371",
+      "name": "371",
+      "section": "HSS3X2X1/8",
+      "start_node": "175",
+      "end_node": "197",
+      "length": 6.0
+    },
+    {
+      "id": "372",
+      "name": "372",
+      "section": "HSS3X2X1/8",
+      "start_node": "198",
+      "end_node": "176",
+      "length": 6.0
+    },
+    {
+      "id": "373",
+      "name": "373",
+      "section": "HSS3X2X1/8",
+      "start_node": "199",
+      "end_node": "177",
+      "length": 6.0
+    },
+    {
+      "id": "374",
+      "name": "374",
+      "section": "HSS3X2X1/8",
+      "start_node": "189",
+      "end_node": "167",
+      "length": 6.0
+    },
+    {
+      "id": "375",
+      "name": "375",
+      "section": "W8X15",
+      "start_node": "186",
+      "end_node": "164",
+      "length": 6.0
+    },
+    {
+      "id": "376",
+      "name": "376",
+      "section": "W12X65",
+      "start_node": "200",
+      "end_node": "222",
+      "length": 6.0
+    },
+    {
+      "id": "377",
+      "name": "377",
+      "section": "W12X65",
+      "start_node": "201",
+      "end_node": "223",
+      "length": 6.0
+    },
+    {
+      "id": "378",
+      "name": "378",
+      "section": "W8X15",
+      "start_node": "182",
+      "end_node": "204",
+      "length": 6.0
+    },
+    {
+      "id": "379",
+      "name": "379",
+      "section": "W8X15",
+      "start_node": "188",
+      "end_node": "210",
+      "length": 6.0
+    },
+    {
+      "id": "38",
+      "name": "38",
+      "section": "L4X4X3/8",
+      "start_node": "224",
+      "end_node": "9",
+      "length": 4.422951503238533
+    },
+    {
+      "id": "380",
+      "name": "380",
+      "section": "HSS3X2X1/8",
+      "start_node": "183",
+      "end_node": "205",
+      "length": 6.0
+    },
+    {
+      "id": "381",
+      "name": "381",
+      "section": "HSS3X2X1/8",
+      "start_node": "190",
+      "end_node": "212",
+      "length": 6.0
+    },
+    {
+      "id": "382",
+      "name": "382",
+      "section": "HSS3X2X1/8",
+      "start_node": "191",
+      "end_node": "213",
+      "length": 6.0
+    },
+    {
+      "id": "383",
+      "name": "383",
+      "section": "HSS3X2X1/8",
+      "start_node": "192",
+      "end_node": "214",
+      "length": 6.0
+    },
+    {
+      "id": "384",
+      "name": "384",
+      "section": "HSS3X2X1/8",
+      "start_node": "193",
+      "end_node": "215",
+      "length": 6.0
+    },
+    {
+      "id": "385",
+      "name": "385",
+      "section": "HSS3X2X1/8",
+      "start_node": "194",
+      "end_node": "216",
+      "length": 6.0
+    },
+    {
+      "id": "386",
+      "name": "386",
+      "section": "HSS3X2X1/8",
+      "start_node": "195",
+      "end_node": "217",
+      "length": 6.0
+    },
+    {
+      "id": "387",
+      "name": "387",
+      "section": "HSS3X2X1/8",
+      "start_node": "196",
+      "end_node": "218",
+      "length": 6.0
+    },
+    {
+      "id": "388",
+      "name": "388",
+      "section": "HSS3X2X1/8",
+      "start_node": "197",
+      "end_node": "219",
+      "length": 6.0
+    },
+    {
+      "id": "389",
+      "name": "389",
+      "section": "HSS3X2X1/8",
+      "start_node": "220",
+      "end_node": "198",
+      "length": 6.0
+    },
+    {
+      "id": "39",
+      "name": "39",
+      "section": "L4X4X3/8",
+      "start_node": "9",
+      "end_node": "204",
+      "length": 4.422951503238533
+    },
+    {
+      "id": "390",
+      "name": "390",
+      "section": "HSS3X2X1/8",
+      "start_node": "221",
+      "end_node": "199",
+      "length": 6.0
+    },
+    {
+      "id": "391",
+      "name": "391",
+      "section": "HSS3X2X1/8",
+      "start_node": "211",
+      "end_node": "189",
+      "length": 6.0
+    },
+    {
+      "id": "392",
+      "name": "392",
+      "section": "W8X15",
+      "start_node": "208",
+      "end_node": "186",
+      "length": 6.0
+    },
+    {
+      "id": "393",
+      "name": "393",
+      "section": "W12X65",
+      "start_node": "222",
+      "end_node": "244",
+      "length": 6.0
+    },
+    {
+      "id": "394",
+      "name": "394",
+      "section": "W12X65",
+      "start_node": "223",
+      "end_node": "245",
+      "length": 6.0
+    },
+    {
+      "id": "395",
+      "name": "395",
+      "section": "W8X15",
+      "start_node": "204",
+      "end_node": "226",
+      "length": 6.0
+    },
+    {
+      "id": "396",
+      "name": "396",
+      "section": "W8X15",
+      "start_node": "210",
+      "end_node": "232",
+      "length": 6.0
+    },
+    {
+      "id": "397",
+      "name": "397",
+      "section": "HSS3X2X1/8",
+      "start_node": "205",
+      "end_node": "227",
+      "length": 6.0
+    },
+    {
+      "id": "398",
+      "name": "398",
+      "section": "HSS3X2X1/8",
+      "start_node": "212",
+      "end_node": "234",
+      "length": 6.0
+    },
+    {
+      "id": "399",
+      "name": "399",
+      "section": "HSS3X2X1/8",
+      "start_node": "213",
+      "end_node": "235",
+      "length": 6.0
+    },
+    {
+      "id": "4",
+      "name": "4",
+      "section": "W10X39",
+      "start_node": "5",
+      "end_node": "6",
+      "length": 5.86
+    },
+    {
+      "id": "40",
+      "name": "40",
+      "section": "L4X4X3/8",
+      "start_node": "202",
+      "end_node": "9",
+      "length": 4.422951503238533
+    },
+    {
+      "id": "400",
+      "name": "400",
+      "section": "HSS3X2X1/8",
+      "start_node": "214",
+      "end_node": "236",
+      "length": 6.0
+    },
+    {
+      "id": "401",
+      "name": "401",
+      "section": "HSS3X2X1/8",
+      "start_node": "215",
+      "end_node": "237",
+      "length": 6.0
+    },
+    {
+      "id": "402",
+      "name": "402",
+      "section": "HSS3X2X1/8",
+      "start_node": "216",
+      "end_node": "238",
+      "length": 6.0
+    },
+    {
+      "id": "403",
+      "name": "403",
+      "section": "HSS3X2X1/8",
+      "start_node": "217",
+      "end_node": "239",
+      "length": 6.0
+    },
+    {
+      "id": "404",
+      "name": "404",
+      "section": "HSS3X2X1/8",
+      "start_node": "218",
+      "end_node": "240",
+      "length": 6.0
+    },
+    {
+      "id": "405",
+      "name": "405",
+      "section": "HSS3X2X1/8",
+      "start_node": "219",
+      "end_node": "241",
+      "length": 6.0
+    },
+    {
+      "id": "406",
+      "name": "406",
+      "section": "HSS3X2X1/8",
+      "start_node": "242",
+      "end_node": "220",
+      "length": 6.0
+    },
+    {
+      "id": "407",
+      "name": "407",
+      "section": "HSS3X2X1/8",
+      "start_node": "243",
+      "end_node": "221",
+      "length": 6.0
+    },
+    {
+      "id": "408",
+      "name": "408",
+      "section": "HSS3X2X1/8",
+      "start_node": "233",
+      "end_node": "211",
+      "length": 6.0
+    },
+    {
+      "id": "409",
+      "name": "409",
+      "section": "W8X15",
+      "start_node": "230",
+      "end_node": "208",
+      "length": 6.0
+    },
+    {
+      "id": "41",
+      "name": "41",
+      "section": "L4X4X3/8",
+      "start_node": "9",
+      "end_node": "226",
+      "length": 4.422951503238533
+    },
+    {
+      "id": "410",
+      "name": "410",
+      "section": "W12X65",
+      "start_node": "244",
+      "end_node": "266",
+      "length": 6.0
+    },
+    {
+      "id": "411",
+      "name": "411",
+      "section": "W12X65",
+      "start_node": "245",
+      "end_node": "267",
+      "length": 6.0
+    },
+    {
+      "id": "412",
+      "name": "412",
+      "section": "W8X15",
+      "start_node": "226",
+      "end_node": "248",
+      "length": 6.0
+    },
+    {
+      "id": "413",
+      "name": "413",
+      "section": "W8X15",
+      "start_node": "232",
+      "end_node": "254",
+      "length": 6.0
+    },
+    {
+      "id": "414",
+      "name": "414",
+      "section": "HSS3X2X1/8",
+      "start_node": "227",
+      "end_node": "249",
+      "length": 6.0
+    },
+    {
+      "id": "415",
+      "name": "415",
+      "section": "HSS3X2X1/8",
+      "start_node": "234",
+      "end_node": "256",
+      "length": 6.0
+    },
+    {
+      "id": "416",
+      "name": "416",
+      "section": "HSS3X2X1/8",
+      "start_node": "235",
+      "end_node": "257",
+      "length": 6.0
+    },
+    {
+      "id": "417",
+      "name": "417",
+      "section": "HSS3X2X1/8",
+      "start_node": "236",
+      "end_node": "258",
+      "length": 6.0
+    },
+    {
+      "id": "418",
+      "name": "418",
+      "section": "HSS3X2X1/8",
+      "start_node": "237",
+      "end_node": "259",
+      "length": 6.0
+    },
+    {
+      "id": "419",
+      "name": "419",
+      "section": "W8X15",
+      "start_node": "238",
+      "end_node": "260",
+      "length": 6.0
+    },
+    {
+      "id": "42",
+      "name": "42",
+      "section": "L4X4X3/8",
+      "start_node": "158",
+      "end_node": "10",
+      "length": 4.422951503238533
+    },
+    {
+      "id": "420",
+      "name": "420",
+      "section": "HSS3X2X1/8",
+      "start_node": "239",
+      "end_node": "261",
+      "length": 6.0
+    },
+    {
+      "id": "421",
+      "name": "421",
+      "section": "HSS3X2X1/8",
+      "start_node": "240",
+      "end_node": "262",
+      "length": 6.0
+    },
+    {
+      "id": "422",
+      "name": "422",
+      "section": "HSS3X2X1/8",
+      "start_node": "241",
+      "end_node": "263",
+      "length": 6.0
+    },
+    {
+      "id": "423",
+      "name": "423",
+      "section": "HSS3X2X1/8",
+      "start_node": "264",
+      "end_node": "242",
+      "length": 6.0
+    },
+    {
+      "id": "424",
+      "name": "424",
+      "section": "HSS3X2X1/8",
+      "start_node": "265",
+      "end_node": "243",
+      "length": 6.0
+    },
+    {
+      "id": "425",
+      "name": "425",
+      "section": "HSS3X2X1/8",
+      "start_node": "255",
+      "end_node": "233",
+      "length": 6.0
+    },
+    {
+      "id": "426",
+      "name": "426",
+      "section": "W8X15",
+      "start_node": "252",
+      "end_node": "230",
+      "length": 6.0
+    },
+    {
+      "id": "427",
+      "name": "427",
+      "section": "L4X4X3/8",
+      "start_node": "26",
+      "end_node": "138",
+      "length": 4.422951503238533
+    },
+    {
+      "id": "428",
+      "name": "428",
+      "section": "L4X4X3/8",
+      "start_node": "136",
+      "end_node": "26",
+      "length": 4.422951503238533
+    },
+    {
+      "id": "429",
+      "name": "429",
+      "section": "L4X4X3/8",
+      "start_node": "26",
+      "end_node": "160",
+      "length": 4.422951503238533
+    },
+    {
+      "id": "43",
+      "name": "43",
+      "section": "L4X4X3/8",
+      "start_node": "10",
+      "end_node": "182",
+      "length": 4.422951503238533
+    },
+    {
+      "id": "430",
+      "name": "430",
+      "section": "L4X4X3/8",
+      "start_node": "114",
+      "end_node": "27",
+      "length": 4.422951503238533
+    },
+    {
+      "id": "431",
+      "name": "431",
+      "section": "L4X4X3/8",
+      "start_node": "27",
+      "end_node": "94",
+      "length": 4.422951503238533
+    },
+    {
+      "id": "432",
+      "name": "432",
+      "section": "L4X4X3/8",
+      "start_node": "92",
+      "end_node": "27",
+      "length": 4.422951503238533
+    },
+    {
+      "id": "433",
+      "name": "433",
+      "section": "L4X4X3/8",
+      "start_node": "27",
+      "end_node": "116",
+      "length": 4.422951503238533
+    },
+    {
+      "id": "434",
+      "name": "434",
+      "section": "L4X4X3/8",
+      "start_node": "92",
+      "end_node": "28",
+      "length": 4.422951503238533
+    },
+    {
+      "id": "435",
+      "name": "435",
+      "section": "L4X4X3/8",
+      "start_node": "28",
+      "end_node": "72",
+      "length": 4.422951503238533
+    },
+    {
+      "id": "436",
+      "name": "436",
+      "section": "L4X4X3/8",
+      "start_node": "70",
+      "end_node": "28",
+      "length": 4.422951503238533
+    },
+    {
+      "id": "437",
+      "name": "437",
+      "section": "L4X4X3/8",
+      "start_node": "28",
+      "end_node": "94",
+      "length": 4.422951503238533
+    },
+    {
+      "id": "438",
+      "name": "438",
+      "section": "L4X4X3/8",
+      "start_node": "253",
+      "end_node": "29",
+      "length": 4.422951503238533
+    },
+    {
+      "id": "439",
+      "name": "439",
+      "section": "L4X4X3/8",
+      "start_node": "29",
+      "end_node": "232",
+      "length": 4.422951503238533
+    },
+    {
+      "id": "44",
+      "name": "44",
+      "section": "L4X4X3/8",
+      "start_node": "180",
+      "end_node": "10",
+      "length": 4.422951503238533
+    },
+    {
+      "id": "440",
+      "name": "440",
+      "section": "L4X4X3/8",
+      "start_node": "231",
+      "end_node": "29",
+      "length": 4.422951503238533
+    },
+    {
+      "id": "441",
+      "name": "441",
+      "section": "L4X4X3/8",
+      "start_node": "29",
+      "end_node": "254",
+      "length": 4.422951503238533
+    },
+    {
+      "id": "442",
+      "name": "442",
+      "section": "L4X4X3/8",
+      "start_node": "231",
+      "end_node": "30",
+      "length": 4.422951503238533
+    },
+    {
+      "id": "443",
+      "name": "443",
+      "section": "L4X4X3/8",
+      "start_node": "30",
+      "end_node": "210",
+      "length": 4.422951503238533
+    },
+    {
+      "id": "444",
+      "name": "444",
+      "section": "L4X4X3/8",
+      "start_node": "209",
+      "end_node": "30",
+      "length": 4.422951503238533
+    },
+    {
+      "id": "445",
+      "name": "445",
+      "section": "L4X4X3/8",
+      "start_node": "30",
+      "end_node": "232",
+      "length": 4.422951503238533
+    },
+    {
+      "id": "446",
+      "name": "446",
+      "section": "L4X4X3/8",
+      "start_node": "165",
+      "end_node": "31",
+      "length": 4.422951503238533
+    },
+    {
+      "id": "447",
+      "name": "447",
+      "section": "L4X4X3/8",
+      "start_node": "31",
+      "end_node": "188",
+      "length": 4.422951503238533
+    },
+    {
+      "id": "448",
+      "name": "448",
+      "section": "L4X4X3/8",
+      "start_node": "187",
+      "end_node": "31",
+      "length": 4.422951503238533
+    },
+    {
+      "id": "449",
+      "name": "449",
+      "section": "L4X4X3/8",
+      "start_node": "31",
+      "end_node": "166",
+      "length": 4.422951503238533
+    },
+    {
+      "id": "45",
+      "name": "45",
+      "section": "L4X4X3/8",
+      "start_node": "10",
+      "end_node": "160",
+      "length": 4.422951503238533
+    },
+    {
+      "id": "450",
+      "name": "450",
+      "section": "L4X4X3/8",
+      "start_node": "165",
+      "end_node": "32",
+      "length": 4.422951503238533
+    },
+    {
+      "id": "451",
+      "name": "451",
+      "section": "L4X4X3/8",
+      "start_node": "32",
+      "end_node": "144",
+      "length": 4.422951503238533
+    },
+    {
+      "id": "452",
+      "name": "452",
+      "section": "L4X4X3/8",
+      "start_node": "143",
+      "end_node": "32",
+      "length": 4.422951503238533
+    },
+    {
+      "id": "453",
+      "name": "453",
+      "section": "L4X4X3/8",
+      "start_node": "32",
+      "end_node": "166",
+      "length": 4.422951503238533
+    },
+    {
+      "id": "454",
+      "name": "454",
+      "section": "L4X4X3/8",
+      "start_node": "121",
+      "end_node": "33",
+      "length": 4.422951503238533
+    },
+    {
+      "id": "455",
+      "name": "455",
+      "section": "L4X4X3/8",
+      "start_node": "33",
+      "end_node": "100",
+      "length": 4.422951503238533
+    },
+    {
+      "id": "456",
+      "name": "456",
+      "section": "L4X4X3/8",
+      "start_node": "99",
+      "end_node": "33",
+      "length": 4.422951503238533
+    },
+    {
+      "id": "457",
+      "name": "457",
+      "section": "L4X4X3/8",
+      "start_node": "33",
+      "end_node": "122",
+      "length": 4.422951503238533
+    },
+    {
+      "id": "458",
+      "name": "458",
+      "section": "L4X4X3/8",
+      "start_node": "99",
+      "end_node": "34",
+      "length": 4.422951503238533
+    },
+    {
+      "id": "459",
+      "name": "459",
+      "section": "L4X4X3/8",
+      "start_node": "34",
+      "end_node": "78",
+      "length": 4.422951503238533
+    },
+    {
+      "id": "46",
+      "name": "46",
+      "section": "L4X4X3/8",
+      "start_node": "158",
+      "end_node": "26",
+      "length": 4.422951503238533
+    },
+    {
+      "id": "460",
+      "name": "460",
+      "section": "L4X4X3/8",
+      "start_node": "77",
+      "end_node": "34",
+      "length": 4.422951503238533
+    },
+    {
+      "id": "461",
+      "name": "461",
+      "section": "L4X4X3/8",
+      "start_node": "34",
+      "end_node": "100",
+      "length": 4.422951503238533
+    },
+    {
+      "id": "47",
+      "name": "47",
+      "section": "W10X39",
+      "start_node": "48",
+      "end_node": "49",
+      "length": 5.86
+    },
+    {
+      "id": "48",
+      "name": "48",
+      "section": "W10X39",
+      "start_node": "49",
+      "end_node": "50",
+      "length": 0.6399999999999997
+    },
+    {
+      "id": "49",
+      "name": "49",
+      "section": "W10X39",
+      "start_node": "50",
+      "end_node": "51",
+      "length": 0.5
+    },
+    {
+      "id": "5",
+      "name": "5",
+      "section": "W10X39",
+      "start_node": "6",
+      "end_node": "7",
+      "length": 2.29
+    },
+    {
+      "id": "50",
+      "name": "50",
+      "section": "W10X39",
+      "start_node": "52",
+      "end_node": "53",
+      "length": 5.86
+    },
+    {
+      "id": "51",
+      "name": "51",
+      "section": "W10X39",
+      "start_node": "53",
+      "end_node": "54",
+      "length": 2.29
+    },
+    {
+      "id": "52",
+      "name": "52",
+      "section": "W10X39",
+      "start_node": "55",
+      "end_node": "56",
+      "length": 6.5
+    },
+    {
+      "id": "53",
+      "name": "53",
+      "section": "W10X39",
+      "start_node": "56",
+      "end_node": "57",
+      "length": 0.5
+    },
+    {
+      "id": "54",
+      "name": "54",
+      "section": "W8X15",
+      "start_node": "51",
+      "end_node": "58",
+      "length": 1.1001578169618313
+    },
+    {
+      "id": "55",
+      "name": "55",
+      "section": "W8X15",
+      "start_node": "58",
+      "end_node": "59",
+      "length": 1.1001578169618311
+    },
+    {
+      "id": "56",
+      "name": "56",
+      "section": "W8X15",
+      "start_node": "59",
+      "end_node": "60",
+      "length": 1.1001578169618313
+    },
+    {
+      "id": "57",
+      "name": "57",
+      "section": "W8X15",
+      "start_node": "60",
+      "end_node": "61",
+      "length": 1.1001578169618311
+    },
+    {
+      "id": "58",
+      "name": "58",
+      "section": "W8X15",
+      "start_node": "61",
+      "end_node": "62",
+      "length": 1.1001578169618307
+    },
+    {
+      "id": "59",
+      "name": "59",
+      "section": "W8X15",
+      "start_node": "62",
+      "end_node": "54",
+      "length": 1.100157816961832
+    },
+    {
+      "id": "6",
+      "name": "6",
+      "section": "W12X65",
+      "start_node": "68",
+      "end_node": "24",
+      "length": 6.0
+    },
+    {
+      "id": "60",
+      "name": "60",
+      "section": "W8X15",
+      "start_node": "54",
+      "end_node": "63",
+      "length": 1.1001578169618318
+    },
+    {
+      "id": "61",
+      "name": "61",
+      "section": "W8X15",
+      "start_node": "63",
+      "end_node": "64",
+      "length": 1.1001578169618318
+    },
+    {
+      "id": "62",
+      "name": "62",
+      "section": "W8X15",
+      "start_node": "64",
+      "end_node": "65",
+      "length": 1.1001578169618302
+    },
+    {
+      "id": "63",
+      "name": "63",
+      "section": "W8X15",
+      "start_node": "65",
+      "end_node": "66",
+      "length": 1.1001578169618302
+    },
+    {
+      "id": "64",
+      "name": "64",
+      "section": "W8X15",
+      "start_node": "66",
+      "end_node": "67",
+      "length": 1.1001578169618316
+    },
+    {
+      "id": "65",
+      "name": "65",
+      "section": "W8X15",
+      "start_node": "67",
+      "end_node": "57",
+      "length": 1.100157816961832
+    },
+    {
+      "id": "66",
+      "name": "66",
+      "section": "W10X39",
+      "start_node": "49",
+      "end_node": "68",
+      "length": 0.6
+    },
+    {
+      "id": "67",
+      "name": "67",
+      "section": "W10X39",
+      "start_node": "69",
+      "end_node": "53",
+      "length": 0.5999999999999996
+    },
+    {
+      "id": "68",
+      "name": "68",
+      "section": "W10X39",
+      "start_node": "70",
+      "end_node": "71",
+      "length": 5.86
+    },
+    {
+      "id": "69",
+      "name": "69",
+      "section": "W10X39",
+      "start_node": "71",
+      "end_node": "72",
+      "length": 0.6399999999999997
+    },
+    {
+      "id": "7",
+      "name": "7",
+      "section": "W12X65",
+      "start_node": "25",
+      "end_node": "69",
+      "length": 6.0
+    },
+    {
+      "id": "70",
+      "name": "70",
+      "section": "W10X39",
+      "start_node": "72",
+      "end_node": "73",
+      "length": 0.5
+    },
+    {
+      "id": "71",
+      "name": "71",
+      "section": "W10X39",
+      "start_node": "74",
+      "end_node": "75",
+      "length": 5.86
+    },
+    {
+      "id": "72",
+      "name": "72",
+      "section": "W10X39",
+      "start_node": "75",
+      "end_node": "76",
+      "length": 2.29
+    },
+    {
+      "id": "73",
+      "name": "73",
+      "section": "W10X39",
+      "start_node": "77",
+      "end_node": "78",
+      "length": 6.5
+    },
+    {
+      "id": "74",
+      "name": "74",
+      "section": "W10X39",
+      "start_node": "78",
+      "end_node": "79",
+      "length": 0.5
+    },
+    {
+      "id": "75",
+      "name": "75",
+      "section": "W8X15",
+      "start_node": "73",
+      "end_node": "80",
+      "length": 1.1001578169618313
+    },
+    {
+      "id": "76",
+      "name": "76",
+      "section": "W8X15",
+      "start_node": "80",
+      "end_node": "81",
+      "length": 1.1001578169618311
+    },
+    {
+      "id": "77",
+      "name": "77",
+      "section": "W8X15",
+      "start_node": "81",
+      "end_node": "82",
+      "length": 1.1001578169618313
+    },
+    {
+      "id": "78",
+      "name": "78",
+      "section": "W8X15",
+      "start_node": "82",
+      "end_node": "83",
+      "length": 1.1001578169618311
+    },
+    {
+      "id": "79",
+      "name": "79",
+      "section": "W8X15",
+      "start_node": "83",
+      "end_node": "84",
+      "length": 1.1001578169618307
+    },
+    {
+      "id": "8",
+      "name": "8",
+      "section": "W10X39",
+      "start_node": "11",
+      "end_node": "12",
+      "length": 6.5
+    },
+    {
+      "id": "80",
+      "name": "80",
+      "section": "W8X15",
+      "start_node": "84",
+      "end_node": "76",
+      "length": 1.100157816961832
+    },
+    {
+      "id": "81",
+      "name": "81",
+      "section": "W8X15",
+      "start_node": "76",
+      "end_node": "85",
+      "length": 1.1001578169618318
+    },
+    {
+      "id": "82",
+      "name": "82",
+      "section": "W8X15",
+      "start_node": "85",
+      "end_node": "86",
+      "length": 1.1001578169618318
+    },
+    {
+      "id": "83",
+      "name": "83",
+      "section": "W8X15",
+      "start_node": "86",
+      "end_node": "87",
+      "length": 1.1001578169618302
+    },
+    {
+      "id": "84",
+      "name": "84",
+      "section": "W8X15",
+      "start_node": "87",
+      "end_node": "88",
+      "length": 1.1001578169618302
+    },
+    {
+      "id": "85",
+      "name": "85",
+      "section": "W8X15",
+      "start_node": "88",
+      "end_node": "89",
+      "length": 1.1001578169618316
+    },
+    {
+      "id": "86",
+      "name": "86",
+      "section": "W8X15",
+      "start_node": "89",
+      "end_node": "79",
+      "length": 1.100157816961832
+    },
+    {
+      "id": "87",
+      "name": "87",
+      "section": "W10X39",
+      "start_node": "71",
+      "end_node": "90",
+      "length": 0.6
+    },
+    {
+      "id": "88",
+      "name": "88",
+      "section": "W10X39",
+      "start_node": "91",
+      "end_node": "75",
+      "length": 0.5999999999999996
+    },
+    {
+      "id": "89",
+      "name": "89",
+      "section": "W10X39",
+      "start_node": "92",
+      "end_node": "93",
+      "length": 5.86
+    },
+    {
+      "id": "9",
+      "name": "9",
+      "section": "W10X39",
+      "start_node": "12",
+      "end_node": "13",
+      "length": 0.5
+    },
+    {
+      "id": "90",
+      "name": "90",
+      "section": "W10X39",
+      "start_node": "93",
+      "end_node": "94",
+      "length": 0.6399999999999997
+    },
+    {
+      "id": "91",
+      "name": "91",
+      "section": "W10X39",
+      "start_node": "94",
+      "end_node": "95",
+      "length": 0.5
+    },
+    {
+      "id": "92",
+      "name": "92",
+      "section": "W10X39",
+      "start_node": "96",
+      "end_node": "97",
+      "length": 5.86
+    },
+    {
+      "id": "93",
+      "name": "93",
+      "section": "W10X39",
+      "start_node": "97",
+      "end_node": "98",
+      "length": 2.29
+    },
+    {
+      "id": "94",
+      "name": "94",
+      "section": "W10X39",
+      "start_node": "99",
+      "end_node": "100",
+      "length": 6.5
+    },
+    {
+      "id": "95",
+      "name": "95",
+      "section": "W10X39",
+      "start_node": "100",
+      "end_node": "101",
+      "length": 0.5
+    },
+    {
+      "id": "96",
+      "name": "96",
+      "section": "W8X15",
+      "start_node": "95",
+      "end_node": "102",
+      "length": 1.1001578169618313
+    },
+    {
+      "id": "97",
+      "name": "97",
+      "section": "W8X15",
+      "start_node": "102",
+      "end_node": "103",
+      "length": 1.1001578169618311
+    },
+    {
+      "id": "98",
+      "name": "98",
+      "section": "W8X15",
+      "start_node": "103",
+      "end_node": "104",
+      "length": 1.1001578169618313
+    },
+    {
+      "id": "99",
+      "name": "99",
+      "section": "W8X15",
+      "start_node": "104",
+      "end_node": "105",
+      "length": 1.1001578169618311
+    }
+  ]
+}

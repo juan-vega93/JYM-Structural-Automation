@@ -30,6 +30,6 @@ class Sap2000AnalysisRunner(Protocol):
 
 
 class Sap2000ResultsReader(Protocol):
-    """Read-only member results capability."""
+    """B1.5 frame forces for the existing output selection; never runs analysis."""
 
     def get_member_results(self, member_id: str) -> AnalysisResult: ...

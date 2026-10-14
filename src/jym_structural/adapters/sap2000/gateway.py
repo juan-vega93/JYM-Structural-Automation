@@ -8,9 +8,24 @@ from typing import Any
 
 from pydantic import ValidationError
 
-from jym_structural.core.models import Member, ModelInfo, Node, Point3D, Section, StructuralModel
+from jym_structural.core.models import (
+    AnalysisResult,
+    FrameForces,
+    Member,
+    ModelInfo,
+    Node,
+    Point3D,
+    ResultUnits,
+    Section,
+    StructuralModel,
+)
 
-from .contracts import Sap2000AnalysisRunner, Sap2000ConnectionGateway, Sap2000ModelReader
+from .contracts import (
+    Sap2000AnalysisRunner,
+    Sap2000ConnectionGateway,
+    Sap2000ModelReader,
+    Sap2000ResultsReader,
+)
 
 
 class Sap2000Error(RuntimeError):
@@ -41,6 +56,24 @@ _UNITS = dict(
     )
 )
 
+# SAP2000 26.2.0: verified DLL, typelib, installed CHM and real typed comtypes call.
+_FRAME_FORCE_OUTPUTS = (
+    "NumberResults",
+    "Obj",
+    "ObjSta",
+    "Elm",
+    "ElmSta",
+    "LoadCase",
+    "StepType",
+    "StepNum",
+    "P",
+    "V2",
+    "V3",
+    "T",
+    "M2",
+    "M3",
+)
+
 
 def _attach_running_instance() -> Any:
     if sys.platform != "win32":
@@ -58,7 +91,12 @@ def _attach_running_instance() -> Any:
     return helper.GetObject("CSI.SAP2000.API.SapObject")
 
 
-class ComSap2000Gateway(Sap2000ConnectionGateway, Sap2000ModelReader, Sap2000AnalysisRunner):
+class ComSap2000Gateway(
+    Sap2000ConnectionGateway,
+    Sap2000ModelReader,
+    Sap2000AnalysisRunner,
+    Sap2000ResultsReader,
+):
     """Read-only queries and an explicit analysis command boundary.
 
     Keep the gateway on the COM-initialized thread that created it. Attachment
@@ -109,6 +147,109 @@ class ComSap2000Gateway(Sap2000ConnectionGateway, Sap2000ModelReader, Sap2000Ana
             raise Sap2000Error("Analyze.RunAnalysis returned an unexpected CSI response.")
         if return_code != 0:
             raise Sap2000Error(f"Analyze.RunAnalysis failed with CSI return code {return_code}.")
+
+    def get_member_results(self, member_id: str) -> AnalysisResult:
+        """Read one object's element forces for the CURRENT output selection.
+
+        Never selects output, analyzes, saves or converts present units. A zero
+        row response is an explicit error, not a request to generate results.
+        """
+        model = self._model()
+        if not isinstance(member_id, str) or not member_id.strip():
+            raise Sap2000Error("Results.FrameForce requires a nonempty member ID.")
+        operation = f"Results.FrameForce({member_id!r})"
+        try:
+            before = self._read_model_info(self._application)
+            result = self._query(
+                operation,
+                model.Results.FrameForce,
+                _FRAME_FORCE_OUTPUTS,
+                Name=member_id,
+                ItemTypeElm=0,  # ObjectElm: elements belonging to this object.
+            )
+            if self._read_model_info(self._application) != before:
+                raise Sap2000Error(f"{operation}: model metadata or present units changed.")
+        except Sap2000Error:
+            raise
+        except Exception as exc:
+            raise Sap2000Error(f"{operation} COM query failed.") from exc
+
+        count = result["NumberResults"]
+        if type(count) is not int or count < 0:
+            raise Sap2000Error(f"{operation}: invalid NumberResults {count!r}.")
+        arrays = []
+        for name in _FRAME_FORCE_OUTPUTS[1:]:
+            values = result[name]
+            if values is None and count == 0:
+                values = ()
+            if not isinstance(values, (list, tuple)) or len(values) != count:
+                raise Sap2000Error(
+                    f"{operation}: {name} length does not match NumberResults {count}."
+                )
+            arrays.append(values)
+        if count == 0:
+            raise Sap2000Error(
+                f"{operation}: no results for the current output selection; "
+                "check existing analysis and selected cases/combinations. Analysis was not run."
+            )
+
+        forces = []
+        for index, values in enumerate(zip(*arrays, strict=True)):
+            row = dict(zip(_FRAME_FORCE_OUTPUTS[1:], values, strict=True))
+            if row["Obj"] != member_id:
+                raise Sap2000Error(f"{operation}: row {index} returned an unexpected object ID.")
+            for name in ("Obj", "Elm", "LoadCase"):
+                if not isinstance(row[name], str) or not row[name].strip():
+                    raise Sap2000Error(f"{operation}: row {index} has invalid {name}.")
+            # Unused StepType is a null BSTR in the verified SAP2000 response.
+            if row["StepType"] is not None and not isinstance(row["StepType"], str):
+                raise Sap2000Error(f"{operation}: row {index} has invalid StepType.")
+            for name in ("ObjSta", "ElmSta", "StepNum", "P", "V2", "V3", "T", "M2", "M3"):
+                value = row[name]
+                if type(value) not in (int, float) or not math.isfinite(value):
+                    raise Sap2000Error(f"{operation}: row {index} has non-finite/invalid {name}.")
+            forces.append(
+                FrameForces(
+                    object_id=row["Obj"],
+                    station=row["ObjSta"],
+                    element_id=row["Elm"],
+                    element_station=row["ElmSta"],
+                    load_case=row["LoadCase"],
+                    step_type=row["StepType"],
+                    step_num=row["StepNum"],
+                    p=row["P"],
+                    v2=row["V2"],
+                    v3=row["V3"],
+                    t=row["T"],
+                    m2=row["M2"],
+                    m3=row["M3"],
+                )
+            )
+        # Include all force components to break same-station ties deterministically;
+        # retain repeated rows (e.g. element boundaries), never deduplicate/envelope.
+        forces.sort(
+            key=lambda row: (
+                row.load_case,
+                row.step_type or "",
+                row.step_num,
+                row.station,
+                row.element_id,
+                row.element_station,
+                row.p,
+                row.v2,
+                row.v3,
+                row.t,
+                row.m2,
+                row.m3,
+                row.step_type is not None,
+            )
+        )
+        force_unit, length_unit, _temperature = before.units.split("_")
+        return AnalysisResult(
+            member_id=member_id,
+            forces=forces,
+            units=ResultUnits(force=force_unit, length=length_unit),
+        )
 
     def _model(self) -> Any:
         if self._application is None:

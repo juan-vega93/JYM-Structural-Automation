@@ -1,4 +1,4 @@
-# SAP2000: validación de queries B1.1–B1.3 y Command B1.4
+# SAP2000: validación de queries B1.1–B1.3/B1.5 y Command B1.4
 
 ## Preparación
 
@@ -59,7 +59,8 @@
   valor desconocido produce error. Solo sale `ModelInfo` hacia el core.
 - `ComSap2000Gateway` implementa explícitamente `Sap2000ConnectionGateway` (B1.1)
   y `Sap2000ModelReader` (B1.2/B1.3). B1.4 añade `Sap2000AnalysisRunner` como
-  Command explícito. No implementa `Sap2000ResultsReader`; no se añaden métodos vacíos.
+  Command explícito. B1.5 incorpora `Sap2000ResultsReader` para fuerzas de un frame;
+  no se añaden métodos vacíos.
 - Se mantiene la conexión en el hilo COM que la creó. Los errores se presentan
   como `Sap2000Error`, conservando su causa; la salud se informa como booleano.
 - Referencia primaria: `SAP2000v1.dll` y `CSI_OAPI_Documentation.chm` de la instalación
@@ -442,3 +443,210 @@ Evidencia compacta de antes/después y llamadas:
 Resultado automático B1.4: **109 tests aprobados**, incluyendo 18 casos adicionales
 sobre la base B1.3; advertencia de permisos de caché de pytest. Ruff y
 `git diff --check` sin errores.
+
+## B1.5: SAP2000 Frame Results Reader
+
+### Query y selección de salida
+
+`ComSap2000Gateway.get_member_results(member_id) -> AnalysisResult` requiere conexión
+previa y consulta **únicamente la selección actual de Results.Setup**. No ejecuta
+análisis, no guarda ni desbloquea el modelo, no cambia unidades y no reconecta.
+No añade setters de selección al contrato productivo. El modelo geométrico
+StructuralModel no contiene resultados; los protocolos de lectura y comando siguen
+separados. B1.4 conserva exactamente su llamada explícita a RunAnalysis.
+
+La recomendación de los ejemplos CSI de deseleccionar/seleccionar casos antes de
+leer resultados **no** se incorpora como automatismo: Results.Setup es estado de
+sesión. Es responsabilidad del caller configurar previamente la selección fuera
+de esta query. `LoadCase` conserva el nombre del caso **o combinación** devuelto
+por CSI, sin inferir su categoría por el nombre ni calcular envelopes propios.
+
+### Firma SAP2000 26.2.0 verificada
+
+Se contrastaron `SAP2000v1.dll`, `cAnalysisResults._methods_` del typelib generado
+por comtypes 1.4.17, el tema instalado
+`CSI_OAPI_Documentation.chm::/SAP2000_API_Fuctions/Analysis_Results/Results/FrameForce.htm`
+y una llamada real en SAP2000 26.2.0.
+
+```text
+Int32 FrameForce(
+    String Name, eItemTypeElm ItemTypeElm,
+    ref Int32 NumberResults,
+    ref String[] Obj, ref Double[] ObjSta,
+    ref String[] Elm, ref Double[] ElmSta,
+    ref String[] LoadCase, ref String[] StepType, ref Double[] StepNum,
+    ref Double[] P, ref Double[] V2, ref Double[] V3,
+    ref Double[] T, ref Double[] M2, ref Double[] M3)
+```
+
+Inputs: `Name=member_id`, `ItemTypeElm=0` (`ObjectElm`: elementos de análisis
+correspondientes al objeto indicado). No se usan modos Element, GroupElm ni
+SelectionElm. El resto son parámetros `[in,out]`; comtypes permite omitirlos y
+devuelve una secuencia de **15 posiciones**:
+
+```text
+0 NumberResults
+1 Obj       2 ObjSta      3 Elm       4 ElmSta
+5 LoadCase  6 StepType    7 StepNum
+8 P         9 V2         10 V3       11 T       12 M2       13 M3
+14 pRetVal (código CSI)
+```
+
+`HRESULT` es el estado de transporte COM y no ese último entero CSI. Se valida
+el código antes de consumir los arrays. Cualquier código no cero genera un
+Sap2000Error que incluye operación, member ID y código; no se asignan significados
+no documentados a valores específicos. Fallos COM conservan `__cause__`.
+
+| Array | Semántica y destino neutral |
+| --- | --- |
+| `Obj` | Objeto lineal fuente; debe coincidir exactamente con member_id → `object_id` |
+| `ObjSta` | Distancia desde I del **objeto** → `station` |
+| `Elm` | Elemento lineal de análisis → `element_id` |
+| `ElmSta` | Distancia desde I del **elemento** → `element_station` |
+| `LoadCase` | Nombre del caso o combinación → `load_case` |
+| `StepType` | Tipo de paso/contexto CSI → `step_type` |
+| `StepNum` | Número/contexto del paso CSI → `step_num` |
+| `P`, `V2`, `V3` | Axial y cortantes en ejes locales 2/3 → `p`, `v2`, `v3` |
+| `T`, `M2`, `M3` | Torsión y momentos alrededor de ejes locales 2/3 → `t`, `m2`, `m3` |
+
+Un objeto puede corresponder a varios elementos. ObjSta y ElmSta no se intercambian
+ni se deducen entre sí. Se conservan filas coincidentes y extremos compartidos;
+no se deduplican. `FrameForces` extiende el modelo previo con procedencia y pasos,
+manteniendo `station` como estación del objeto. Sus valores numéricos son finitos.
+
+La llamada real mostró **null BSTR (`None`)** en StepType cuando no se usa. Se
+conserva como `null`; se acepta también una cadena devuelta por CSI (incluida vacía),
+sin convertirla en un tipo inventado. Se observaron `Max`/`Min` en la combinación
+`servicio`; son datos de SAP2000, no envelopes calculados por el Core.
+Según los temas instalados Analysis Results Step Type/Number, StepNum puede
+representar un paso, tiempo, modo o frecuencia dependiendo de StepType/caso, y no
+se utiliza para algunos casos estáticos. Se preserva incluso el cero devuelto,
+sin interpretarlo como una estación ni convertirlo. Esto no añade lectores de
+resultados modales u otras familias.
+
+### Validación, orden y unidades
+
+- NumberResults debe ser entero no negativo; los **13 arrays** deben tener
+  exactamente esa longitud. Se rechazan objetos inesperados, IDs/nombres inválidos,
+  tipos no numéricos y NaN/Inf en estaciones, pasos o fuerzas. Se usa zip estricto;
+  nunca se truncan filas. Solo se admite None como array si el conteo es cero.
+- Una respuesta sin filas es error explícito. No se retorna éxito con una lista
+  vacía que pudiera confundirse con fuerzas cero y no se ejecuta análisis como
+  recuperación. En el ensayo, tanto selección vacía como un frame inexistente
+  devolvieron NumberResults=0 y código CSI=1. No se interpreta que ese código
+  signifique exclusivamente ausencia de resultados. El caso defensivo código 0
+  con cero filas también se rechaza explícitamente; no fue observado en el ensayo.
+- Orden: load_case, step_type (null agrupado con vacío), step_num, station,
+  element_id, element_station; las seis componentes de fuerza y la distinción
+  null/cadena vacía rompen empates. No se modifica correspondencia ni signo.
+- `AnalysisResult.units` contiene el DTO neutral mínimo `ResultUnits(force, length)`;
+  `moment` se deriva como `force*length`. En B1.5 siempre se rellena. Los campos
+  opcionales anteriores se mantienen por compatibilidad; no se implementan
+  desplazamientos. Fuerzas: force; T/M2/M3: moment; ObjSta/ElmSta: length.
+  Los valores permanecen en present units. El enum CSI se resuelve únicamente en
+  el adapter a partir del contexto B1.1 normalizado, sin conversiones a SI ni un
+  sistema general de cantidades físicas.
+- Metadatos/unidades se consultan antes y después y se rechazan cambios detectados.
+  El usuario debe mantener la sesión en reposo: no se garantiza atomicidad ante
+  ediciones concurrentes de modelo, selección u opciones de output.
+
+### Results.Setup: firmas verificadas y estado del ensayo
+
+DLL, typelib y temas correspondientes de la ayuda instalada confirman:
+
+```text
+Int32 DeselectAllCasesAndCombosForOutput()
+Int32 GetCaseSelectedForOutput(String Name, ref Boolean Selected)
+Int32 GetComboSelectedForOutput(String Name, ref Boolean Selected)
+Int32 SetCaseSelectedForOutput(String Name, Boolean Selected = true)
+Int32 SetComboSelectedForOutput(String Name, Boolean Selected = true)
+```
+
+Los getters comtypes devuelven `(Selected, pRetVal)`; los setters un entero CSI.
+Solo se usaron en la **instrumentación desechable**; la query productiva ni siquiera
+consulta Results.Setup: FrameForce respeta directamente el estado existente.
+
+Selección inicial: casos `pp, cv, w1, w2, sx, sy, verde` no seleccionados; combinaciones
+`COMB1`–`COMB9` y `servicio` seleccionadas. Se verificaron 7 casos analizados en
+estado CSI 4. Las lecturas normales mantuvieron exactamente todos los flags.
+En un ensayo de error separado se deseleccionó todo, se observó el fallo descrito
+y se restauró en finally cada flag inicial mediante los setters documentados.
+Se comprobó igualdad completa de la selección, archivo y estado tras restaurar.
+No se guardó el modelo para persistir esa preparación.
+
+### Validación real API frente a tablas SAP2000
+
+Se abrió una copia completa de la carpeta analizada de B1.4 en
+`.venv/b15-validation/pm_corregido_b14.sdb`, en una instancia separada de SAP2000
+26.2.0. No se usó el original para experimentos ni se volvió a ejecutar análisis.
+El gateway recibió una frontera instrumental que solo expone las consultas de
+metadatos y Results.FrameForce, sin Analyze, File, setters ni Results.Setup.
+
+Se leyeron dos veces los frames **1, 12 y 100**: **33 filas por frame**, salidas
+neutrales idénticas. Se contrastaron manualmente las tres filas COMB1, estación
+objeto/elemento 0, con las cadenas formateadas de la tabla nativa
+**Element Forces - Frames**, exportada por
+`DatabaseTables.GetTableForDisplayCSVString(TableKey=..., GroupName="ALL")`.
+La vía de tablas es instrumentación del ensayo, no parte del producto. No se
+pretende haber inspeccionado una captura de GUI: el permiso de control visual
+de la aplicación no se completó. Se empleó la alternativa de tablas nativas.
+
+Tolerancia absoluta explícita: **0.0051 kgf** para P/V2/V3 y **0.0051 kgf·m** para
+T/M2/M3 (0.005 de redondeo a centésimas más margen numérico). Todos los 18 valores
+coinciden dentro de esa tolerancia; los pequeños conservan aún más decimales en
+la tabla. El adapter no redondea para hacerlos coincidir.
+
+Filas de tabla revisadas (kgf y kgf·m; COMB1, estación 0):
+
+| Frame | P | V2 | V3 | T | M2 | M3 |
+| --- | --- | --- | --- | --- | --- | --- |
+| 1 | -2149.44 | -125.64 | -5.91 | 0.06332 | -13.01 | -279.5 |
+| 12 | -205.44 | -450.04 | 2.36 | -1.49 | 0.5 | -410.42 |
+| 100 | -185.75 | 372.14 | -0.05429 | -0.0006909 | -0.0955 | 342.52 |
+
+Por ejemplo, frame 12 API: P=-205.43952172169466, V2=-450.0449262296573,
+M3=-410.42135778572595. Diferencia máxima observada entre todas las componentes
+comparadas: **0.0049262296572578634**, inferior a 0.0051. Hay axial relevante en
+frame 1, cortante en frame 12 y momento en los tres.
+
+### Persistencia y evidencia
+
+Antes y después de queries, y tras restaurar la selección experimental:
+
+| Dato | Antes = después |
+| --- | --- |
+| SHA256 | `4a076e1f4c673e37575fe88be7f6ac43eb034b334e0b3e9f342d8508b944ace0` |
+| LastWriteTimeUtc | `2026-10-14T04:01:04.001472+00:00` |
+| mtime_ns | `1791950464001471500` |
+| Tamaño | 116679 bytes |
+| Present units | `kgf_m_C` (enum 8); fuerza kgf, longitud m, momento kgf*m |
+| Bloqueo | True |
+| Salud | True |
+
+No hubo llamadas a RunAnalysis, File.Save, SetPresentUnits ni SetModelIsLocked.
+Los tests verifican también B1.1–B1.4 y que el CLI productivo no accede a setters
+de selección. La copia ya analizada se conserva separada del original.
+
+Evidencia compacta con valores API sin redondear, filas nativas, tolerancias,
+flags y estado antes/después:
+[examples/sap2000_frame_results_validation.json](examples/sap2000_frame_results_validation.json).
+
+### Diagnóstico explícito
+
+```powershell
+python -m jym_structural.adapters.sap2000 --frame-results 12
+```
+
+Solo consulta el frame indicado. Es mutuamente excluyente con --inventory y
+--run-analysis, no cambia selección, retorna JSON neutral y ante fallos sale con
+código 1, stderr y sin JSON parcial. Sin flags se mantiene B1.1. No se implementa B1.6.
+
+La instancia desechable se cerró con `ApplicationExit(False)` al finalizar el ensayo;
+hash y fecha de la copia se comprobaron nuevamente sin cambios. El original mantuvo
+su hash `42f0cc0ddc6d6d5156c42a7820668c5df21d7047879fa820d57483f354a3ed10`.
+
+Resultado automático final B1.5: **208 tests aprobados**, con una advertencia de
+permisos al escribir la caché de pytest; `ruff check src tests`: All checks passed;
+`git diff --check`: sin errores. Incluye pruebas del Core, todos los arrays de
+FrameForce, orden, unidades sin conversión, StepType nulo, errores CSI/COM, salida
+vacía, CLI y límites de solo lectura, además de las regresiones B1.1–B1.4.

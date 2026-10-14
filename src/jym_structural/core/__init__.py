@@ -5,6 +5,7 @@ from .models import (
     ModelInfo,
     Node,
     Point3D,
+    ResultUnits,
     Section,
     StructuralModel,
 )
@@ -16,6 +17,7 @@ __all__ = [
     "ModelInfo",
     "Node",
     "Point3D",
+    "ResultUnits",
     "Section",
     "StructuralModel",
 ]

@@ -1,0 +1,289 @@
+{
+  "software": {
+    "software": "SAP2000",
+    "version": "26.2.0",
+    "model_name": "pm_corregido_b14.sdb",
+    "model_path": "C:\\Dev\\JYM-Structural-Automation\\.venv\\b15-validation\\pm_corregido_b14.sdb",
+    "units": "kgf_m_C"
+  },
+  "unit_context": {
+    "force": "kgf",
+    "length": "m",
+    "moment": "kgf*m"
+  },
+  "before": {
+    "sha256": "4a076e1f4c673e37575fe88be7f6ac43eb034b334e0b3e9f342d8508b944ace0",
+    "last_write_time_utc": "2026-10-14T04:01:04.001472+00:00",
+    "mtime_ns": 1791950464001471500,
+    "size": 116679,
+    "units": 8,
+    "locked": true,
+    "health": true
+  },
+  "after_queries": {
+    "sha256": "4a076e1f4c673e37575fe88be7f6ac43eb034b334e0b3e9f342d8508b944ace0",
+    "last_write_time_utc": "2026-10-14T04:01:04.001472+00:00",
+    "mtime_ns": 1791950464001471500,
+    "size": 116679,
+    "units": 8,
+    "locked": true,
+    "health": true
+  },
+  "after_selection_restored": {
+    "sha256": "4a076e1f4c673e37575fe88be7f6ac43eb034b334e0b3e9f342d8508b944ace0",
+    "last_write_time_utc": "2026-10-14T04:01:04.001472+00:00",
+    "mtime_ns": 1791950464001471500,
+    "size": 116679,
+    "units": 8,
+    "locked": true,
+    "health": true
+  },
+  "selection_initial": {
+    "cases": {
+      "pp": false,
+      "cv": false,
+      "w1": false,
+      "w2": false,
+      "sx": false,
+      "sy": false,
+      "verde": false
+    },
+    "combos": {
+      "COMB1": true,
+      "COMB2": true,
+      "COMB3": true,
+      "COMB4": true,
+      "COMB5": true,
+      "COMB6": true,
+      "COMB7": true,
+      "COMB8": true,
+      "COMB9": true,
+      "servicio": true
+    }
+  },
+  "selection_restored_exactly": true,
+  "query_policy": "Current output selection only; production exposes no Setup setters",
+  "records_per_frame": {
+    "1": 33,
+    "12": 33,
+    "100": 33
+  },
+  "step_types_observed": [
+    null,
+    "Max",
+    "Min"
+  ],
+  "table_source": "SAP2000 DatabaseTables.GetTableForDisplayCSVString: Element Forces - Frames, GroupName=ALL",
+  "comparison_note": "Native formatted SAP2000 table, not an independent GUI screenshot; no GUI access approval",
+  "absolute_tolerance": {
+    "force_kgf": 0.0051,
+    "moment_kgf_m": 0.0051
+  },
+  "comparisons": [
+    {
+      "member": "1",
+      "api": {
+        "object_id": "1",
+        "station": 0.0,
+        "element_id": "1-1",
+        "element_station": 0.0,
+        "load_case": "COMB1",
+        "step_type": null,
+        "step_num": 0.0,
+        "p": -2149.444482725075,
+        "v2": -125.6416086856993,
+        "v3": -5.910822057089672,
+        "t": 0.06331920597283922,
+        "m2": -13.01342317556974,
+        "m3": -279.5014322179189
+      },
+      "native_sap_table": {
+        "Frame": "1",
+        "Station": "0",
+        "OutputCase": "COMB1",
+        "CaseType": "Combination",
+        "StepType": "",
+        "P": "-2149.44",
+        "V2": "-125.64",
+        "V3": "-5.91",
+        "T": "0.06332",
+        "M2": "-13.01",
+        "M3": "-279.5",
+        "FrameElem": "1-1",
+        "ElemStation": "0"
+      },
+      "absolute_differences": {
+        "P": 0.0044827250749222,
+        "V2": 0.00160868569929562,
+        "V3": 0.0008220570896719792,
+        "T": 7.940271607859151e-07,
+        "M2": 0.0034231755697398114,
+        "M3": 0.001432217918875267
+      }
+    },
+    {
+      "member": "12",
+      "api": {
+        "object_id": "12",
+        "station": 0.0,
+        "element_id": "12-1",
+        "element_station": 0.0,
+        "load_case": "COMB1",
+        "step_type": null,
+        "step_num": 0.0,
+        "p": -205.43952172169466,
+        "v2": -450.0449262296573,
+        "v3": 2.3569336574144173,
+        "t": -1.4910787498192974,
+        "m2": 0.4997351140746584,
+        "m3": -410.42135778572595
+      },
+      "native_sap_table": {
+        "Frame": "12",
+        "Station": "0",
+        "OutputCase": "COMB1",
+        "CaseType": "Combination",
+        "StepType": "",
+        "P": "-205.44",
+        "V2": "-450.04",
+        "V3": "2.36",
+        "T": "-1.49",
+        "M2": "0.5",
+        "M3": "-410.42",
+        "FrameElem": "12-1",
+        "ElemStation": "0"
+      },
+      "absolute_differences": {
+        "P": 0.0004782783053371986,
+        "V2": 0.0049262296572578634,
+        "V3": 0.003066342585582582,
+        "T": 0.0010787498192974532,
+        "M2": 0.0002648859253415736,
+        "M3": 0.0013577857259292614
+      }
+    },
+    {
+      "member": "100",
+      "api": {
+        "object_id": "100",
+        "station": 0.0,
+        "element_id": "100-1",
+        "element_station": 0.0,
+        "load_case": "COMB1",
+        "step_type": null,
+        "step_num": 0.0,
+        "p": -185.75175947644456,
+        "v2": 372.13879682361767,
+        "v3": -0.05428596318699101,
+        "t": -0.0006908505675121635,
+        "m2": -0.09550141970127518,
+        "m3": 342.5184781996257
+      },
+      "native_sap_table": {
+        "Frame": "100",
+        "Station": "0",
+        "OutputCase": "COMB1",
+        "CaseType": "Combination",
+        "StepType": "",
+        "P": "-185.75",
+        "V2": "372.14",
+        "V3": "-0.05429",
+        "T": "-0.0006909",
+        "M2": "-0.0955",
+        "M3": "342.52",
+        "FrameElem": "100-1",
+        "ElemStation": "0"
+      },
+      "absolute_differences": {
+        "P": 0.0017594764445618694,
+        "V2": 0.0012031763823188157,
+        "V3": 4.0368130089854515e-06,
+        "T": 4.943248783657178e-08,
+        "M2": 1.4197012751793192e-06,
+        "M3": 0.0015218003742916153
+      }
+    }
+  ],
+  "no_selection_probe": {
+    "observed": {
+      "NumberResults": 0,
+      "return_code": 1,
+      "array_types": [
+        "tuple",
+        "tuple",
+        "tuple",
+        "tuple",
+        "tuple",
+        "tuple",
+        "tuple",
+        "tuple",
+        "tuple",
+        "tuple",
+        "tuple",
+        "tuple",
+        "tuple"
+      ]
+    },
+    "adapter_error": "Results.FrameForce('1') failed with CSI return code 1.",
+    "preparation": "Validation-only DeselectAll, then restore each initial flag"
+  },
+  "missing_member_probe": {
+    "NumberResults": 0,
+    "return_code": 1
+  },
+  "adapter_calls": [
+    {
+      "operation": "Results.FrameForce",
+      "inputs": {
+        "Name": "1",
+        "ItemTypeElm": 0
+      }
+    },
+    {
+      "operation": "Results.FrameForce",
+      "inputs": {
+        "Name": "1",
+        "ItemTypeElm": 0
+      }
+    },
+    {
+      "operation": "Results.FrameForce",
+      "inputs": {
+        "Name": "12",
+        "ItemTypeElm": 0
+      }
+    },
+    {
+      "operation": "Results.FrameForce",
+      "inputs": {
+        "Name": "12",
+        "ItemTypeElm": 0
+      }
+    },
+    {
+      "operation": "Results.FrameForce",
+      "inputs": {
+        "Name": "100",
+        "ItemTypeElm": 0
+      }
+    },
+    {
+      "operation": "Results.FrameForce",
+      "inputs": {
+        "Name": "100",
+        "ItemTypeElm": 0
+      }
+    },
+    {
+      "operation": "Results.FrameForce",
+      "inputs": {
+        "Name": "1",
+        "ItemTypeElm": 0
+      }
+    }
+  ],
+  "boundary": "Only metadata getters and Results.FrameForce exposed; no Analyze, File, units/lock setters or Results.Setup",
+  "disposable_instance_closed_without_save": true,
+  "file_unchanged_after_close": true,
+  "original_file_sha256_unchanged": "42f0cc0ddc6d6d5156c42a7820668c5df21d7047879fa820d57483f354a3ed10"
+}

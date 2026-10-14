@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Self
 
-from pydantic import BaseModel, ConfigDict, Field, FiniteFloat, model_validator
+from pydantic import BaseModel, ConfigDict, Field, FiniteFloat, computed_field, model_validator
 
 
 class ModelInfo(BaseModel):
@@ -85,19 +85,46 @@ class StructuralModel(BaseModel):
 
 
 class FrameForces(BaseModel):
-    station: float | None = None
+    """One local-axis force row; station is measured from the object's I-end.
+
+    element_station is measured from the analysis element's I-end. Keep both:
+    an object may span multiple analysis elements. load_case identifies the
+    source case OR combination; no envelope is computed by this model.
+    """
+
+    model_config = ConfigDict(strict=True)
+
+    object_id: str | None = None
+    station: FiniteFloat | None = None
+    element_id: str | None = None
+    element_station: FiniteFloat | None = None
     load_case: str | None = None
-    p: float | None = None
-    v2: float | None = None
-    v3: float | None = None
-    t: float | None = None
-    m2: float | None = None
-    m3: float | None = None
+    step_type: str | None = None
+    step_num: FiniteFloat | None = None
+    p: FiniteFloat | None = None
+    v2: FiniteFloat | None = None
+    v3: FiniteFloat | None = None
+    t: FiniteFloat | None = None
+    m2: FiniteFloat | None = None
+    m3: FiniteFloat | None = None
+
+
+class ResultUnits(BaseModel):
+    """Source units: forces use force, stations use length, moments use force*length."""
+
+    force: str = Field(min_length=1)
+    length: str = Field(min_length=1)
+
+    @computed_field
+    @property
+    def moment(self) -> str:
+        return f"{self.force}*{self.length}"
 
 
 class AnalysisResult(BaseModel):
     member_id: str
     forces: list[FrameForces] = Field(default_factory=list)
+    units: ResultUnits | None = None
     u1: float | None = None
     u2: float | None = None
     u3: float | None = None

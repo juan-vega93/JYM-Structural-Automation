@@ -42,11 +42,14 @@
 - require an established connection; no retries or silent reconnection
 - queries never trigger analysis; no results reading
 
-### B1.5 — Results (future)
-- frame forces P/V2/V3/T/M2/M3
-- displacements
-- load case/combo + station
-- normalization into core models
+### B1.5 — SAP2000 Frame Results Reader
+- explicit query for one frame's P/V2/V3/T/M2/M3
+- current output selection only; never analyze or select cases implicitly
+- preserve object/element stations, case/combo, step and present units
+- strict arrays validation and deterministic neutral output
+
+### Future results (outside B1.5)
+- displacements and other result capabilities, separately scoped
 
 ## Track C — Existing Tekla MCP (parallel)
 

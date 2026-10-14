@@ -12,6 +12,11 @@ def main(argv: list[str] | None = None) -> int:
     operation = parser.add_mutually_exclusive_group()
     operation.add_argument("--inventory", action="store_true", help="Read B1.2 frames and sections")
     operation.add_argument(
+        "--frame-results",
+        metavar="MEMBER_ID",
+        help="Read one frame for the current output selection",
+    )
+    operation.add_argument(
         "--run-analysis",
         action="store_true",
         help="COMMAND: run analysis once; SAP2000 may change analysis state and files",
@@ -24,6 +29,8 @@ def main(argv: list[str] | None = None) -> int:
         if args.run_analysis:
             gateway.run_analysis()
             data = {"command": "run_analysis", "status": "completed"}
+        elif args.frame_results is not None:
+            data = gateway.get_member_results(args.frame_results).model_dump()
         elif args.inventory:
             sections = gateway.list_sections()
             members = gateway.list_members()

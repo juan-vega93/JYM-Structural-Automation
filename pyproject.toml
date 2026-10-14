@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "jym-structural-automation"
+version = "0.1.0"
+description = "Structural automation core and adapters for SAP2000, IDEA StatiCa, Tekla, Revit and Grasshopper."
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [{name = "JYM Smart BIM Technologies"}]
+dependencies = [
+  "pydantic>=2.8,<3",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8,<9",
+  "ruff>=0.7,<1",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.ruff]
+line-length = 100

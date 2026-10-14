@@ -7,6 +7,8 @@ from typing import Any
 
 from jym_structural.core.models import ModelInfo
 
+from .contracts import Sap2000ConnectionGateway
+
 
 class Sap2000Error(RuntimeError):
     """An attachment or read-only OAPI operation failed."""
@@ -53,8 +55,8 @@ def _attach_running_instance() -> Any:
     return helper.GetObject("CSI.SAP2000.API.SapObject")
 
 
-class ComSap2000Gateway:
-    """B1.1 read-only subset of the gateway; no model or analysis commands.
+class ComSap2000Gateway(Sap2000ConnectionGateway):
+    """B1.1 connection capability; no model or analysis commands.
 
     Keep the gateway on the COM-initialized thread that created it. Attachment
     is explicit; health checks never start SAP2000 or silently reconnect.

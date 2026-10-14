@@ -57,9 +57,9 @@
   para GetVersion es `(version, version_number, return_code)`.
 - Los 16 valores de `eUnits` se traducen a nombres estables del adaptador; un
   valor desconocido produce error. Solo sale `ModelInfo` hacia el core.
-- `ComSap2000Gateway` implementa el subconjunto B1.1 del contrato previsto.
-  Los métodos de miembros, secciones, análisis y resultados del protocolo existente
-  quedan para sus respectivos issues; no se añaden implementaciones vacías.
+- `ComSap2000Gateway` implementa explícitamente `Sap2000ConnectionGateway` (B1.1).
+  `Sap2000ModelReader`, `Sap2000AnalysisRunner` y `Sap2000ResultsReader` separan las
+  capacidades posteriores; no se añaden implementaciones vacías ni operaciones.
 - Se mantiene la conexión en el hilo COM que la creó. Los errores se presentan
   como `Sap2000Error`, conservando su causa; la salud se informa como booleano.
 - Referencia primaria: `SAP2000v1.dll` y `CSI_OAPI_Documentation.chm` de la instalación

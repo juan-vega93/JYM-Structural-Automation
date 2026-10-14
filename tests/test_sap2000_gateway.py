@@ -3,7 +3,12 @@ from unittest.mock import Mock, call
 
 import pytest
 
-from jym_structural.adapters.sap2000 import ComSap2000Gateway, Sap2000Error, gateway
+from jym_structural.adapters.sap2000 import (
+    ComSap2000Gateway,
+    Sap2000ConnectionGateway,
+    Sap2000Error,
+    gateway,
+)
 from jym_structural.adapters.sap2000 import __main__ as diagnostic
 from jym_structural.core.models import ModelInfo
 
@@ -19,7 +24,7 @@ def application():
 
 def test_connection_normalizes_metadata_and_only_reads(application):
     attach = Mock(return_value=application)
-    adapter = ComSap2000Gateway(attach=attach)
+    adapter: Sap2000ConnectionGateway = ComSap2000Gateway(attach=attach)
     assert adapter.health_check() is False
     attach.assert_not_called()
     info = adapter.connect_to_running_instance()
@@ -38,6 +43,13 @@ def test_connection_normalizes_metadata_and_only_reads(application):
     ]
     assert adapter.health_check() is True
     attach.assert_called_once_with()
+
+
+def test_connection_does_not_expose_later_capabilities():
+    assert Sap2000ConnectionGateway in ComSap2000Gateway.__bases__
+    adapter = ComSap2000Gateway()
+    for method in ("list_sections", "list_members", "run_analysis", "get_member_results"):
+        assert not hasattr(adapter, method)
 
 
 @pytest.mark.parametrize(

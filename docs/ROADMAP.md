@@ -31,7 +31,12 @@
 - frame section assignment
 - endpoints and length
 
-### B1.3 — Analysis boundary
+### B1.3 — Structural Core Geometry
+- neutral Point3D, Node and StructuralModel
+- unique identifiers and validated node/section references
+- read-only geometry from frame endpoints, in explicit present length units
+
+### Analysis boundary (future, after geometry)
 - run analysis as an explicit Command
 - validate CSI return codes
 - reconnect/health-check policy

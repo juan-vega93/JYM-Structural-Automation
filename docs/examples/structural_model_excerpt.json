@@ -1,0 +1,101 @@
+{
+  "description": "Representative validated subset; counts describe the complete model",
+  "full_model_counts": {
+    "nodes": 254,
+    "members": 449,
+    "sections": 19
+  },
+  "sources": {
+    "coordinates": "PointObj.GetCoordCartesian in Global; present units; no conversion",
+    "length": "derived I-J chord",
+    "nodes": "unique frame endpoints only; isolated points not enumerated"
+  },
+  "validation": {
+    "before": {
+      "sha256": "42f0cc0ddc6d6d5156c42a7820668c5df21d7047879fa820d57483f354a3ed10",
+      "mtime_utc": "2026-10-12T05:45:32.091158+00:00",
+      "mtime_ns": 1791783932091158100
+    },
+    "after": {
+      "sha256": "42f0cc0ddc6d6d5156c42a7820668c5df21d7047879fa820d57483f354a3ed10",
+      "mtime_utc": "2026-10-12T05:45:32.091158+00:00",
+      "mtime_ns": 1791783932091158100
+    },
+    "stable_repeated_reads": true,
+    "health_check": true
+  },
+  "structural_model_excerpt": {
+    "model_info": {
+      "software": "SAP2000",
+      "version": "26.2.0",
+      "model_name": "pm_corregido.sdb",
+      "model_path": "C:\\Users\\Usuario\\Downloads\\pm_corregido.sdb",
+      "units": "kgf_m_C"
+    },
+    "length_unit": "m",
+    "nodes": [
+      {
+        "id": "1",
+        "position": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        }
+      },
+      {
+        "id": "105",
+        "position": {
+          "x": 4.333333333333333,
+          "y": 18.0,
+          "z": 7.7666666666666675
+        }
+      },
+      {
+        "id": "106",
+        "position": {
+          "x": 5.416666666666666,
+          "y": 18.0,
+          "z": 7.958333333333333
+        }
+      },
+      {
+        "id": "2",
+        "position": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 5.86
+        }
+      }
+    ],
+    "sections": [
+      {
+        "name": "W10X39",
+        "material": "A36",
+        "family": null
+      },
+      {
+        "name": "W8X15",
+        "material": "A36",
+        "family": null
+      }
+    ],
+    "members": [
+      {
+        "id": "1",
+        "name": "1",
+        "section": "W10X39",
+        "start_node": "1",
+        "end_node": "2",
+        "length": 5.86
+      },
+      {
+        "id": "100",
+        "name": "100",
+        "section": "W8X15",
+        "start_node": "105",
+        "end_node": "106",
+        "length": 1.1001578169618307
+      }
+    ]
+  }
+}

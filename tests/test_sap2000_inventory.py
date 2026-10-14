@@ -2,6 +2,7 @@ import json
 from unittest.mock import Mock, call
 
 import pytest
+from pydantic import ValidationError
 
 from jym_structural.adapters.sap2000 import (
     ComSap2000Gateway,
@@ -9,7 +10,7 @@ from jym_structural.adapters.sap2000 import (
     Sap2000ModelReader,
 )
 from jym_structural.adapters.sap2000 import __main__ as diagnostic
-from jym_structural.core.models import Member, Section
+from jym_structural.core.models import Member, Section, StructuralModel
 
 
 @pytest.fixture
@@ -107,7 +108,7 @@ def test_empty_model(inventory, empty):
     model.PointObj.GetCoordCartesian.assert_not_called()
 
 
-@pytest.mark.parametrize("method", ["list_sections", "list_members"])
+@pytest.mark.parametrize("method", ["list_sections", "list_members", "read_structural_model"])
 def test_inventory_requires_explicit_connection(method):
     attach = Mock()
     adapter = ComSap2000Gateway(attach=attach)
@@ -214,3 +215,77 @@ def test_inventory_cli_failure_has_no_partial_json(inventory, monkeypatch, capsy
     output = capsys.readouterr()
     assert output.out == ""
     assert "CSI return code 5" in output.err
+
+
+def test_structural_model_reuses_geometry_queries_and_preserves_non_si_units(inventory):
+    adapter, model = inventory
+    model.GetPresentUnits.return_value = 4  # kip_ft_F; do not convert coordinates.
+    reader: Sap2000ModelReader = adapter
+    geometry = reader.read_structural_model()
+    assert isinstance(geometry, StructuralModel)
+    assert geometry.model_info.units == "kip_ft_F"
+    assert geometry.length_unit == "ft"
+    assert [node.id for node in geometry.nodes] == ["I", "J", "K"]
+    assert geometry.nodes[1].position.model_dump() == {"x": 3.0, "y": 4.0, "z": 12.0}
+    assert geometry.members[0].length == 13.0
+    assert geometry.members[0].start_node == "I"
+    assert geometry.members[0].end_node == "J"
+    assert geometry.members[0].section == "W12"
+    assert [member.id for member in geometry.members] == ["10", "20"]
+    assert [section.name for section in geometry.sections] == ["W12", "W8"]
+    assert model.PointObj.GetCoordCartesian.call_count == 3
+    assert model.FrameObj.GetNameList.call_count == 1
+    assert model.PropFrame.GetNameList.call_count == 1
+    assert StructuralModel.model_validate_json(geometry.model_dump_json()) == geometry
+
+
+def test_structural_model_empty(inventory):
+    adapter, model = inventory
+    model.FrameObj.GetNameList.return_value = (0, None, 0)
+    model.PropFrame.GetNameList.return_value = (0, None, 0)
+    geometry = adapter.read_structural_model()
+    assert geometry.nodes == geometry.members == geometry.sections == []
+    assert geometry.length_unit == "m"
+    model.PointObj.GetCoordCartesian.assert_not_called()
+
+
+def test_structural_model_missing_section_is_rejected_by_core(inventory):
+    adapter, model = inventory
+    model.PropFrame.GetNameList.return_value = (0, (), 0)
+    with pytest.raises(ValidationError, match="references missing section"):
+        adapter.read_structural_model()
+
+
+def test_structural_model_rejects_units_changed_during_read(inventory):
+    adapter, model = inventory
+    model.GetPresentUnits.side_effect = [6, 4]
+    with pytest.raises(Sap2000Error, match="present units changed"):
+        adapter.read_structural_model()
+
+
+def test_structural_model_coordinate_status_is_checked(inventory):
+    adapter, model = inventory
+    model.PointObj.GetCoordCartesian.side_effect = None
+    model.PointObj.GetCoordCartesian.return_value = (0, 0, 0, 8)
+    with pytest.raises(Sap2000Error, match="CSI return code 8"):
+        adapter.read_structural_model()
+
+
+def test_structural_model_preserves_source_identifiers_exactly(inventory):
+    adapter, model = inventory
+    model.FrameObj.GetNameList.return_value = (1, ("001",), 0)
+    model.FrameObj.GetPoints.side_effect = None
+    model.FrameObj.GetPoints.return_value = ("01", "1", 0)
+    model.FrameObj.GetSection.side_effect = None
+    model.FrameObj.GetSection.return_value = (" W12 ", "", 0)
+    model.PropFrame.GetNameList.return_value = (1, (" W12 ",), 0)
+    model.PropFrame.GetMaterial.side_effect = None
+    model.PropFrame.GetMaterial.return_value = ("A36", 0)
+    model.PointObj.GetCoordCartesian.side_effect = None
+    model.PointObj.GetCoordCartesian.return_value = (0, 0, 0, 0)
+    geometry = adapter.read_structural_model()
+    assert [node.id for node in geometry.nodes] == ["01", "1"]
+    assert geometry.members[0].id == geometry.members[0].name == "001"
+    assert geometry.members[0].start_node == "01"
+    assert geometry.members[0].end_node == "1"
+    assert geometry.members[0].section == geometry.sections[0].name == " W12 "

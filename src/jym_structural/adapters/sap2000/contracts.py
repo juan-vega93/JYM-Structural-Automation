@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Protocol
 
-from jym_structural.core.models import AnalysisResult, Member, ModelInfo, Section
+from jym_structural.core.models import AnalysisResult, Member, ModelInfo, Section, StructuralModel
 
 
 class Sap2000ConnectionGateway(Protocol):
@@ -19,6 +19,8 @@ class Sap2000ModelReader(Protocol):
     def list_sections(self) -> list[Section]: ...
 
     def list_members(self) -> list[Member]: ...
+
+    def read_structural_model(self) -> StructuralModel: ...
 
 
 class Sap2000AnalysisRunner(Protocol):

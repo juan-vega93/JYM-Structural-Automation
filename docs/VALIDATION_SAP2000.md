@@ -1,4 +1,4 @@
-# SAP2000 B1.1 y B1.2: validación de solo lectura
+# SAP2000 B1.1–B1.3: validación de solo lectura
 
 ## Preparación
 
@@ -204,3 +204,101 @@ ante fallo. Los tests B1.1 siguen verificando la conexión y las unidades.
 Resultado de cierre: `pytest -q`: **61 passed**, con una advertencia de permisos al
 escribir la caché de pytest; `ruff check src tests`: **All checks passed**;
 `git diff --check`: sin errores de whitespace.
+
+## B1.3: Structural Core Geometry
+
+### Contrato neutral y decisiones
+
+- `Point3D(x, y, z)` valida números finitos en el Core (NaN e infinitos se rechazan).
+- `Node(id, position)` conserva el identificador fuente y una posición cartesiana.
+- `StructuralModel(model_info, length_unit, nodes, sections, members)` agrega los
+  modelos del Core. `length_unit` es obligatorio y no vacío: se aplica a XYZ y
+  longitudes. No interpreta enums SAP2000 ni convierte automáticamente a SI.
+- Se mantienen `ModelInfo`, `Member` y `Section` compatibles con B1.1/B1.2.
+  `Section.name` es la clave de sección existente. `Member.start_node/end_node`
+  siguen siendo IDs, sin objetos Node incrustados. Aunque un Member aislado puede
+  omitir extremos por compatibilidad, dentro de StructuralModel ambos son obligatorios
+  y deben referenciar nodos existentes.
+- Un validador Pydantic en `StructuralModel` rechaza IDs duplicados de nodos/miembros,
+  nombres duplicados de secciones y referencias a nodos/secciones inexistentes.
+  Una sección nula se permite. Las colecciones de entrada son listas: no se convierten
+  a diccionarios antes de validar ni se descartan duplicados. Un modelo sin miembros
+  puede tener colecciones vacías o nodos aislados aportados por otros adapters.
+- Estas invariantes se comprueban al construir/deserializar el modelo; si un consumidor
+  edita posteriormente listas u objetos, debe revalidar antes de tratarlos como snapshot.
+  El Core no contiene dependencias, códigos ni tipos CSI/COM.
+
+### Lectura SAP2000
+
+```python
+from jym_structural.adapters.sap2000 import ComSap2000Gateway
+
+gateway = ComSap2000Gateway()
+gateway.connect_to_running_instance()
+model = gateway.read_structural_model()
+print(len(model.nodes), len(model.members), len(model.sections), model.length_unit)
+# Con pm_corregido.sdb: 254 449 19 m
+```
+
+`Sap2000ModelReader` incorpora `read_structural_model()`. La implementación comparte
+con `list_members()` la lectura de extremos y coordenadas: una consulta por nodo único
+durante cada snapshot, usada también para calcular las longitudes I-J. Los nodos se
+ordenan lexicográficamente por ID sin renumerar, recortar ni normalizar los nombres.
+Compartir un mismo extremo entre miembros crea una única entidad Node; no es un
+descarte de entidades fuente duplicadas.
+
+El snapshot incluye **solo los nodos referenciados por frames**; no enumera puntos
+aislados mediante una API adicional. Incluye todas las secciones del inventario B1.2.
+Usa exclusivamente las consultas ya validadas: `FrameObj.GetNameList/GetPoints/GetSection`,
+`PropFrame.GetNameList/GetMaterial`, `PointObj.GetCoordCartesian(Name=..., CSys="Global")`
+y las tres consultas de metadatos B1.1. Se mantienen los códigos CSI y órdenes de
+salidas documentados arriba. La finitud de XYZ se valida mediante Point3D; el adapter
+traduce fallos de coordenadas a Sap2000Error conservando la causa de Pydantic.
+
+La unidad se obtiene dentro del adapter del enum ya normalizado en `ModelInfo.units`
+(`kgf_m_C` → `m`, `kip_ft_F` → `ft`). Las coordenadas y longitudes se conservan
+numéricamente en esas unidades. Se releen metadatos/unidades al terminar para rechazar
+cambios detectables durante la lectura. No se bloquea ni modifica el modelo; se
+mantiene la recomendación de ejecutarlo en reposo, sin garantía de transacción ante
+ediciones concurrentes.
+
+### Registro real B1.3 — 13 de octubre de 2026 (America/Lima)
+
+Se siguió la misma comprobación de hash y fecha descrita en B1.2, usando
+`read_structural_model()` dos veces y validando el modelo completo con el Core.
+
+| Comprobación | Resultado |
+| --- | --- |
+| SAP2000 | 26.2.0 |
+| Archivo | `pm_corregido.sdb`, mismo archivo de B1.2 |
+| Nodos únicos de extremos | **254** |
+| Frames | **449**, esperado 449 |
+| Secciones | **19**, esperado 19 |
+| Unidades fuente / longitud | `kgf_m_C` / **m** |
+| Dos snapshots consecutivos | Idénticos |
+| Salud posterior | True |
+| Validadores del Core sobre modelo completo | Aprobados |
+
+SHA256 **antes y después**:
+`42f0cc0ddc6d6d5156c42a7820668c5df21d7047879fa820d57483f354a3ed10`.
+
+Fecha de modificación **antes y después (UTC)**:
+`2026-10-12T05:45:32.091158+00:00`.
+También se comparó el valor de precisión original `mtime_ns`: `1791783932091158100`,
+idéntico. Estas comprobaciones acreditan que el archivo persistido no cambió, no
+constituyen por sí solas una inspección de la memoria de SAP2000.
+
+Ejemplo pequeño real: [examples/structural_model_excerpt.json](examples/structural_model_excerpt.json).
+Contiene los conteos completos, evidencia antes/después y un `structural_model_excerpt`
+validado por el Core con 2 miembros, sus 4 nodos y 2 secciones. No es otro volcado del
+modelo completo. El inventario grande anterior de B1.2 se conserva sin duplicarlo.
+
+Las pruebas nuevas cubren modelo válido y round-trip JSON, duplicados de las tres
+colecciones, referencias de ambos extremos, sección inexistente/nula, NaN/Inf en
+los tres ejes, modelo vacío, conservación de IDs y de unidades no SI, fallos CSI
+de coordenadas y cambios de unidades durante la lectura. Se mantienen los tests
+de B1.1 y B1.2.
+
+Resultado de cierre B1.3: `pytest -q`: **91 passed** (una advertencia de permisos
+al escribir la caché); `ruff check src tests`: **All checks passed**;
+`git diff --check`: sin errores.

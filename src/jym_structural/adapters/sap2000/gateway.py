@@ -6,7 +6,9 @@ from collections.abc import Callable
 from pathlib import PureWindowsPath
 from typing import Any
 
-from jym_structural.core.models import Member, ModelInfo, Section
+from pydantic import ValidationError
+
+from jym_structural.core.models import Member, ModelInfo, Node, Point3D, Section, StructuralModel
 
 from .contracts import Sap2000ConnectionGateway, Sap2000ModelReader
 
@@ -57,7 +59,7 @@ def _attach_running_instance() -> Any:
 
 
 class ComSap2000Gateway(Sap2000ConnectionGateway, Sap2000ModelReader):
-    """B1.1 connection and B1.2 model queries; no model or analysis commands.
+    """Read-only connection, inventory and neutral geometry queries.
 
     Keep the gateway on the COM-initialized thread that created it. Attachment
     is explicit; health checks never start SAP2000 or silently reconnect.
@@ -158,11 +160,14 @@ class ComSap2000Gateway(Sap2000ConnectionGateway, Sap2000ModelReader):
         Section is CSI PropName (current concrete property), not SAuto (the
         auto-select list). Material is available by joining Section.name.
         """
-        model = self._model()
-        coordinates: dict[str, tuple[float, ...]] = {}
+        members, _nodes = self._read_members_and_nodes(self._model())
+        return members
 
-        def point_coordinates(name: str) -> tuple[float, ...]:
-            if name not in coordinates:
+    def _read_members_and_nodes(self, model: Any) -> tuple[list[Member], list[Node]]:
+        nodes: dict[str, Node] = {}
+
+        def point_coordinates(name: str) -> tuple[float, float, float]:
+            if name not in nodes:
                 result = self._query(
                     f"PointObj.GetCoordCartesian({name})",
                     model.PointObj.GetCoordCartesian,
@@ -170,13 +175,15 @@ class ComSap2000Gateway(Sap2000ConnectionGateway, Sap2000ModelReader):
                     Name=name,
                     CSys="Global",
                 )
-                xyz = tuple(result[axis] for axis in ("X", "Y", "Z"))
-                if any(
-                    type(value) not in (int, float) or not math.isfinite(value) for value in xyz
-                ):
-                    raise Sap2000Error(f"PointObj.GetCoordCartesian({name}) returned invalid XYZ.")
-                coordinates[name] = xyz
-            return coordinates[name]
+                try:
+                    position = Point3D(x=result["X"], y=result["Y"], z=result["Z"])
+                except ValidationError as exc:
+                    raise Sap2000Error(
+                        f"PointObj.GetCoordCartesian({name}) returned invalid XYZ."
+                    ) from exc
+                nodes[name] = Node(id=name, position=position)
+            position = nodes[name].position
+            return position.x, position.y, position.z
 
         members = []
         for name in self._names("FrameObj.GetNameList", model.FrameObj.GetNameList):
@@ -211,7 +218,33 @@ class ComSap2000Gateway(Sap2000ConnectionGateway, Sap2000ModelReader):
                     length=length,
                 )
             )
-        return members
+        return members, [nodes[name] for name in sorted(nodes)]
+
+    def read_structural_model(self) -> StructuralModel:
+        """Build a validated snapshot of frame endpoints in present units.
+
+        Does not enumerate isolated points or convert coordinates/lengths.
+        """
+        model = self._model()
+        try:
+            info = self._read_model_info(self._application)
+            sections = self.list_sections()
+            members, nodes = self._read_members_and_nodes(model)
+            if self._read_model_info(self._application) != info:
+                raise Sap2000Error(
+                    "Model metadata or present units changed while reading geometry."
+                )
+        except (Sap2000Error, ValidationError):
+            raise
+        except Exception as exc:
+            raise Sap2000Error("Could not read SAP2000 structural geometry.") from exc
+        return StructuralModel(
+            model_info=info,
+            length_unit=info.units.split("_")[1],
+            nodes=nodes,
+            sections=sections,
+            members=members,
+        )
 
     @staticmethod
     def _read_model_info(application: Any) -> ModelInfo:

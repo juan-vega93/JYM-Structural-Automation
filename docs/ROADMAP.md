@@ -63,6 +63,16 @@ DemandCheck integration.
 See `docs/STEEL_AXIAL_YIELD_CAPACITY.md` for validation, provenance and integration
 with the existing DemandCheck.
 
+### A0.8 — Steel Euler Elastic Buckling Capacity
+- ideal elastic Euler capacity in design.steel, returning Core CapacityValue
+- explicit axis x/y, physical length, effective-length K and capacity factor
+- slenderness K*L/r, Fe = pi^2*E/slenderness^2, Pcr = Fe*A
+- exact MPa/mm inputs; L uses section length units; output N without conversion
+- independent of axial yielding, with no Fy cap or automatic governing selection
+- no complete AISC/E.090 compression design or inelastic compression curve
+
+See `docs/STEEL_EULER_BUCKLING_CAPACITY.md` for assumptions and validation.
+
 ## Track B — SAP2000 Adapter (parallel)
 
 ### B1.1 — Read-only connection spike

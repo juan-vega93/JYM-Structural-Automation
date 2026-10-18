@@ -4,11 +4,15 @@ from typing import Annotated
 
 from pydantic import Field, FiniteFloat, TypeAdapter
 
-_FACTOR = TypeAdapter(Annotated[FiniteFloat, Field(gt=0, strict=True)])
+_POSITIVE_SCALAR = TypeAdapter(Annotated[FiniteFloat, Field(gt=0, strict=True)])
+
+
+def validate_positive_scalar(value: float) -> float:
+    return _POSITIVE_SCALAR.validate_python(value)
 
 
 def validate_positive_factor(factor: float) -> float:
-    return _FACTOR.validate_python(factor)
+    return validate_positive_scalar(factor)
 
 
 def require_mpa_mm(stress: str, length: str) -> None:

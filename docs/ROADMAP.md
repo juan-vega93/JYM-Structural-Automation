@@ -10,14 +10,19 @@
 - AnalysisResult
 - stable JSON serialization
 
-### A0.2 — Units and envelopes
-- explicit force/length unit metadata
-- result envelope model
-- member-end vs station results
+### A0.2 — Result processing and traceable envelopes
+- explicit ResultUnits context without unit conversion
+- signed component extrema, min/max envelopes and absolute extrema
+- preserve full object/element station, case label and step provenance
+- deterministic ties, strict missing-value validation and pure Core functions
 
-### A0.3 — Checks engine
-- deflection check
-- generic utilization/check result
+### A0.3 — Basic demand checks
+- traceable demand/capacity ratio using caller-supplied positive capacity
+- abs(demand)/capacity; passes when ratio <= 1
+- no design standards, resistance factors, section capacity or interactions
+
+See `docs/STRUCTURAL_CORE_RESULTS.md` for the public API and policies.
+Deflection, serviceability and code-based design remain outside this block.
 
 ## Track B — SAP2000 Adapter (parallel)
 

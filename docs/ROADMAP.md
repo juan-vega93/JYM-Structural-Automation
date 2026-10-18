@@ -24,6 +24,16 @@
 See `docs/STRUCTURAL_CORE_RESULTS.md` for the public API and policies.
 Deflection, serviceability and code-based design remain outside this block.
 
+### A0.4 — Neutral Materials & Section Properties
+- immutable material, section, unit and provenance value objects
+- explicit supplied Fy/Fu/E/G, optional conventional Poisson ratio
+- finite section properties and optional dimensions, without capacity calculations
+- dimensional section units derived from one length label; no conversion
+- catalog x/y axes remain unmapped to member local axes
+
+See `docs/STRUCTURAL_CORE_PROPERTIES.md`. No catalogs, adapters or design standards
+are added by this block.
+
 ## Track B — SAP2000 Adapter (parallel)
 
 ### B1.1 — Read-only connection spike

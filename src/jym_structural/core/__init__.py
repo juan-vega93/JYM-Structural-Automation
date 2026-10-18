@@ -1,5 +1,11 @@
 from .capacity_models import CapacityValue
 from .capacity_selection import governing_capacity
+from .design_context import (
+    ApplicabilityDecision,
+    DesignContext,
+    DesignStandard,
+    applicability_for,
+)
 from .models import (
     AnalysisResult,
     ForceComponent,
@@ -24,8 +30,11 @@ from .result_processing import absolute_extreme, component_envelope, component_e
 
 __all__ = [
     "AnalysisResult",
+    "ApplicabilityDecision",
     "CapacityValue",
     "DemandCheck",
+    "DesignContext",
+    "DesignStandard",
     "ForceComponent",
     "ForceEnvelope",
     "ForceExtreme",
@@ -43,6 +52,7 @@ __all__ = [
     "SectionUnits",
     "StructuralModel",
     "absolute_extreme",
+    "applicability_for",
     "component_envelope",
     "component_extreme",
     "demand_ratio",

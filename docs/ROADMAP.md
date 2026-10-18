@@ -82,6 +82,15 @@ See `docs/STEEL_EULER_BUCKLING_CAPACITY.md` for assumptions and validation.
 
 See `docs/GOVERNING_CAPACITY_SELECTION.md` for compatibility, duplicates and ties.
 
+### A0.10 — Design Standard Metadata & Applicability Context
+- neutral metadata and caller-supplied applicability decisions for future standard-specific design workflows
+- frozen strict DesignStandard, ApplicabilityDecision and ordered tuple DesignContext
+- exact strings and one decision per exact limit-state label; absence means unknown
+- exact query helper without inference, filtering or governing selection
+- no normative equations, standard-specific Core dependencies or unit conversion
+
+See `docs/DESIGN_STANDARD_CONTEXT.md` for fields, provenance and validation.
+
 ## Track B — SAP2000 Adapter (parallel)
 
 ### B1.1 — Read-only connection spike

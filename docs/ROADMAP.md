@@ -34,6 +34,15 @@ Deflection, serviceability and code-based design remain outside this block.
 See `docs/STRUCTURAL_CORE_PROPERTIES.md`. No catalogs, adapters or design standards
 are added by this block.
 
+### A0.5 — Neutral Capacity Abstractions
+- frozen supplied CapacityValue with explicit component, positive magnitude and unit
+- free-form limit state, optional PropertySource and member/section/material references
+- DemandCheck accepts CapacityValue instead of an unlabelled scalar
+- exact component/unit/member compatibility; computed finite ratio and pass flag
+- no resistance formulas, unit conversions or reference resolution
+
+See `docs/STRUCTURAL_CORE_CAPACITY.md` for the API and migration example.
+
 ## Track B — SAP2000 Adapter (parallel)
 
 ### B1.1 — Read-only connection spike

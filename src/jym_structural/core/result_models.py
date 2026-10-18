@@ -15,9 +15,9 @@ from pydantic import (
     model_validator,
 )
 
-from .models import FrameForces, ResultUnits
+from .capacity_models import CapacityValue
+from .models import ForceComponent, FrameForces, ResultUnits
 
-ForceComponent = Literal["p", "v2", "v3", "t", "m2", "m3"]
 ExtremeKind = Literal["min", "max", "absolute"]
 
 
@@ -107,22 +107,28 @@ class ForceEnvelope(BaseModel):
 
 
 class DemandCheck(BaseModel):
-    """Magnitude comparison only; capacity uses demand.unit, supplied by caller."""
+    """Traceable comparison with exact component, unit and optional member agreement."""
 
     model_config = ConfigDict(frozen=True)
 
     demand: ForceExtreme
-    capacity: FiniteFloat = Field(gt=0, strict=True)
+    capacity: CapacityValue
 
-    @field_validator("demand", mode="before")
+    @field_validator("demand", "capacity", mode="before")
     @classmethod
-    def detach_demand(cls, value: object) -> object:
-        if isinstance(value, ForceExtreme):
+    def detach_inputs(cls, value: object) -> object:
+        if isinstance(value, (ForceExtreme, CapacityValue)):
             return value.model_dump(round_trip=True)
         return value
 
     @model_validator(mode="after")
     def validate_ratio(self) -> Self:
+        if self.demand.component != self.capacity.component:
+            raise ValueError("Demand and capacity components must match")
+        if self.demand.unit != self.capacity.unit:
+            raise ValueError("Demand and capacity unit labels must match exactly")
+        if self.capacity.member_id is not None and self.capacity.member_id != self.demand.member_id:
+            raise ValueError("Capacity member_id must match demand member_id when supplied")
         if not math.isfinite(self.ratio):
             raise ValueError("Demand ratio must be finite")
         return self
@@ -130,7 +136,7 @@ class DemandCheck(BaseModel):
     @computed_field
     @property
     def ratio(self) -> float:
-        return abs(self.demand.value) / self.capacity
+        return abs(self.demand.value) / self.capacity.value
 
     @computed_field
     @property

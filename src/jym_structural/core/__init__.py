@@ -1,5 +1,7 @@
+from .capacity_models import CapacityValue
 from .models import (
     AnalysisResult,
+    ForceComponent,
     FrameForces,
     Member,
     ModelInfo,
@@ -16,11 +18,12 @@ from .property_models import (
     SectionProperties,
     SectionUnits,
 )
-from .result_models import DemandCheck, ForceComponent, ForceEnvelope, ForceExtreme
+from .result_models import DemandCheck, ForceEnvelope, ForceExtreme
 from .result_processing import absolute_extreme, component_envelope, component_extreme, demand_ratio
 
 __all__ = [
     "AnalysisResult",
+    "CapacityValue",
     "DemandCheck",
     "ForceComponent",
     "ForceEnvelope",

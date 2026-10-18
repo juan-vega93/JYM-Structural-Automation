@@ -4,8 +4,9 @@ from __future__ import annotations
 
 from typing import Literal
 
-from .models import AnalysisResult
-from .result_models import DemandCheck, ExtremeKind, ForceComponent, ForceEnvelope, ForceExtreme
+from .capacity_models import CapacityValue
+from .models import AnalysisResult, ForceComponent
+from .result_models import DemandCheck, ExtremeKind, ForceEnvelope, ForceExtreme
 
 _COMPONENTS = ("p", "v2", "v3", "t", "m2", "m3")
 
@@ -93,6 +94,6 @@ def absolute_extreme(result: AnalysisResult, component: ForceComponent) -> Force
     )
 
 
-def demand_ratio(demand: ForceExtreme, capacity: float) -> DemandCheck:
-    """abs(demand.value)/capacity; caller supplies capacity in demand.unit."""
+def demand_ratio(demand: ForceExtreme, capacity: CapacityValue) -> DemandCheck:
+    """abs(demand.value)/capacity.value, after exact compatibility validation."""
     return DemandCheck(demand=demand, capacity=capacity)

@@ -26,7 +26,7 @@ Functions live in `core/result_processing.py`; output models live separately in
 | --- | --- |
 | ForceExtreme | member_id, component, kind (min/max/absolute), complete source FrameForces and ResultUnits |
 | ForceEnvelope | one component with independent minimum and maximum ForceExtreme rows |
-| DemandCheck | traceable demand ForceExtreme, positive finite capacity, computed ratio and passes |
+| DemandCheck | traceable demand ForceExtreme and CapacityValue, computed ratio and passes |
 
 `ForceExtreme.value` is computed directly from its source component. `unit` is
 computed from the same component and ResultUnits. These are serialized fields,
@@ -100,17 +100,17 @@ ResultUnits.moment, and both stations use ResultUnits.length. The same full
 ResultUnits context is carried in each detached extreme.
 
 ```text
-capacity > 0 and finite
-ratio = abs(demand.value) / capacity
+capacity.value > 0 and finite
+ratio = abs(demand.value) / capacity.value
 passes = ratio <= 1.0
 ```
 
-Capacity is a bare positive finite number. **The caller must provide it in exactly
-the demand's component unit**, exposed as demand.unit. The Core cannot detect a
-unit mismatch in an unlabelled scalar and never mixes or converts units. There is
-no additional capacity DTO or physical-quantity system. Non-finite capacities and
-floating-point ratio overflow are rejected. A negative demand retains its sign
-inside DemandCheck.demand even though the ratio uses its magnitude.
+Since A0.5, capacity is a `CapacityValue`, replacing the former scalar API.
+The Core requires matching components and exactly equal unit labels, plus matching
+member IDs when capacity.member_id is supplied. It never converts or normalizes
+units. Non-finite capacities and floating-point ratio overflow are rejected.
+A negative demand retains its sign inside DemandCheck.demand even though the
+ratio uses its magnitude. See `STRUCTURAL_CORE_CAPACITY.md` for the full contract.
 
 This comparison applies no resistance factors, code provisions, interaction
 equations or section resistance calculation. It makes no engineering assertion
@@ -120,7 +120,7 @@ beyond the numeric comparison supplied by the caller.
 
 The input result, rows, units and list order are not modified. Each returned
 extreme copies and revalidates its source and units; DemandCheck also detaches its
-demand. Subsequent input edits cannot rewrite the returned provenance, and edits
+demand and capacity. Subsequent input edits cannot rewrite the returned provenance, and edits
 to the returned source cannot alter the input.
 
 The new outer DTOs are frozen, but existing nested FrameForces/ResultUnits objects
@@ -133,7 +133,7 @@ construct and validate a new one rather than modifying its nested source.
 
 ```python
 from jym_structural.core import (
-    AnalysisResult, FrameForces, ResultUnits,
+    AnalysisResult, CapacityValue, FrameForces, ResultUnits,
     absolute_extreme, component_envelope, component_extreme, demand_ratio,
 )
 
@@ -156,7 +156,10 @@ demand = absolute_extreme(result, "m3")
 assert demand.value == -18
 assert demand.source.element_station == 1
 assert demand.unit == "kN*m"
-check = demand_ratio(demand, capacity=24)  # capacity in kN*m
+capacity = CapacityValue(
+    component="m3", value=24, unit="kN*m", limit_state="manual_capacity",
+)
+check = demand_ratio(demand, capacity)
 assert check.ratio == 0.75
 assert check.passes
 print(check.model_dump_json(indent=2))

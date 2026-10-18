@@ -103,8 +103,8 @@ properties**. This block imports no catalog data.
 The existing `Section(name, material, family)` is unchanged and remains the
 lightweight inventory/mapping model used by adapters. SectionProperties is a
 separate physical-property DTO; it neither replaces Section nor adds fields to
-StructuralModel. Material and section geometry remain separate from the prior
-numeric DemandCheck capacity, which still comes explicitly from its caller.
+StructuralModel. Material and section geometry remain separate from the
+supplied CapacityValue used by DemandCheck (see `STRUCTURAL_CORE_CAPACITY.md`).
 
 All new objects and their nested unit/provenance objects are frozen. They consist
 of immutable primitives and frozen DTOs, with no mutable lists or dictionaries.

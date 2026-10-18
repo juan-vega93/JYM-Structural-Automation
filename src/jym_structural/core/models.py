@@ -1,8 +1,10 @@
 from __future__ import annotations
 
-from typing import Self
+from typing import Literal, Self
 
 from pydantic import BaseModel, ConfigDict, Field, FiniteFloat, computed_field, model_validator
+
+ForceComponent = Literal["p", "v2", "v3", "t", "m2", "m3"]
 
 
 class ModelInfo(BaseModel):

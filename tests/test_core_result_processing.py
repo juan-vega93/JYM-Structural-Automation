@@ -9,6 +9,7 @@ from pydantic import ValidationError
 
 from jym_structural.core import (
     AnalysisResult,
+    CapacityValue,
     DemandCheck,
     ForceEnvelope,
     ForceExtreme,
@@ -267,7 +268,8 @@ def test_inputs_unchanged_and_no_snapshot_aliasing(result):
     minimum = component_extreme(result, "p", kind="min")
     envelope = component_envelope(result, "m3")
     absolute = absolute_extreme(result, "p")
-    check = demand_ratio(absolute, 20)
+    capacity = CapacityValue(component="p", value=20, unit="kip", limit_state="manual_capacity")
+    check = demand_ratio(absolute, capacity)
     assert result.model_dump_json() == before
     assert [id(row) for row in result.forces] == identities
     minimum.source.p = -99
@@ -282,7 +284,10 @@ def test_inputs_unchanged_and_no_snapshot_aliasing(result):
 def test_new_models_round_trip_json(result):
     extreme = component_extreme(result, "p", kind="max")
     envelope = component_envelope(result, "m2")
-    check = demand_ratio(extreme, 20)
+    check = demand_ratio(
+        extreme,
+        CapacityValue(component="p", value=20, unit="kip", limit_state="manual_capacity"),
+    )
     for value, model in ((extreme, ForceExtreme), (envelope, ForceEnvelope), (check, DemandCheck)):
         assert model.model_validate_json(value.model_dump_json()) == value
 
@@ -329,7 +334,10 @@ def test_envelope_detaches_supplied_extremes(result):
 )
 def test_demand_check(demand, capacity, ratio, passes):
     extreme = absolute_extreme(analysis([source(p=demand)]), "p")
-    check = demand_ratio(extreme, capacity)
+    check = demand_ratio(
+        extreme,
+        CapacityValue(component="p", value=capacity, unit="kip", limit_state="manual_capacity"),
+    )
     assert check.ratio == ratio
     assert check.passes is passes
     assert check.demand == extreme
@@ -342,12 +350,15 @@ def test_demand_check(demand, capacity, ratio, passes):
 @pytest.mark.parametrize("capacity", [0, -1, float("nan"), float("inf"), "20", True])
 def test_invalid_capacity(result, capacity):
     with pytest.raises(ValidationError):
-        demand_ratio(absolute_extreme(result, "p"), capacity)
+        CapacityValue(component="p", value=capacity, unit="kip", limit_state="manual_capacity")
 
 
 def test_ratio_overflow_rejected():
     with pytest.raises(ValidationError, match="ratio must be finite"):
-        demand_ratio(absolute_extreme(analysis([source(p=1e308)]), "p"), 5e-324)
+        demand_ratio(
+            absolute_extreme(analysis([source(p=1e308)]), "p"),
+            CapacityValue(component="p", value=5e-324, unit="kip", limit_state="manual_capacity"),
+        )
 
 
 def test_core_import_and_processing_do_not_load_any_adapter():

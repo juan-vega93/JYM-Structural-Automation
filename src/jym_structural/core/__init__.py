@@ -1,4 +1,5 @@
 from .capacity_models import CapacityValue
+from .capacity_selection import governing_capacity
 from .models import (
     AnalysisResult,
     ForceComponent,
@@ -45,4 +46,5 @@ __all__ = [
     "component_envelope",
     "component_extreme",
     "demand_ratio",
+    "governing_capacity",
 ]

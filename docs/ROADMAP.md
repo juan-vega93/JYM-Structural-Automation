@@ -73,6 +73,15 @@ with the existing DemandCheck.
 
 See `docs/STEEL_EULER_BUCKLING_CAPACITY.md` for assumptions and validation.
 
+### A0.9 — Governing Capacity Selection
+- neutral governing selection among already-calculated compatible capacities
+- minimum positive magnitude; original CapacityValue returned with provenance intact
+- exact component/unit/member/section/material compatibility, including absent references
+- deterministic limit-state/source tie breaking; single-pass iterable validation
+- caller controls candidates and applicability; no calculators or design-standard semantics
+
+See `docs/GOVERNING_CAPACITY_SELECTION.md` for compatibility, duplicates and ties.
+
 ## Track B — SAP2000 Adapter (parallel)
 
 ### B1.1 — Read-only connection spike

@@ -43,6 +43,16 @@ are added by this block.
 
 See `docs/STRUCTURAL_CORE_CAPACITY.md` for the API and migration example.
 
+### A0.6 — Steel Flexural Yield Capacity
+- first calculated capacity, in the separate design.steel layer
+- explicit factor * Fy * Zx/Zy returning the existing Core CapacityValue
+- caller declares component m2/m3 and section axis x/y independently
+- exact MPa/mm inputs produce N*mm; unsupported pairs fail without conversion
+- no complete design-standard module, compactness, LTB or buckling checks
+
+See `docs/STEEL_FLEXURAL_YIELD_CAPACITY.md` for the API, limitations and neutral
+DemandCheck integration.
+
 ## Track B — SAP2000 Adapter (parallel)
 
 ### B1.1 — Read-only connection spike

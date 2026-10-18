@@ -1,0 +1,732 @@
+{
+  "stage1": {
+    "stage": 1,
+    "validated": true,
+    "version": "26.2.0",
+    "model_path": "C:\\Users\\Usuario\\Downloads\\pm_corregido.sdb",
+    "model_name": "pm_corregido.sdb",
+    "units": "kgf_m_C",
+    "joint_count": 254,
+    "position_count": 11,
+    "positions": [
+      {
+        "position": 1,
+        "joints": [
+          "24",
+          "25"
+        ],
+        "planned_patterns": [
+          "HT_01",
+          "HL_01"
+        ]
+      },
+      {
+        "position": 2,
+        "joints": [
+          "68",
+          "69"
+        ],
+        "planned_patterns": [
+          "HT_02",
+          "HL_02"
+        ]
+      },
+      {
+        "position": 3,
+        "joints": [
+          "90",
+          "91"
+        ],
+        "planned_patterns": [
+          "HT_03",
+          "HL_03"
+        ]
+      },
+      {
+        "position": 4,
+        "joints": [
+          "112",
+          "113"
+        ],
+        "planned_patterns": [
+          "HT_04",
+          "HL_04"
+        ]
+      },
+      {
+        "position": 5,
+        "joints": [
+          "134",
+          "135"
+        ],
+        "planned_patterns": [
+          "HT_05",
+          "HL_05"
+        ]
+      },
+      {
+        "position": 6,
+        "joints": [
+          "156",
+          "157"
+        ],
+        "planned_patterns": [
+          "HT_06",
+          "HL_06"
+        ]
+      },
+      {
+        "position": 7,
+        "joints": [
+          "178",
+          "179"
+        ],
+        "planned_patterns": [
+          "HT_07",
+          "HL_07"
+        ]
+      },
+      {
+        "position": 8,
+        "joints": [
+          "200",
+          "201"
+        ],
+        "planned_patterns": [
+          "HT_08",
+          "HL_08"
+        ]
+      },
+      {
+        "position": 9,
+        "joints": [
+          "222",
+          "223"
+        ],
+        "planned_patterns": [
+          "HT_09",
+          "HL_09"
+        ]
+      },
+      {
+        "position": 10,
+        "joints": [
+          "244",
+          "245"
+        ],
+        "planned_patterns": [
+          "HT_10",
+          "HL_10"
+        ]
+      },
+      {
+        "position": 11,
+        "joints": [
+          "266",
+          "267"
+        ],
+        "planned_patterns": [
+          "HT_11",
+          "HL_11"
+        ]
+      }
+    ],
+    "file_before": {
+      "sha256": "1a9769e998597585b5eaddb1c2e69dd9c5c4fdc0872401a6692fc85393191840",
+      "mtime_ns": 1792338175574899700,
+      "size": 116588
+    },
+    "file_after": {
+      "sha256": "1a9769e998597585b5eaddb1c2e69dd9c5c4fdc0872401a6692fc85393191840",
+      "mtime_ns": 1792338175574899700,
+      "size": 116588
+    },
+    "writes_performed": false,
+    "analysis_performed": false
+  },
+  "positions": [
+    [
+      "24",
+      "25"
+    ],
+    [
+      "68",
+      "69"
+    ],
+    [
+      "90",
+      "91"
+    ],
+    [
+      "112",
+      "113"
+    ],
+    [
+      "134",
+      "135"
+    ],
+    [
+      "156",
+      "157"
+    ],
+    [
+      "178",
+      "179"
+    ],
+    [
+      "200",
+      "201"
+    ],
+    [
+      "222",
+      "223"
+    ],
+    [
+      "244",
+      "245"
+    ],
+    [
+      "266",
+      "267"
+    ]
+  ],
+  "original_patterns": [
+    "pp",
+    "scp",
+    "cv",
+    "w1",
+    "w2",
+    "sx",
+    "sy",
+    "CRANE",
+    "CRANE-B",
+    "PG_HT_POS",
+    "PG_HT_NEG",
+    "PG_HL_POS",
+    "PG_HL_NEG",
+    "PG_HT_Y30",
+    "PG_HL_Y30"
+  ],
+  "original_cases": [
+    "pp",
+    "cv",
+    "w1",
+    "w2",
+    "sx",
+    "sy",
+    "verde",
+    "CRANE-B",
+    "verde-B",
+    "PG_HT_POS",
+    "PG_HT_NEG",
+    "PG_HL_POS",
+    "PG_HL_NEG",
+    "PG_HT_Y30",
+    "PG_HL_Y30"
+  ],
+  "model_path": "C:\\Users\\Usuario\\Downloads\\pm_corregido.sdb",
+  "completed_stage": 7,
+  "file_state_after_stage": {
+    "sha256": "aa93d6b7b73e74615d70f67262580348b1edb008cc120a18b714d8b0c1861721",
+    "mtime_ns": 1792343104080811600,
+    "size": 131638
+  },
+  "stage2": {
+    "patterns_verified": [
+      "HL_01",
+      "HT_01"
+    ],
+    "joint_assignments_verified": 4,
+    "recovered_by_readback_only": true
+  },
+  "stage3": {
+    "patterns_verified": [
+      "HL_01",
+      "HL_02",
+      "HL_03",
+      "HL_04",
+      "HL_05",
+      "HL_06",
+      "HL_07",
+      "HL_08",
+      "HL_09",
+      "HL_10",
+      "HL_11",
+      "HT_01",
+      "HT_02",
+      "HT_03",
+      "HT_04",
+      "HT_05",
+      "HT_06",
+      "HT_07",
+      "HT_08",
+      "HT_09",
+      "HT_10",
+      "HT_11"
+    ],
+    "joint_assignments_verified": 44
+  },
+  "stage4": {
+    "cases_verified": [
+      "HT_01",
+      "HL_01",
+      "HT_02",
+      "HL_02",
+      "HT_03",
+      "HL_03",
+      "HT_04",
+      "HL_04",
+      "HT_05",
+      "HL_05",
+      "HT_06",
+      "HL_06",
+      "HT_07",
+      "HL_07",
+      "HT_08",
+      "HL_08",
+      "HT_09",
+      "HL_09",
+      "HT_10",
+      "HL_10",
+      "HT_11",
+      "HL_11"
+    ]
+  },
+  "analysis_attempted": true,
+  "file_before_analysis": {
+    "sha256": "1a9769e998597585b5eaddb1c2e69dd9c5c4fdc0872401a6692fc85393191840",
+    "mtime_ns": 1792338175574899700,
+    "size": 116588
+  },
+  "stage5": {
+    "run_analysis_calls": 1,
+    "case_status": {
+      "HT_01": 4,
+      "HL_01": 4,
+      "HT_02": 4,
+      "HL_02": 4,
+      "HT_03": 4,
+      "HL_03": 4,
+      "HT_04": 4,
+      "HL_04": 4,
+      "HT_05": 4,
+      "HL_05": 4,
+      "HT_06": 4,
+      "HL_06": 4,
+      "HT_07": 4,
+      "HL_07": 4,
+      "HT_08": 4,
+      "HL_08": 4,
+      "HT_09": 4,
+      "HL_09": 4,
+      "HT_10": 4,
+      "HL_10": 4,
+      "HT_11": 4,
+      "HL_11": 4
+    }
+  },
+  "stage6": {
+    "frame_count": 449,
+    "row_count": 83226,
+    "rows_per_case": {
+      "HT_01": 3783,
+      "HL_01": 3783,
+      "HT_02": 3783,
+      "HL_02": 3783,
+      "HT_03": 3783,
+      "HL_03": 3783,
+      "HT_04": 3783,
+      "HL_04": 3783,
+      "HT_05": 3783,
+      "HL_05": 3783,
+      "HT_06": 3783,
+      "HL_06": 3783,
+      "HT_07": 3783,
+      "HL_07": 3783,
+      "HT_08": 3783,
+      "HL_08": 3783,
+      "HT_09": 3783,
+      "HL_09": 3783,
+      "HT_10": 3783,
+      "HL_10": 3783,
+      "HT_11": 3783,
+      "HL_11": 3783
+    },
+    "results_file": "docs\\examples\\crane_frame_results.jsonl",
+    "output_selection_restored": {
+      "cases": [
+        "PG_HT_POS",
+        "PG_HL_POS",
+        "PG_HT_Y30",
+        "PG_HL_Y30"
+      ],
+      "combos": []
+    }
+  },
+  "stage7": {
+    "json_file": "docs\\examples\\crane_envelope.json",
+    "csv_file": "docs\\examples\\crane_envelope.csv",
+    "envelope": {
+      "P": {
+        "minimum": {
+          "value": -1246.4678584277317,
+          "magnitude": 1246.4678584277317,
+          "Obj": "393",
+          "ObjSta": 0.0,
+          "Elm": "393-1",
+          "ElmSta": 0.0,
+          "LoadCase": "HT_11",
+          "StepType": null,
+          "StepNum": 0.0,
+          "P": -1246.4678584277317,
+          "V2": 0.0,
+          "V3": -38.88293195419464,
+          "T": 1.0492844857442352,
+          "M2": 92.8274158559471,
+          "M3": 0.0
+        },
+        "maximum": {
+          "value": 1138.0553577934252,
+          "magnitude": 1138.0553577934252,
+          "Obj": "276",
+          "ObjSta": 0.0,
+          "Elm": "276-1",
+          "ElmSta": 0.0,
+          "LoadCase": "HT_01",
+          "StepType": null,
+          "StepNum": 0.0,
+          "P": 1138.0553577934252,
+          "V2": 10.194462816382355,
+          "V3": 0.5365847599894187,
+          "T": -0.05872970830047106,
+          "M2": 6.759337572037269,
+          "M3": 50.76065990858626
+        },
+        "absolute": {
+          "value": -1246.4678584277317,
+          "magnitude": 1246.4678584277317,
+          "Obj": "393",
+          "ObjSta": 0.0,
+          "Elm": "393-1",
+          "ElmSta": 0.0,
+          "LoadCase": "HT_11",
+          "StepType": null,
+          "StepNum": 0.0,
+          "P": -1246.4678584277317,
+          "V2": 0.0,
+          "V3": -38.88293195419464,
+          "T": 1.0492844857442352,
+          "M2": 92.8274158559471,
+          "M3": 0.0
+        }
+      },
+      "V2": {
+        "minimum": {
+          "value": -272.97497043415206,
+          "magnitude": 272.97497043415206,
+          "Obj": "237",
+          "ObjSta": 0.0,
+          "Elm": "237-1",
+          "ElmSta": 0.0,
+          "LoadCase": "HT_11",
+          "StepType": null,
+          "StepNum": 0.0,
+          "P": -132.8297778343367,
+          "V2": -272.97497043415206,
+          "V3": -666.0652945355323,
+          "T": -2.605451790098348,
+          "M2": -175.21334449302685,
+          "M3": -929.1008788965119
+        },
+        "maximum": {
+          "value": 731.9249908500517,
+          "magnitude": 731.9249908500517,
+          "Obj": "4",
+          "ObjSta": 0.0,
+          "Elm": "4-1",
+          "ElmSta": 0.0,
+          "LoadCase": "HT_01",
+          "StepType": null,
+          "StepNum": 0.0,
+          "P": 124.91576795908627,
+          "V2": 731.9249908500517,
+          "V3": 37.064037285624266,
+          "T": 1.2638961251973078,
+          "M2": 92.66434608802584,
+          "M3": 2820.1270321956667
+        },
+        "absolute": {
+          "value": 731.9249908500517,
+          "magnitude": 731.9249908500517,
+          "Obj": "4",
+          "ObjSta": 0.0,
+          "Elm": "4-1",
+          "ElmSta": 0.0,
+          "LoadCase": "HT_01",
+          "StepType": null,
+          "StepNum": 0.0,
+          "P": 124.91576795908627,
+          "V2": 731.9249908500517,
+          "V3": 37.064037285624266,
+          "T": 1.2638961251973078,
+          "M2": 92.66434608802584,
+          "M3": 2820.1270321956667
+        }
+      },
+      "V3": {
+        "minimum": {
+          "value": -718.3011748644699,
+          "magnitude": 718.3011748644699,
+          "Obj": "192",
+          "ObjSta": 0.0,
+          "Elm": "192-1",
+          "ElmSta": 0.0,
+          "LoadCase": "HT_09",
+          "StepType": null,
+          "StepNum": 0.0,
+          "P": 217.76596149557736,
+          "V2": -9.094947017729282e-12,
+          "V3": -718.3011748644699,
+          "T": 2.220446049250313e-15,
+          "M2": -2.12733972302442,
+          "M3": -0.5443842692425278
+        },
+        "maximum": {
+          "value": 726.9521008399502,
+          "magnitude": 726.9521008399502,
+          "Obj": "87",
+          "ObjSta": 0.0,
+          "Elm": "87-1",
+          "ElmSta": 0.0,
+          "LoadCase": "HT_02",
+          "StepType": null,
+          "StepNum": 0.0,
+          "P": 229.4897038320778,
+          "V2": 9.094947017729282e-13,
+          "V3": 726.9521008399502,
+          "T": -2.220446049250313e-15,
+          "M2": 2.4298827110806656,
+          "M3": -0.582141567648705
+        },
+        "absolute": {
+          "value": 726.9521008399502,
+          "magnitude": 726.9521008399502,
+          "Obj": "87",
+          "ObjSta": 0.0,
+          "Elm": "87-1",
+          "ElmSta": 0.0,
+          "LoadCase": "HT_02",
+          "StepType": null,
+          "StepNum": 0.0,
+          "P": 229.4897038320778,
+          "V2": 9.094947017729282e-13,
+          "V3": 726.9521008399502,
+          "T": -2.220446049250313e-15,
+          "M2": 2.4298827110806656,
+          "M3": -0.582141567648705
+        }
+      },
+      "T": {
+        "minimum": {
+          "value": -10.980923478301875,
+          "magnitude": 10.980923478301875,
+          "Obj": "3",
+          "ObjSta": 0.0,
+          "Elm": "3-1",
+          "ElmSta": 0.0,
+          "LoadCase": "HT_01",
+          "StepType": null,
+          "StepNum": 0.0,
+          "P": 121.49357565634955,
+          "V2": -263.6513586071087,
+          "V3": -106.26740050095032,
+          "T": -10.980923478301875,
+          "M2": -61.400846842015994,
+          "M3": -770.990275309654
+        },
+        "maximum": {
+          "value": 11.854841871377754,
+          "magnitude": 11.854841871377754,
+          "Obj": "238",
+          "ObjSta": 0.0,
+          "Elm": "238-1",
+          "ElmSta": 0.0,
+          "LoadCase": "HT_11",
+          "StepType": null,
+          "StepNum": 0.0,
+          "P": 117.71309941450681,
+          "V2": -261.6528349920991,
+          "V3": 148.51211916009242,
+          "T": 11.854841871377754,
+          "M2": 82.63961589390514,
+          "M3": -755.8395478076709
+        },
+        "absolute": {
+          "value": 11.854841871377754,
+          "magnitude": 11.854841871377754,
+          "Obj": "238",
+          "ObjSta": 0.0,
+          "Elm": "238-1",
+          "ElmSta": 0.0,
+          "LoadCase": "HT_11",
+          "StepType": null,
+          "StepNum": 0.0,
+          "P": 117.71309941450681,
+          "V2": -261.6528349920991,
+          "V3": 148.51211916009242,
+          "T": 11.854841871377754,
+          "M2": 82.63961589390514,
+          "M3": -755.8395478076709
+        }
+      },
+      "M2": {
+        "minimum": {
+          "value": -943.2229677815417,
+          "magnitude": 943.2229677815417,
+          "Obj": "274",
+          "ObjSta": 0.0,
+          "Elm": "274-1",
+          "ElmSta": 0.0,
+          "LoadCase": "HT_02",
+          "StepType": null,
+          "StepNum": 0.0,
+          "P": 648.5762641232855,
+          "V2": 0.0,
+          "V3": -245.6104303950059,
+          "T": -1.6061017812925027,
+          "M2": -943.2229677815417,
+          "M3": 0.0
+        },
+        "maximum": {
+          "value": 918.2620957923593,
+          "magnitude": 918.2620957923593,
+          "Obj": "6",
+          "ObjSta": 0.0,
+          "Elm": "6-1",
+          "ElmSta": 0.0,
+          "LoadCase": "HT_02",
+          "StepType": null,
+          "StepNum": 0.0,
+          "P": 690.2902152634775,
+          "V2": 0.0,
+          "V3": 221.77683807112328,
+          "T": 1.7117951232572288,
+          "M2": 918.2620957923593,
+          "M3": 0.0
+        },
+        "absolute": {
+          "value": -943.2229677815417,
+          "magnitude": 943.2229677815417,
+          "Obj": "274",
+          "ObjSta": 0.0,
+          "Elm": "274-1",
+          "ElmSta": 0.0,
+          "LoadCase": "HT_02",
+          "StepType": null,
+          "StepNum": 0.0,
+          "P": 648.5762641232855,
+          "V2": 0.0,
+          "V3": -245.6104303950059,
+          "T": -1.6061017812925027,
+          "M2": -943.2229677815417,
+          "M3": 0.0
+        }
+      },
+      "M3": {
+        "minimum": {
+          "value": -1468.9534141856363,
+          "magnitude": 1468.9534141856363,
+          "Obj": "4",
+          "ObjSta": 5.86,
+          "Elm": "4-1",
+          "ElmSta": 5.86,
+          "LoadCase": "HT_01",
+          "StepType": null,
+          "StepNum": 0.0,
+          "P": 124.91576795908627,
+          "V2": 731.9249908500517,
+          "V3": 37.064037285624266,
+          "T": 1.2638961251973078,
+          "M2": -124.53091240573238,
+          "M3": -1468.9534141856363
+        },
+        "maximum": {
+          "value": 2820.1270321956667,
+          "magnitude": 2820.1270321956667,
+          "Obj": "4",
+          "ObjSta": 0.0,
+          "Elm": "4-1",
+          "ElmSta": 0.0,
+          "LoadCase": "HT_01",
+          "StepType": null,
+          "StepNum": 0.0,
+          "P": 124.91576795908627,
+          "V2": 731.9249908500517,
+          "V3": 37.064037285624266,
+          "T": 1.2638961251973078,
+          "M2": 92.66434608802584,
+          "M3": 2820.1270321956667
+        },
+        "absolute": {
+          "value": 2820.1270321956667,
+          "magnitude": 2820.1270321956667,
+          "Obj": "4",
+          "ObjSta": 0.0,
+          "Elm": "4-1",
+          "ElmSta": 0.0,
+          "LoadCase": "HT_01",
+          "StepType": null,
+          "StepNum": 0.0,
+          "P": 124.91576795908627,
+          "V2": 731.9249908500517,
+          "V3": 37.064037285624266,
+          "T": 1.2638961251973078,
+          "M2": 92.66434608802584,
+          "M3": 2820.1270321956667
+        }
+      }
+    }
+  },
+  "unlocked_for_authorized_load_assignment": true,
+  "stage2_note": "Readback recovery only after SAP2000 returned GLOBAL instead of Global; no duplicate load assignment was performed.",
+  "final_verification": {
+    "patterns_total": 37,
+    "cases_total": 37,
+    "original_pattern_names_preserved": true,
+    "original_case_names_preserved": true,
+    "loads": {
+      "patterns_verified": [
+        "HL_01",
+        "HL_02",
+        "HL_03",
+        "HL_04",
+        "HL_05",
+        "HL_06",
+        "HL_07",
+        "HL_08",
+        "HL_09",
+        "HL_10",
+        "HL_11",
+        "HT_01",
+        "HT_02",
+        "HT_03",
+        "HT_04",
+        "HT_05",
+        "HT_06",
+        "HT_07",
+        "HT_08",
+        "HT_09",
+        "HT_10",
+        "HT_11"
+      ],
+      "joint_assignments_verified": 44
+    },
+    "units": "kgf_m_C",
+    "model_locked_after_analysis": true,
+    "file": {
+      "sha256": "aa93d6b7b73e74615d70f67262580348b1edb008cc120a18b714d8b0c1861721",
+      "mtime_ns": 1792343104080811600,
+      "size": 131638
+    }
+  }
+}

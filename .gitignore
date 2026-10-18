@@ -13,3 +13,5 @@ build/
 *.edb
 *.f2k
 *.log
+
+docs/examples/crane_frame_results.jsonl

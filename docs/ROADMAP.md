@@ -53,6 +53,16 @@ See `docs/STRUCTURAL_CORE_CAPACITY.md` for the API and migration example.
 See `docs/STEEL_FLEXURAL_YIELD_CAPACITY.md` for the API, limitations and neutral
 DemandCheck integration.
 
+### A0.7 — Steel Axial Yield Capacity
+- second calculated capacity, in design.steel, returning Core CapacityValue
+- explicit factor * Fy * supplied area; fixed component p and N output
+- exact MPa/mm inputs only, without scale changes or unit conversion
+- positive yield magnitude for either demand sign, not complete axial design
+- no compression buckling, fracture, net-area or design-standard checks
+
+See `docs/STEEL_AXIAL_YIELD_CAPACITY.md` for validation, provenance and integration
+with the existing DemandCheck.
+
 ## Track B — SAP2000 Adapter (parallel)
 
 ### B1.1 — Read-only connection spike

@@ -1,21 +1,15 @@
 """Plastic flexural yielding only; no code applicability or stability checks."""
 
-from typing import Annotated, Literal
-
-from pydantic import Field, FiniteFloat, TypeAdapter
+from typing import Literal
 
 from jym_structural.core import CapacityValue, MaterialProperties, PropertySource, SectionProperties
 
-_FACTOR = TypeAdapter(Annotated[FiniteFloat, Field(gt=0, strict=True)])
+from ._validation import require_mpa_mm, validate_positive_factor
 
 
 def _moment_unit(stress: str, length: str) -> str:
     # MPa = N/mm^2, and the supplied plastic modulus is in mm^3.
-    if (stress, length) != ("MPa", "mm"):
-        raise ValueError(
-            f"Unsupported unit combination: stress={stress!r}, length={length!r}; "
-            "only MPa + mm -> N*mm is supported"
-        )
+    require_mpa_mm(stress, length)
     return "N*mm"
 
 
@@ -40,7 +34,7 @@ def steel_flexural_yield_capacity(
         raise ValueError(f"Unsupported flexural component: {component!r}; expected m2 or m3")
     if section_axis not in ("x", "y"):
         raise ValueError(f"Unsupported section axis: {section_axis!r}; expected x or y")
-    factor = _FACTOR.validate_python(factor)
+    factor = validate_positive_factor(factor)
     if not isinstance(material, MaterialProperties) or not isinstance(section, SectionProperties):
         raise TypeError("Expected MaterialProperties and SectionProperties")
     # Revalidate existing instances too: model_copy(update=...) can bypass validation.
